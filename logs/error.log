@@ -1,0 +1,326 @@
+2015-01-18 23:55:37,594 INFO g.Game [main] Java Version: 1.8.0_25
+2015-01-18 23:55:37,595 INFO g.Game [main] OS: Windows 8.1 v.6.3
+2015-01-18 23:55:37,595 INFO g.Game [main] Classpath: D:\Users\Richard\Documents\NetBeansProjects\ConnectIT\dist\run1916664707\ConnectIT.jar
+2015-01-18 23:55:37,600 ERROR g.i.ConfigHandler [main] Error loading: Configuration File
+D:\Users\Richard\Documents\NetBeansProjects\ConnectIT (Access is denied)
+2015-01-18 23:55:37,600 FATAL g.Game [main] Unable to load configuration file, do I have permission?.
+2015-01-18 23:57:03,973 INFO g.Game [main] Java Version: 1.8.0_25
+2015-01-18 23:57:03,974 INFO g.Game [main] OS: Windows 8.1 v.6.3
+2015-01-18 23:57:03,974 INFO g.Game [main] Classpath: D:\Users\Richard\Documents\NetBeansProjects\ConnectIT\dist\run117601022\ConnectIT.jar
+2015-01-18 23:57:03,977 ERROR g.i.ConfigHandler [main] Error loading: Configuration File
+D:\Users\Richard\Documents\NetBeansProjects\ConnectIT (Access is denied)
+2015-01-18 23:57:03,977 FATAL g.Game [main] Unable to load configuration file, do I have permission?.
+2015-01-18 23:57:41,779 INFO g.Game [main] Java Version: 1.8.0_25
+2015-01-18 23:57:41,780 INFO g.Game [main] OS: Windows 8.1 v.6.3
+2015-01-18 23:57:41,780 INFO g.Game [main] Classpath: D:\Users\Richard\Documents\NetBeansProjects\ConnectIT\dist\run1292171811\ConnectIT.jar
+2015-01-18 23:57:41,784 ERROR g.i.ConfigHandler [main] Error loading: Configuration File
+D:\Users\Richard\Documents\NetBeansProjects\ConnectIT (Access is denied)
+2015-01-18 23:57:41,784 FATAL g.Game [main] Unable to load configuration file, do I have permission?.
+2015-01-19 00:03:32,624 INFO g.Game [main] Java Version: 1.8.0_25OS: Windows 8.1 v.6.3Classpath: D:\Users\Richard\Documents\NetBeansProjects\ConnectIT\dist\run115265373\ConnectIT.jar
+2015-01-19 00:03:32,628 ERROR g.i.ConfigHandler [main] Error loading: Configuration File
+D:\Users\Richard\Documents\NetBeansProjects\ConnectIT (Access is denied)
+2015-01-19 00:03:32,628 FATAL g.Game [main] Unable to load configuration file, do I have permission?.
+2015-01-19 00:04:43,164 INFO g.Game [main] Java Version: 1.8.0_25nullOS: Windows 8.1null v.6.3nullClasspath: D:\Users\Richard\Documents\NetBeansProjects\ConnectIT\dist\run1139814158\ConnectIT.jar
+2015-01-19 00:04:43,169 ERROR g.i.ConfigHandler [main] Error loading: Configuration File
+D:\Users\Richard\Documents\NetBeansProjects\ConnectIT (Access is denied)
+2015-01-19 00:04:43,169 FATAL g.Game [main] Unable to load configuration file, do I have permission?.
+2015-01-19 00:05:18,332 INFO g.Game [main] Java Version: 1.8.0_25
+OS: Windows 8.1
+ v.6.3
+Classpath: D:\Users\Richard\Documents\NetBeansProjects\ConnectIT\dist\run971937620\ConnectIT.jar
+2015-01-19 00:05:18,336 ERROR g.i.ConfigHandler [main] Error loading: Configuration File
+D:\Users\Richard\Documents\NetBeansProjects\ConnectIT (Access is denied)
+2015-01-19 00:05:18,336 FATAL g.Game [main] Unable to load configuration file, do I have permission?.
+2015-01-19 00:08:01,311 INFO g.Game [main] Java Version: 1.8.0_25
+OS: Windows 8.1
+ v.6.3
+Classpath: D:\Users\Richard\Documents\NetBeansProjects\ConnectIT\dist\run700166974\ConnectIT.jar
+2015-01-19 00:08:01,316 ERROR g.i.ConfigHandler [main] Error loading: Configuration File
+D:\Users\Richard\Documents\NetBeansProjects\ConnectIT (Access is denied)
+2015-01-19 00:08:01,316 FATAL g.Game [main] Unable to load configuration file, do I have permission?.
+2015-01-19 00:08:12,884 INFO g.Game [main] Java Version: 1.8.0_25
+OS: Windows 8.1
+ v.6.3
+Classpath: D:\Users\Richard\Documents\NetBeansProjects\ConnectIT\dist\run277586367\ConnectIT.jar
+2015-01-19 00:08:12,888 ERROR g.i.ConfigHandler [main] Error loading: Configuration File
+D:\Users\Richard\Documents\NetBeansProjects\ConnectIT (Access is denied)
+2015-01-19 00:08:12,888 FATAL g.Game [main] Unable to load configuration file, do I have permission?.
+2015-01-19 00:13:03,672 INFO g.Game [main] Java Version: 1.8.0_25
+OS: Windows 8.1
+ v.6.3
+Classpath: D:\Users\Richard\Documents\NetBeansProjects\ConnectIT\dist\run1940004224\ConnectIT.jar
+2015-01-19 00:17:59,598 INFO g.Game [main] Java Version: 1.8.0_25
+OS: Windows 8.1
+ v.6.3
+Classpath: D:\Users\Richard\Documents\NetBeansProjects\ConnectIT\dist\run1523999584\ConnectIT.jar
+2015-01-19 00:17:59,602 ERROR g.i.ConfigHandler [main] Error loading: Configuration File
+D:\Users\Richard\Documents\NetBeansProjects\ConnectIT\config.properties (The system cannot find the file specified)
+2015-01-19 00:19:03,182 INFO g.Game [main] Java Version: 1.8.0_25
+OS: Windows 8.1
+ v.6.3
+Classpath: D:\Users\Richard\Documents\NetBeansProjects\ConnectIT\dist\run174568798\ConnectIT.jar
+2015-01-19 00:19:03,187 INFO g.i.ConfigHandler [main] No Config file present, using Default Configuration.
+2015-01-19 00:23:35,216 INFO g.Game [main] Java Version: 1.8.0_25
+OS: Windows 8.1
+ v.6.3
+Classpath: D:\Users\Richard\Documents\NetBeansProjects\ConnectIT\dist\run1792789796\ConnectIT.jar
+2015-01-19 00:23:35,221 INFO g.i.ConfigHandler [main] No Config file present, using Default Configuration.
+2015-01-19 00:24:18,040 INFO g.Game [main] Java Version: 1.8.0_25
+OS: Windows 8.1
+ v.6.3
+Classpath: D:\Users\Richard\Documents\NetBeansProjects\ConnectIT\dist\run243611149\ConnectIT.jar
+2015-01-19 00:24:18,044 INFO g.i.ConfigHandler [main] No Config file present, using Default Configuration.
+2015-01-19 00:24:26,490 INFO g.Game [main] Java Version: 1.8.0_25
+OS: Windows 8.1
+ v.6.3
+Classpath: D:\Users\Richard\Documents\NetBeansProjects\ConnectIT\dist\run1923752262\ConnectIT.jar
+2015-01-19 00:24:26,494 INFO g.i.ConfigHandler [main] No Config file present, using Default Configuration.
+2015-01-19 00:24:35,913 INFO g.Game [main] Java Version: 1.8.0_25
+OS: Windows 8.1
+ v.6.3
+Classpath: D:\Users\Richard\Documents\NetBeansProjects\ConnectIT\dist\run416637439\ConnectIT.jar
+2015-01-19 00:24:35,917 INFO g.i.ConfigHandler [main] No Config file present, using Default Configuration.
+2015-01-19 00:26:45,790 INFO g.Game [main] Java Version: 1.8.0_25
+OS: Windows 8.1
+ v.6.3
+Classpath: D:\Users\Richard\Documents\NetBeansProjects\ConnectIT\dist\run993906568\ConnectIT.jar
+2015-01-19 00:26:45,794 INFO g.i.ConfigHandler [main] No Config file present, using Default Configuration.
+2015-01-19 00:29:14,406 INFO g.Game [main] Java Version: 1.8.0_25
+OS: Windows 8.1
+ v.6.3
+Classpath: D:\Users\Richard\Documents\NetBeansProjects\ConnectIT\dist\run864027945\ConnectIT.jar
+2015-01-19 00:29:14,410 INFO g.i.ConfigHandler [main] No Config file present, using Default Configuration.
+2015-01-19 00:30:10,390 INFO g.Game [main] Java Version: 1.8.0_25
+OS: Windows 8.1
+ v.6.3
+Classpath: D:\Users\Richard\Documents\NetBeansProjects\ConnectIT\dist\run1308624343\ConnectIT.jar
+2015-01-19 00:30:10,395 INFO g.i.ConfigHandler [main] No Config file present, using Default Configuration.
+2015-01-19 00:30:58,974 INFO g.Game [main] Java Version: 1.8.0_25
+OS: Windows 8.1
+ v.6.3
+Classpath: D:\Users\Richard\Documents\NetBeansProjects\ConnectIT\dist\run1918544584\ConnectIT.jar
+2015-01-19 00:30:58,979 INFO g.i.ConfigHandler [main] No Config file present, using Default Configuration.
+2015-01-19 00:31:30,325 INFO g.Game [main] Java Version: 1.8.0_25
+OS: Windows 8.1
+ v.6.3
+Classpath: D:\Users\Richard\Documents\NetBeansProjects\ConnectIT\dist\run1849971914\ConnectIT.jar
+2015-01-19 00:31:30,330 INFO g.i.ConfigHandler [main] No Config file present, using Default Configuration.
+2015-01-19 00:33:24,329 INFO g.Game [main] Java Version: 1.8.0_25
+OS: Windows 8.1
+ v.6.3
+Classpath: D:\Users\Richard\Documents\NetBeansProjects\ConnectIT\dist\run1292034823\ConnectIT.jar
+2015-01-19 00:33:24,334 INFO g.i.ConfigHandler [main] No Config file present, using Default Configuration.
+2015-01-19 00:33:59,493 INFO g.Game [main] Java Version: 1.8.0_25
+OS: Windows 8.1
+ v.6.3
+Classpath: D:\Users\Richard\Documents\NetBeansProjects\ConnectIT\dist\run1440487051\ConnectIT.jar
+2015-01-19 00:33:59,497 INFO g.i.ConfigHandler [main] No Config file present, using Default Configuration.
+2015-01-19 00:37:24,486 INFO g.Game [main] Java Version: 1.8.0_25
+OS: Windows 8.1
+ v.6.3
+Classpath: D:\Users\Richard\Documents\NetBeansProjects\ConnectIT\dist\run1688429970\ConnectIT.jar
+2015-01-19 00:37:24,490 INFO g.i.ConfigHandler [main] No Config file present, using Default Configuration.
+2015-01-19 00:41:02,959 INFO g.Game [main] Java Version: 1.8.0_25
+OS: Windows 8.1
+ v.6.3
+Classpath: D:\Users\Richard\Documents\NetBeansProjects\ConnectIT\dist\run1398733555\ConnectIT.jar
+2015-01-19 00:41:02,963 INFO g.i.ConfigHandler [main] No Config file present, using Default Configuration.
+2015-01-19 00:41:09,254 INFO g.Game [main] Java Version: 1.8.0_25
+OS: Windows 8.1
+ v.6.3
+Classpath: D:\Users\Richard\Documents\NetBeansProjects\ConnectIT\dist\run132042667\ConnectIT.jar
+2015-01-19 00:41:09,260 INFO g.i.ConfigHandler [main] No Config file present, using Default Configuration.
+2015-01-19 00:41:27,644 INFO g.Game [main] Java Version: 1.8.0_25
+OS: Windows 8.1
+ v.6.3
+Classpath: D:\Users\Richard\Documents\NetBeansProjects\ConnectIT\dist\run652426382\ConnectIT.jar
+2015-01-19 00:41:27,649 INFO g.i.ConfigHandler [main] No Config file present, using Default Configuration.
+2015-01-19 00:41:35,614 INFO g.Game [main] Java Version: 1.8.0_25
+OS: Windows 8.1
+ v.6.3
+Classpath: D:\Users\Richard\Documents\NetBeansProjects\ConnectIT\dist\run1646958358\ConnectIT.jar
+2015-01-19 00:41:35,619 INFO g.i.ConfigHandler [main] No Config file present, using Default Configuration.
+2015-01-19 00:42:01,129 INFO g.Game [main] Java Version: 1.8.0_25
+OS: Windows 8.1
+ v.6.3
+Classpath: D:\Users\Richard\Documents\NetBeansProjects\ConnectIT\dist\run1850464407\ConnectIT.jar
+2015-01-19 00:42:01,133 INFO g.i.ConfigHandler [main] No Config file present, using Default Configuration.
+2015-01-19 00:42:23,758 INFO g.Game [main] Java Version: 1.8.0_25
+OS: Windows 8.1
+ v.6.3
+Classpath: D:\Users\Richard\Documents\NetBeansProjects\ConnectIT\dist\run1571796654\ConnectIT.jar
+2015-01-19 00:42:23,763 INFO g.i.ConfigHandler [main] No Config file present, using Default Configuration.
+2015-01-19 00:42:28,622 INFO g.Game [main] Java Version: 1.8.0_25
+OS: Windows 8.1
+ v.6.3
+Classpath: D:\Users\Richard\Documents\NetBeansProjects\ConnectIT\dist\run887830257\ConnectIT.jar
+2015-01-19 00:42:28,626 INFO g.i.ConfigHandler [main] No Config file present, using Default Configuration.
+2015-01-19 00:43:33,444 INFO g.Game [main] Java Version: 1.8.0_25
+OS: Windows 8.1
+ v.6.3
+Classpath: D:\Users\Richard\Documents\NetBeansProjects\ConnectIT\dist\run473267768\ConnectIT.jar
+2015-01-19 00:43:33,448 INFO g.i.ConfigHandler [main] No Config file present, using Default Configuration.
+2015-01-19 00:45:29,969 INFO g.Game [main] Java Version: 1.8.0_25
+OS: Windows 8.1
+ v.6.3
+Classpath: D:\Users\Richard\Documents\NetBeansProjects\ConnectIT\dist\run660064084\ConnectIT.jar
+2015-01-19 00:45:29,974 INFO g.i.ConfigHandler [main] No Config file present, using Default Configuration.
+2015-01-19 00:52:27,573 INFO g.Game [main] Java Version: 1.8.0_25
+OS: Windows 8.1
+ v.6.3
+Classpath: D:\Users\Richard\Documents\NetBeansProjects\ConnectIT\dist\run1325724814\ConnectIT.jar
+2015-01-19 00:52:27,578 INFO g.i.ConfigHandler [main] No Config file present, using Default Configuration.
+2015-01-19 00:52:47,765 INFO g.Game [main] Java Version: 1.8.0_25
+OS: Windows 8.1
+ v.6.3
+Classpath: D:\Users\Richard\Documents\NetBeansProjects\ConnectIT\dist\run1895972353\ConnectIT.jar
+2015-01-19 00:52:47,769 INFO g.i.ConfigHandler [main] No Config file present, using Default Configuration.
+2015-01-19 00:53:05,201 INFO g.Game [main] Java Version: 1.8.0_25
+OS: Windows 8.1
+ v.6.3
+Classpath: D:\Users\Richard\Documents\NetBeansProjects\ConnectIT\dist\run1013434858\ConnectIT.jar
+2015-01-19 00:53:05,206 INFO g.i.ConfigHandler [main] No Config file present, using Default Configuration.
+2015-01-19 00:53:24,745 INFO g.Game [main] Java Version: 1.8.0_25
+OS: Windows 8.1
+ v.6.3
+Classpath: D:\Users\Richard\Documents\NetBeansProjects\ConnectIT\dist\run396465271\ConnectIT.jar
+2015-01-19 00:53:24,749 INFO g.i.ConfigHandler [main] No Config file present, using Default Configuration.
+2015-01-19 00:53:42,479 INFO g.Game [main] Java Version: 1.8.0_25
+OS: Windows 8.1
+ v.6.3
+Classpath: D:\Users\Richard\Documents\NetBeansProjects\ConnectIT\dist\run184981423\ConnectIT.jar
+2015-01-19 00:53:42,484 INFO g.i.ConfigHandler [main] No Config file present, using Default Configuration.
+2015-01-19 00:53:55,194 INFO g.Game [main] Java Version: 1.8.0_25
+OS: Windows 8.1
+ v.6.3
+Classpath: D:\Users\Richard\Documents\NetBeansProjects\ConnectIT\dist\run1436830133\ConnectIT.jar
+2015-01-19 00:53:55,198 INFO g.i.ConfigHandler [main] No Config file present, using Default Configuration.
+2015-01-19 00:54:35,576 INFO g.Game [main] Java Version: 1.8.0_25
+OS: Windows 8.1
+ v.6.3
+Classpath: D:\Users\Richard\Documents\NetBeansProjects\ConnectIT\dist\run1104479166\ConnectIT.jar
+2015-01-19 00:54:35,581 INFO g.i.ConfigHandler [main] No Config file present, using Default Configuration.
+2015-01-19 00:54:58,992 INFO g.Game [main] Java Version: 1.8.0_25
+OS: Windows 8.1
+ v.6.3
+Classpath: D:\Users\Richard\Documents\NetBeansProjects\ConnectIT\dist\run612478746\ConnectIT.jar
+2015-01-19 00:54:58,995 INFO g.i.ConfigHandler [main] No Config file present, using Default Configuration.
+2015-01-19 00:55:36,727 INFO g.Game [main] Java Version: 1.8.0_25
+OS: Windows 8.1
+ v.6.3
+Classpath: D:\Users\Richard\Documents\NetBeansProjects\ConnectIT\dist\run1532275021\ConnectIT.jar
+2015-01-19 00:55:36,731 INFO g.i.ConfigHandler [main] No Config file present, using Default Configuration.
+2015-01-19 00:58:49,629 INFO g.Game [main] Java Version: 1.8.0_25
+OS: Windows 8.1
+ v.6.3
+Classpath: D:\Users\Richard\Documents\NetBeansProjects\ConnectIT\dist\run102525776\ConnectIT.jar
+2015-01-19 00:58:49,633 INFO g.i.ConfigHandler [main] No Config file present, using Default Configuration.
+2015-01-19 01:01:30,934 INFO g.Game [main] Java Version: 1.8.0_25
+OS: Windows 8.1
+ v.6.3
+Classpath: D:\Users\Richard\Documents\NetBeansProjects\ConnectIT\dist\run325404920\ConnectIT.jar
+2015-01-19 01:01:30,938 INFO g.i.ConfigHandler [main] No Config file present, using Default Configuration.
+2015-01-19 01:09:19,383 INFO g.Game [main] Java Version: 1.8.0_25
+OS: Windows 8.1
+ v.6.3
+Classpath: D:\Users\Richard\Documents\NetBeansProjects\ConnectIT\dist\run609673342\ConnectIT.jar
+2015-01-19 01:09:19,387 INFO g.i.ConfigHandler [main] No Config file present, using Default Configuration.
+2015-01-19 01:11:22,561 INFO g.Game [main] Java Version: 1.8.0_25
+OS: Windows 8.1
+ v.6.3
+Classpath: D:\Users\Richard\Documents\NetBeansProjects\ConnectIT\dist\run756645119\ConnectIT.jar
+2015-01-19 01:11:22,565 INFO g.i.ConfigHandler [main] No Config file present, using Default Configuration.
+2015-01-19 01:11:28,225 INFO g.Game [main] Java Version: 1.8.0_25
+OS: Windows 8.1
+ v.6.3
+Classpath: D:\Users\Richard\Documents\NetBeansProjects\ConnectIT\dist\run2005901691\ConnectIT.jar
+2015-01-19 01:11:28,230 INFO g.i.ConfigHandler [main] No Config file present, using Default Configuration.
+2015-01-19 01:11:38,329 INFO g.Game [main] Java Version: 1.8.0_25
+OS: Windows 8.1
+ v.6.3
+Classpath: D:\Users\Richard\Documents\NetBeansProjects\ConnectIT\dist\run172584899\ConnectIT.jar
+2015-01-19 01:11:38,333 INFO g.i.ConfigHandler [main] No Config file present, using Default Configuration.
+2015-01-19 01:16:27,742 INFO g.Game [main] Java Version: 1.8.0_25
+OS: Windows 8.1
+ v.6.3
+Classpath: D:\Users\Richard\Documents\NetBeansProjects\ConnectIT\dist\run1819863940\ConnectIT.jar
+2015-01-19 01:16:27,746 INFO g.i.ConfigHandler [main] No Config file present, using Default Configuration.
+2015-01-19 01:17:12,313 INFO g.Game [main] Java Version: 1.8.0_25
+OS: Windows 8.1
+ v.6.3
+Classpath: D:\Users\Richard\Documents\NetBeansProjects\ConnectIT\dist\run1197869375\ConnectIT.jar
+2015-01-19 01:17:12,321 INFO g.i.ConfigHandler [main] No Config file present, using Default Configuration.
+2015-01-19 01:17:29,819 INFO g.Game [main] Java Version: 1.8.0_25
+OS: Windows 8.1
+ v.6.3
+Classpath: D:\Users\Richard\Documents\NetBeansProjects\ConnectIT\dist\run274960644\ConnectIT.jar
+2015-01-19 01:17:29,823 INFO g.i.ConfigHandler [main] No Config file present, using Default Configuration.
+2015-01-19 01:18:07,039 INFO g.Game [main] Java Version: 1.8.0_25
+OS: Windows 8.1
+ v.6.3
+Classpath: D:\Users\Richard\Documents\NetBeansProjects\ConnectIT\dist\run1929428541\ConnectIT.jar
+2015-01-19 01:18:07,043 INFO g.i.ConfigHandler [main] No Config file present, using Default Configuration.
+2015-01-19 01:18:29,780 INFO g.Game [main] Java Version: 1.8.0_25
+OS: Windows 8.1
+ v.6.3
+Classpath: D:\Users\Richard\Documents\NetBeansProjects\ConnectIT\dist\run1845175777\ConnectIT.jar
+2015-01-19 01:18:29,784 INFO g.i.ConfigHandler [main] No Config file present, using Default Configuration.
+2015-01-19 01:19:06,806 INFO g.Game [main] Java Version: 1.8.0_25
+OS: Windows 8.1
+ v.6.3
+Classpath: D:\Users\Richard\Documents\NetBeansProjects\ConnectIT\dist\run901088020\ConnectIT.jar
+2015-01-19 01:19:06,811 INFO g.i.ConfigHandler [main] No Config file present, using Default Configuration.
+2015-01-19 01:19:06,811 ERROR g.i.ConfigHandler [main] Error loading: Default Configuration File
+D:\Users\Richard\Documents\NetBeansProjects\ConnectIT\src\game\io\config.properties (The system cannot find the file specified)
+2015-01-19 01:19:29,972 INFO g.Game [main] Java Version: 1.8.0_25
+OS: Windows 8.1
+ v.6.3
+Classpath: D:\Users\Richard\Documents\NetBeansProjects\ConnectIT\dist\run133505868\ConnectIT.jar
+2015-01-19 01:19:29,976 INFO g.i.ConfigHandler [main] No Config file present, using Default Configuration.
+2015-01-19 01:19:55,733 INFO g.Game [main] Java Version: 1.8.0_25
+OS: Windows 8.1
+ v.6.3
+Classpath: D:\Users\Richard\Documents\NetBeansProjects\ConnectIT\dist\run1474886068\ConnectIT.jar
+2015-01-19 01:19:55,737 INFO g.i.ConfigHandler [main] No Config file present, using Default Configuration.
+2015-01-19 01:19:55,738 ERROR g.i.ConfigHandler [main] Error loading: Default Configuration File
+D:\Users\Richard\Documents\NetBeansProjects\ConnectIT\src\game\io\config.properties (The system cannot find the file specified)
+2015-01-19 01:20:14,131 INFO g.Game [main] Java Version: 1.8.0_25
+OS: Windows 8.1
+ v.6.3
+Classpath: D:\Users\Richard\Documents\NetBeansProjects\ConnectIT\dist\run2122502852\ConnectIT.jar
+2015-01-19 01:20:14,135 INFO g.i.ConfigHandler [main] No Config file present, using Default Configuration.
+2015-01-19 01:22:54,563 INFO g.Game [main] Java Version: 1.8.0_25
+OS: Windows 8.1
+ v.6.3
+Classpath: D:\Users\Richard\Documents\NetBeansProjects\ConnectIT\dist\run1905499074\ConnectIT.jar
+2015-01-19 01:22:54,567 INFO g.i.ConfigHandler [main] No Config file present, using Default Configuration.
+2015-01-19 01:23:27,976 INFO g.Game [main] Java Version: 1.8.0_25
+OS: Windows 8.1
+ v.6.3
+Classpath: D:\Users\Richard\Documents\NetBeansProjects\ConnectIT\dist\run1818137211\ConnectIT.jar
+2015-01-19 01:23:27,981 INFO g.i.ConfigHandler [main] No Config file present, using Default Configuration.
+2015-01-19 01:23:42,319 INFO g.Game [main] Java Version: 1.8.0_25
+OS: Windows 8.1
+ v.6.3
+Classpath: D:\Users\Richard\Documents\NetBeansProjects\ConnectIT\dist\run510214087\ConnectIT.jar
+2015-01-19 01:23:42,323 INFO g.i.ConfigHandler [main] No Config file present, using Default Configuration.
+2015-01-19 01:24:34,724 INFO g.Game [main] Java Version: 1.8.0_25
+OS: Windows 8.1
+ v.6.3
+Classpath: D:\Users\Richard\Documents\NetBeansProjects\ConnectIT\dist\run1602165016\ConnectIT.jar
+2015-01-19 01:24:34,728 INFO g.i.ConfigHandler [main] No Config file present, using Default Configuration.
+2015-01-19 01:25:11,471 INFO g.Game [main] Java Version: 1.8.0_25
+OS: Windows 8.1
+ v.6.3
+Classpath: D:\Users\Richard\Documents\NetBeansProjects\ConnectIT\dist\run102790011\ConnectIT.jar
+2015-01-19 01:25:11,475 INFO g.i.ConfigHandler [main] No Config file present, using Default Configuration.
+2015-01-19 01:27:00,765 INFO g.Game [main] Java Version: 1.8.0_25
+OS: Windows 8.1
+ v.6.3
+Classpath: D:\Users\Richard\Documents\NetBeansProjects\ConnectIT\dist\run1707715401\ConnectIT.jar
+2015-01-19 01:27:00,769 INFO g.i.ConfigHandler [main] No Config file present, using Default Configuration.
+2015-01-19 12:39:19,733 INFO g.Game [main] Java Version: 1.8.0_25
+OS: Windows 8.1
+ v.6.3
+Classpath: D:\Users\Richard\Documents\NetBeansProjects\ConnectIT\dist\run1030020711\ConnectIT.jar
+2015-01-19 12:39:19,737 INFO g.i.ConfigHandler [main] No Config file present, using Default Configuration.
