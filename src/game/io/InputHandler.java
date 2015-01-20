@@ -23,6 +23,7 @@
  */
 package game.io;
 
+import game.Game;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -30,7 +31,20 @@ import java.awt.event.KeyListener;
  *
  * @author Richard Coan
  */
-public class InputHandler implements KeyListener {
+public class InputHandler implements KeyListener
+{
+    private ConfigHandler config;
+    
+    public InputHandler() {
+        config = ConfigHandler.getInstance();
+        
+        config.putIfAbsent("keys.camera.forward",String.valueOf(KeyEvent.VK_W));
+        config.putIfAbsent("keys.camera.backward",String.valueOf(KeyEvent.VK_S));
+        config.putIfAbsent("keys.camera.left",String.valueOf(KeyEvent.VK_A));
+        config.putIfAbsent("keys.camera.right",String.valueOf(KeyEvent.VK_D));
+        
+        config.store();
+    }
 
     @Override
     public void keyTyped(KeyEvent ke) {
