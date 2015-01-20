@@ -49,7 +49,7 @@ public class ConfigHandler extends Properties
     {
         LOG = LogManager.getLogger( ConfigHandler.class.getName() );
         PATH = System.getProperty("user.dir")+System.getProperty("file.separator");         
-    }
+    }    
     
     /**
      * Writes this property list (key and element pairs) in this Properties 
@@ -76,7 +76,7 @@ public class ConfigHandler extends Properties
         File config = new File(PATH+"config.properties");
         try {
             OutputStream out = new FileOutputStream(config);
-            instance.store(out, "Updated: "+(new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss").format(new Date())));
+            instance.store(out, "Configuration and Settings");
             out.close();
         } catch(IOException e) {
             LOG.warn("Error saving: Configuration File"
@@ -86,7 +86,8 @@ public class ConfigHandler extends Properties
     }
     
     /**
-     * Loads the Configuration properties File.
+     * Loads the Configuration properties File.  If one is not present
+     * then the default file is loaded and and editable copy is stored.
      * @return Properties from the loaded Configuration file.
      */
     public static ConfigHandler getInstance()
@@ -106,25 +107,50 @@ public class ConfigHandler extends Properties
                     +e.getMessage());
                 System.exit(1);
             }
-        } else {
+        } else {            
             try {
                 LOG.info("No Config file present, using Default Configuration.");
                 config = new File("D:\\Users\\Richard\\Documents\\NetBeansProjects\\ConnectIT\\src\\game\\io\\default.properties");
-                InputStream input = new FileInputStream( config );
-                
-                System.out.println(input.available());
-                
+                InputStream input = new FileInputStream( config );                
                 instance.load( input );
                 input.close();
             } catch(IOException e) {
                 LOG.error("Error loading: Default Configuration File"
                     +System.getProperty("line.separator")
                     +e.getMessage());
-                
                 System.exit(1);
+            } finally {
+                instance.store();   //Creates a new Configuration file from the Default.
             }
         }
                     
         return instance;
+    }
+    
+    /**
+     * 
+     * @param type 
+     */
+    public void restoreDefault(String type)
+    {
+        Properties default_config = new Properties();
+        
+        try {
+            LOG.info("Restoring Default ");
+            File default_file = new File("D:\\Users\\Richard\\Documents\\NetBeansProjects\\ConnectIT\\src\\game\\io\\default.properties");
+            InputStream input = new FileInputStream( default_file );                
+            default_config.load( input );
+            input.close();
+        } catch(IOException e) {
+            LOG.error("Error loading: Default Configuration File"
+                +System.getProperty("line.separator")
+                +e.getMessage());
+
+            System.exit(1);
+        } 
+        
+        
+        
+        instance.store();
     }
 }
