@@ -24,6 +24,7 @@
 package game;
 
 import game.io.ConfigHandler;
+import game.io.InputHandler;
 import java.awt.Canvas;
 import java.awt.Dimension;
 import org.apache.logging.log4j.LogManager;
@@ -38,17 +39,38 @@ public class Game extends Canvas implements Runnable {
     private static final Logger LOG = LogManager.getLogger( Game.class.getName() );
     
     public static final String Name = "ConnectIT";
-    public static final int WIDTH = 160;
-    public static final int HEIGHT = WIDTH / 12 * 9;
-    public static final int SCALE = 4;
-    public static final Dimension MIN_DIMENSIONS = new Dimension(WIDTH * SCALE, HEIGHT * SCALE);
+    public final int SCALE = 4;
+    public int WIDTH = 160;
+    public int HEIGHT = WIDTH / 12 * 9;
     
-    //protected static final Dimension TARGET_DIMENSIONS;
+    public final Dimension MIN_DIMENSIONS = new Dimension(WIDTH * SCALE, HEIGHT * SCALE);
+    public Dimension TARGET_DIMENSIONS;
     
-    protected static ConfigHandler config;
+    protected ConfigHandler config;
+    protected InputHandler input;
+
+    public static Game getInstance() {
+        if(instance == null) instance = new Game();
+        return instance;
+    }
     
-    public Game() {                
+    private Game() {                
         config = ConfigHandler.getInstance();
+        
+        if(config.containsKey("screen.width") && config.containsKey("screen.height") )
+        {
+            WIDTH = Integer.parseInt(config.get("screen.width").toString()) / SCALE;
+            HEIGHT = Integer.parseInt( (String) config.get("screen.height")) / SCALE;
+            TARGET_DIMENSIONS = new Dimension(WIDTH * SCALE, HEIGHT * SCALE);
+            
+            config.replace("screen.width", WIDTH);
+            config.replace("screen.height", HEIGHT);
+        } else {
+            TARGET_DIMENSIONS = MIN_DIMENSIONS;
+        }
+        
+        input = new InputHandler();
+        config.store();
     }
     
     @Override
