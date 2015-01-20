@@ -39,6 +39,9 @@ public class GameLauncher extends JFrame {
     protected void frameInit() {
         super.frameInit();
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setMinimumSize(game.MIN_DIMENSIONS);
+        this.setPreferredSize(game.TARGET_DIMENSIONS);
+        this.setMaximumSize(game.TARGET_DIMENSIONS);
     }
     
     /**
@@ -53,7 +56,7 @@ public class GameLauncher extends JFrame {
                 + System.getProperty("line.separator")
                 +"Classpath: "+System.getProperty("java.class.path"));
         
-        game = new Game();
+        game = Game.getInstance();
     }
     
 }
