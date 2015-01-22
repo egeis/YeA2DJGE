@@ -4,5 +4,20 @@
             "height" : 640,
             "width" : 480
         }
+    },
+    "keyboard" : {
+        "camera" : {
+            "move_forward" : 0,
+            "move_backward" : 0,
+            "move_left" : 0,
+            "move_right" : 0,
+            "rotate_left" : 0,
+            "rotate_right" : 0
+        },
+        "actions" : {
+            "pause_game" : 0,
+            "quick_save" : 0,
+            "quick_load" : 0
+        }
     }
 }
