@@ -7,6 +7,7 @@ nbdist/
 nbactions.xml
 nb-configuration.xml
 .nb-gradle/
+[lL]ogs/
 
 #Files
 *.class
