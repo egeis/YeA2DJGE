@@ -23,6 +23,7 @@
  */
 package game;
 
+import game.io.ConfigHandler;
 import javax.swing.JFrame;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -36,25 +37,27 @@ public class GameLauncher extends JFrame {
     private static final Logger LOG = LogManager.getLogger( Game.class.getName() );
     private static Game game;
     
+    public static final String Name = "ConnectIT";
+        
     protected void frameInit() {
         super.frameInit();
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setMinimumSize(game.MIN_DIMENSIONS);
-        this.setPreferredSize(game.TARGET_DIMENSIONS);
-        this.setMaximumSize(game.TARGET_DIMENSIONS);
+        this.setTitle( Name+" "+ConfigHandler.getVersion() );
     }
     
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        LOG.info("Java Version: "+System.getProperty("java.version")
+        LOG.info(Name+" "+ConfigHandler.getVersion()
+                +System.getProperty("line.separator")
+                +"Java Version: "+System.getProperty("java.version")
                 +System.getProperty("line.separator")
                 +"OS: "+System.getProperty("os.name")
-                +System.getProperty("line.separator")
                 +" v."+System.getProperty("os.version")
-                + System.getProperty("line.separator")
-                +"Classpath: "+System.getProperty("java.class.path"));
+                //+ System.getProperty("line.separator")
+                //+"Classpath: "+System.getProperty("java.class.path")
+        );
         
         game = Game.getInstance();
     }
