@@ -37,17 +37,9 @@ import org.apache.logging.log4j.Logger;
 public class Game extends Canvas implements Runnable {
     private static Game instance = null;
     private static final Logger LOG = LogManager.getLogger( Game.class.getName() );
-    
-    public static final String Name = "ConnectIT";
-    public final int SCALE = 4;
-    public int WIDTH = 160;
-    public int HEIGHT = WIDTH / 12 * 9;
-    
-    public final Dimension MIN_DIMENSIONS = new Dimension(WIDTH * SCALE, HEIGHT * SCALE);
-    public Dimension TARGET_DIMENSIONS;
-    
-    protected ConfigHandler config;
-    protected InputHandler input;
+        
+    protected ConfigHandler Config;
+    protected InputHandler Input;
 
     public static Game getInstance() {
         if(instance == null) instance = new Game();
@@ -55,22 +47,8 @@ public class Game extends Canvas implements Runnable {
     }
     
     private Game() {                
-        config = ConfigHandler.getInstance();
-        
-        if(config.containsKey("screen.width") && config.containsKey("screen.height") )
-        {
-            WIDTH = Integer.parseInt(config.get("screen.width").toString()) / SCALE;
-            HEIGHT = Integer.parseInt( (String) config.get("screen.height")) / SCALE;
-            TARGET_DIMENSIONS = new Dimension(WIDTH * SCALE, HEIGHT * SCALE);
-            
-            config.replace("screen.width", WIDTH);
-            config.replace("screen.height", HEIGHT);
-        } else {
-            TARGET_DIMENSIONS = MIN_DIMENSIONS;
-        }
-        
-        input = new InputHandler();
-        config.store();
+        Config = ConfigHandler.getInstance();
+        Input = InputHandler.getInstance();
     }
     
     @Override
