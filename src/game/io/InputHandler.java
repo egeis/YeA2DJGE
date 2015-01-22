@@ -34,11 +34,17 @@ import java.awt.event.KeyListener;
 public class InputHandler implements KeyListener
 {
     private ConfigHandler config;
+    private static InputHandler instance = null;
     
-    public InputHandler() {
-        config = ConfigHandler.getInstance();
+    private InputHandler() {
+        config = ConfigHandler.getInstance();        
     }
 
+    public static InputHandler getInstance() {
+        if(instance == null) instance = new InputHandler();
+        return instance;
+    }
+    
     @Override
     public void keyTyped(KeyEvent ke) {
         throw new UnsupportedOperationException("Not supported yet.");
