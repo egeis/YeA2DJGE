@@ -23,10 +23,12 @@
  */
 package game.io;
 
+import game.Game;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Properties;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -53,7 +55,7 @@ public class ConfigHandler
         if(file.exists()) {
             try {
                 InputStream input = new FileInputStream(file);
-                
+                //DO SOMETHING!
                 input.close();
             } catch(IOException e) {
                 LOG.error("Error loading: Configuration File"
@@ -63,12 +65,10 @@ public class ConfigHandler
             }
         } else {
             LOG.info("No Config file present, using Default Configuration.");
-            PATH = "D:\\Users\\Richard\\Documents\\NetBeansProjects\\ConnectIT\\src\\game\\io\\default.json";       
-            file = new File(PATH);
-            
             try {
-                InputStream input = new FileInputStream(file);
-                
+                InputStream input = ConfigHandler.class
+                    .getResourceAsStream("default.json");
+                //DO SOMETHING!
                 input.close();
             } catch (IOException e) {
                 LOG.error("Error loading: Default Configuration File"
@@ -80,7 +80,7 @@ public class ConfigHandler
     } 
     
     /**
-     * Loads the Configuration YML File.  If one is not present
+     * Loads the Configuration JSON File.  If one is not present
      * then the default file is loaded and and editable copy is stored.
      * @return Properties from the loaded Configuration file.
      */
@@ -91,5 +91,34 @@ public class ConfigHandler
         }
         
         return instance;
+    }
+    
+    /**
+     * Gets the current build version from properties 
+     * with the current build number. Version information generated from
+     * build.xml -pre-compile instructions.
+     * @return Combined Version and Build number string. IE. (0.0.0.Build)
+     */
+    public static String getVersion() 
+    {
+        String name = null;
+        Properties prop = new Properties();
+
+        try {
+            InputStream input = Game.class
+                    .getResourceAsStream("/version.properties");
+            prop.load( input );
+            input.close();
+        } catch (IOException e) {
+            LOG.warn("Error loading: Version Properties"
+                +System.getProperty("line.separator")
+                +e.getMessage());
+            return "";
+        }
+        
+        String build = prop.getProperty("build");
+        String tag = prop.getProperty("tag");
+                
+        return tag+"."+build;
     }
 }
