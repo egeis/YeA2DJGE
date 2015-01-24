@@ -43,6 +43,7 @@ public class GameLauncher extends JFrame {
         super.frameInit();
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setTitle( Name+" "+ConfigHandler.getVersion() );
+        
     }
     
     /**
@@ -58,7 +59,7 @@ public class GameLauncher extends JFrame {
                 //+ System.getProperty("line.separator")
                 //+"Classpath: "+System.getProperty("java.class.path")
         );
-        
+        System.out.println(ConfigHandler.getVersion() );
         game = Game.getInstance();
     }
     
