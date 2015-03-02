@@ -11,7 +11,7 @@
     <description>Builds, tests, and runs the project YeA2DJGE.</description>
     <import file="nbproject/build-impl.xml"/>
     <exec executable = "git" outputproperty="GITTAG">
-        <arg value = "describe" />
+        <arg value = "tag" />
     </exec>
     <target name="-pre-jar" > 
         <propertyfile file="${src.dir}\version.properties"> 
