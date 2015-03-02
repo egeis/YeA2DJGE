@@ -24,27 +24,27 @@
 package game;
 
 import game.io.ConfigHandler;
-import javax.swing.JFrame;
+import org.lwjgl.Sys;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.lwjgl.LWJGLUtil;
 
 /**
  *
  * @author Richard Coan
  */
-public class GameLauncher extends JFrame {
+public class GameLauncher {
     
     private static final Logger LOG = LogManager.getLogger( Game.class.getName() );
     private static Game game;
     
     public static final String Name = "ConnectIT";
         
-    protected void frameInit() {
+    /*protected void frameInit() {
         super.frameInit();
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setTitle( Name+" "+ConfigHandler.getVersion() );
-        
-    }
+    }*/
     
     /**
      * @param args the command line arguments
@@ -56,11 +56,13 @@ public class GameLauncher extends JFrame {
                 +System.getProperty("line.separator")
                 +"OS: "+System.getProperty("os.name")
                 +" v."+System.getProperty("os.version")
-                //+ System.getProperty("line.separator")
+                + System.getProperty("line.separator")
+                +"LWJGL v."+Sys.getVersion()
                 //+"Classpath: "+System.getProperty("java.class.path")
         );
-        System.out.println(ConfigHandler.getVersion() );
+
         game = Game.getInstance();
+        game.run();
     }
     
 }
