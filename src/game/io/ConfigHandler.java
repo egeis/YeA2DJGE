@@ -55,7 +55,7 @@ public class ConfigHandler
         if(file.exists()) {
             try {
                 InputStream input = new FileInputStream(file);
-                //DO SOMETHING!
+                //TODO: Parse the File?
                 input.close();
             } catch(IOException e) {
                 LOG.error("Error loading: Configuration File"
@@ -68,7 +68,8 @@ public class ConfigHandler
             try {
                 InputStream input = ConfigHandler.class
                     .getResourceAsStream("default.json");
-                //DO SOMETHING!
+                //TODO: Save the File an Editable Version
+                //TODO: Parse the File?
                 input.close();
             } catch (IOException e) {
                 LOG.error("Error loading: Default Configuration File"
