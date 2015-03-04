@@ -23,13 +23,17 @@
  */
 package main.java.com.YeAJG.game;
 
-import main.java.com.YeAJG.game.io.ConfigHandler;
-import main.java.com.YeAJG.game.io.InputHandler;
 
 import java.nio.ByteBuffer;
 
+import main.java.com.YeAJG.game.io.ConfigHandler;
+import main.java.com.YeAJG.game.io.InputHandler;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.lwjgl.LWJGLException;
+import org.lwjgl.opengl.Display;
+import org.lwjgl.opengl.DisplayMode;
 
 /**
  *
@@ -37,7 +41,7 @@ import org.apache.logging.log4j.Logger;
  */
 public class Game implements Runnable {
     private static Game instance = null;
-    private static final Logger LOG = LogManager.getLogger( Game.class.getName() );
+    private static final Logger logger = LogManager.getLogger( Game.class.getName() );
         
     protected ConfigHandler Config;
     protected InputHandler Input;
@@ -71,12 +75,27 @@ public class Game implements Runnable {
     }
  
     private void init() {
-        
+        try {
+            Display.setDisplayMode(new DisplayMode(WINDOW_WIDTH, WINDOW_HEIGHT));
+            Display.setTitle(Name+" "+ConfigHandler.getVersion());
+            Display.create();
+        } 
+        catch(LWJGLException e)
+        {
+            logger.fatal(e.getMessage());
+            System.exit(-1);
+        }
         
     }
  
     private void loop() {
-
+        while(!Display.isCloseRequested())
+        {
+            
+            Display.update();
+        }
+        
+        Display.destroy();
     }
     
 }

@@ -107,7 +107,7 @@ public class ConfigHandler
 
         try {
             InputStream input = Game.class
-                    .getResourceAsStream("/version.properties");
+                    .getResourceAsStream("/main/resources/version.properties");
             prop.load( input );
             input.close();
         } catch (IOException e) {

@@ -8,13 +8,13 @@
 <!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
 <!-- in the project's Project Properties dialog box.-->
 <project name="YeA2DJGE" default="default" basedir=".">
-    <description>Builds, tests, and runs the project YeA2DJGE.</description>
+    <description>Builds, tests, and runs the project YeAJGE.</description>
     <import file="nbproject/build-impl.xml"/>
     <exec executable = "git" outputproperty="GITTAG">
         <arg value = "tag" />
     </exec>
     <target name="-pre-jar" > 
-        <propertyfile file="${src.dir}\version.properties"> 
+        <propertyfile file="${src.dir}\main\resources\version.properties"> 
             <entry key="build" value="1" type="int" operation="+"/>
             <entry key="tag" value="${GITTAG}" />
         </propertyfile> 
