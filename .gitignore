@@ -17,7 +17,7 @@ nb-configuration.xml
 .mtj.tmp/
 
 # Specific Library Sources
-lib/LWJGL/src/
+lib/lwjgl-2.9.3/src/
 
 # Package Files #
 *.war
