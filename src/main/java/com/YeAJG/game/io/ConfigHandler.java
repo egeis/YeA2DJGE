@@ -21,9 +21,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package game.io;
+package main.java.com.YeAJG.game.io;
 
-import game.Game;
+import main.java.com.YeAJG.game.Game;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
