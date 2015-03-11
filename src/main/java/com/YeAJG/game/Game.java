@@ -61,11 +61,9 @@ public class Game implements Runnable {
         Config = ConfigHandler.getInstance();
         Input = InputHandler.getInstance();
         
-        WINDOW_WIDTH = Config.getSettings().getJsonObject("display").getInt("width", 640);
-        if(WINDOW_WIDTH == 640) WINDOW_HEIGHT = 480;
-        else WINDOW_HEIGHT = Config.getSettings().getJsonObject("display").getInt("height");
-        
-        
+        //Load Screen Size
+        WINDOW_WIDTH = Config.getSettings().getJsonObject("display").getInt("width");
+        WINDOW_HEIGHT = Config.getSettings().getJsonObject("display").getInt("height");        
     }
     
     @Override
