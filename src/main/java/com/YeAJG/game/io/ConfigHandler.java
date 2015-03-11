@@ -29,6 +29,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -42,6 +45,8 @@ public class ConfigHandler
     private static ConfigHandler instance = null;
     private static String PATH;   
     private static Logger LOG;
+    
+    private JsonObject settings = null;
         
     private ConfigHandler()
     {
@@ -55,7 +60,7 @@ public class ConfigHandler
         if(file.exists()) {
             try {
                 InputStream input = new FileInputStream(file);
-                //TODO: Parse the File?
+                this.parseJson(input);
                 input.close();
             } catch(IOException e) {
                 LOG.error("Error loading: Configuration File"
@@ -69,7 +74,7 @@ public class ConfigHandler
                 InputStream input = ConfigHandler.class
                     .getResourceAsStream("default.json");
                 //TODO: Save the File an Editable Version
-                //TODO: Parse the File?
+                this.parseJson(input);
                 input.close();
             } catch (IOException e) {
                 LOG.error("Error loading: Default Configuration File"
@@ -79,6 +84,13 @@ public class ConfigHandler
             }
         }
     } 
+    
+    private void parseJson(InputStream input)
+    {
+        JsonReader reader = Json.createReader(input);
+        settings = reader.readObject();
+        reader.close();
+    }
     
     /**
      * Loads the Configuration JSON File.  If one is not present
@@ -122,4 +134,9 @@ public class ConfigHandler
                 
         return tag+"."+build;
     }
+
+    public JsonObject getSettings() {
+        return settings;
+    }
+    
 }
