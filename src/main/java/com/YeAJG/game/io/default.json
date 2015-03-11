@@ -1,9 +1,7 @@
 {
     "display" : {
-        "screen" : {
-            "height" : 640,
-            "width" : 480
-        }
+        "height" : 768,
+        "width" : 1024
     },
     "keyboard" : {
         "camera" : {
