@@ -47,8 +47,8 @@ public class Game implements Runnable {
     protected InputHandler Input;
     
     private long window;
-    private final int WINDOW_WIDTH = 640;
-    private final int WINDOW_HEIGHT = 480;
+    private final int WINDOW_WIDTH;
+    private final int WINDOW_HEIGHT;
     
     public static final String Name = "Example";
 
@@ -60,6 +60,10 @@ public class Game implements Runnable {
     private Game() {                
         Config = ConfigHandler.getInstance();
         Input = InputHandler.getInstance();
+        
+        //Load Screen Size
+        WINDOW_WIDTH = Config.getSettings().getJsonObject("display").getInt("width");
+        WINDOW_HEIGHT = Config.getSettings().getJsonObject("display").getInt("height");        
     }
     
     @Override
