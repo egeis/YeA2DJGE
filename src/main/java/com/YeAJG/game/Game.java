@@ -23,6 +23,8 @@
  */
 package main.java.com.YeAJG.game;
 
+import java.util.Random;
+import main.java.com.YeAJG.fx.particle.Particle;
 import main.java.com.YeAJG.game.io.ConfigHandler;
 import main.java.com.YeAJG.game.io.InputHandler;
 
@@ -32,6 +34,7 @@ import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.util.vector.Vector3f;
 
 /**
  *
@@ -50,6 +53,8 @@ public class Game implements Runnable {
     
     public static final String Name = "Example";
 
+    private Particle p;
+    
     public static Game getInstance() {
         if(instance == null) instance = new Game();
         return instance;
@@ -72,16 +77,24 @@ public class Game implements Runnable {
         final int SKIP_TICKS = 1000 / TICKS_PER_SECOND;
         final int MAX_FRAMESKIP = 5;
 
-        long game_tick = System.currentTimeMillis();
         long next_game_tick = System.currentTimeMillis();
         int loops;
-        float interpolation;        
+        float interpolation; 
+        
+        Random r = new Random();
+        
+        //Single Particle Test
+        p = new Particle(
+            new Vector3f(WINDOW_WIDTH / 2, WINDOW_HEIGHT - 10, 0),
+            new Vector3f((float) (r.nextInt(2) - 1), (float) (r.nextInt(2) - 2), 0f),
+            new Vector3f(0, -0.05f, 0), 
+            255, 1  );
         
         while(!Display.isCloseRequested())
         {
             loops = 0;
-            while( game_tick > next_game_tick && loops < MAX_FRAMESKIP) {
-                doTick();
+            while( System.currentTimeMillis() > next_game_tick && loops < MAX_FRAMESKIP) {
+                doTick( next_game_tick );
 
                 next_game_tick += SKIP_TICKS;
                 loops++;
@@ -110,7 +123,6 @@ public class Game implements Runnable {
             System.exit(-1);
         }
         
-        
         initGL();
     }
     
@@ -127,13 +139,15 @@ public class Game implements Runnable {
          GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
      }
     
-    private void doTick()
+    private void doTick( long next_game_tick )
     {
-        
+        p.update( next_game_tick );
     }
  
     private void render( float interpolation ) {
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
+        
+        if( !p.isDead() ) p.draw();
         
         Display.update();
     }

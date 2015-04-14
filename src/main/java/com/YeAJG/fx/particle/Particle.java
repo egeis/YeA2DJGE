@@ -23,6 +23,7 @@
  */
 package main.java.com.YeAJG.fx.particle;
 
+import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Vector3f;
 
 /**
@@ -30,40 +31,60 @@ import org.lwjgl.util.vector.Vector3f;
  * @author Richard Coan
  */
 public class Particle {
-    private float age;
+    private double age;
     
-    private final float MAX_AGE;
-    private final float AGE_INC;
+    private final double MAX_AGE;
+    private final double AGE_INC;
     
     private Vector3f location;
     private Vector3f velocity;
     private Vector3f acceleration;
     
-    public Particle(Vector3f location, Vector3f velocity, Vector3f acceleration, float MAX_AGE, float AGE_INC) {
+    private long lastUpdate = 0l; 
+    
+    public Particle(Vector3f location, Vector3f velocity, Vector3f acceleration, double MAX_AGE, double AGE_INC) {
         this.MAX_AGE = MAX_AGE;
         this.AGE_INC = AGE_INC;
+        
+        age = 0.0;
         
         this.location = location;
         this.acceleration = acceleration;
         this.velocity = velocity;
     }
     
-    public boolean update()
+    public void draw()
     {
-        if(isDead()) return false;
+        GL11.glColor3f(0.5f,0.5f,1.0f);
         
-        velocity = Vector3f.add(velocity, acceleration, null);
-        location = Vector3f.add(location, velocity, null);
+        GL11.glBegin(GL11.GL_QUADS);
+            GL11.glVertex2f(location.x,     location.y);
+            GL11.glVertex2f(location.x + 10, location.y);
+            GL11.glVertex2f(location.x + 10, location.y + 10);
+            GL11.glVertex2f(location.x,     location.y + 10);
+        GL11.glEnd();
+    }
+    
+    public boolean update(long next_game_tick)
+    {        
+        if( next_game_tick > lastUpdate ) 
+        {
+            lastUpdate = next_game_tick;
+            Vector3f.add(velocity, acceleration, velocity);
+            Vector3f.add(location, velocity, location);
         
-        age += AGE_INC;
-        return true;
+            age += AGE_INC;
+            return true;
+        }
+        
+        return false;
     }
     
     public boolean isDead()
     {
-        if(age > MAX_AGE)
-            return true;
-        else
+        if(age < MAX_AGE)
             return false;
+        else
+            return true;
     }
 }
