@@ -43,12 +43,6 @@ public class GameLauncher {
     
     public static Game game;
     
-    /*protected void frameInit() {
-        super.frameInit();
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setTitle( Name+" "+ConfigHandler.getVersion() );
-    }*/
-    
     /**
      * @param args the command line arguments
      */
@@ -67,5 +61,4 @@ public class GameLauncher {
         game = Game.getInstance();
         game.run();
     }
-    
 }
