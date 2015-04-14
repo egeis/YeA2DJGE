@@ -110,6 +110,7 @@ public class Game implements Runnable {
             System.exit(-1);
         }
         
+        
         initGL();
     }
     
