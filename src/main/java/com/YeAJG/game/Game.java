@@ -23,7 +23,9 @@
  */
 package main.java.com.YeAJG.game;
 
-import java.util.concurrent.TimeUnit;
+
+import java.nio.ByteBuffer;
+
 import main.java.com.YeAJG.game.io.ConfigHandler;
 import main.java.com.YeAJG.game.io.InputHandler;
 
@@ -32,10 +34,6 @@ import org.apache.logging.log4j.Logger;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
-import org.lwjgl.opengl.GL11;
-import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
-import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
-import static org.lwjgl.opengl.GL11.glClear;
 
 /**
  *
@@ -48,17 +46,7 @@ public class Game implements Runnable {
     protected ConfigHandler Config;
     protected InputHandler Input;
     
-    private int ticks;
-    private int frames;
-    private long currentTime;
-    private long lastTime;
-    private long nextFrame;
-    private long lastFrame;
-    private long nextTick;
-    private long lastTick;
-
-    private boolean vSync = false;
-    
+    private long window;
     private final int WINDOW_WIDTH;
     private final int WINDOW_HEIGHT;
     
@@ -69,15 +57,28 @@ public class Game implements Runnable {
         return instance;
     }
     
-    private Game() {      
-        lastFrame = System.currentTimeMillis();
+    private Game() {                
         Config = ConfigHandler.getInstance();
         Input = InputHandler.getInstance();
         
         //Load Screen Size
         WINDOW_WIDTH = Config.getSettings().getJsonObject("display").getInt("width");
-        WINDOW_HEIGHT = Config.getSettings().getJsonObject("display").getInt("height");
+        WINDOW_HEIGHT = Config.getSettings().getJsonObject("display").getInt("height");        
+    }
+    
+    @Override
+    public void run() {
         
+        try {
+            init();
+            loop(); 
+        } finally {
+            
+        }
+        
+    }
+ 
+    private void init() {
         try {
             Display.setDisplayMode(new DisplayMode(WINDOW_WIDTH, WINDOW_HEIGHT));
             Display.setTitle(Name+" "+ConfigHandler.getVersion());
@@ -86,68 +87,19 @@ public class Game implements Runnable {
         catch(LWJGLException e)
         {
             logger.fatal(e.getMessage());
+            System.exit(-1);
         }
         
-        initGL();
     }
-    
-    @Override
-    public void run() {
-        logger.debug("Starting");
-        
-        ticks = 0;
-        frames = 0;
-        lastTime = System.nanoTime();
-        
-        nextTick = 0;
-        nextFrame = 0;
-        
+ 
+    private void loop() {
         while(!Display.isCloseRequested())
         {
-            currentTime = System.nanoTime();
             
-            if(nextTick <= currentTime)
-            {
-                ticks++;
-                //doTick();
-                logger.info("Ticks:"+ticks);
-                //nextTick += 10;
-            }
-                
-            if(nextFrame <= currentTime)
-            {
-                frames++;
-                logger.info("Frames:"+frames);
-                
-                glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-                //render();
-                Display.update();
-            }
-            
-            if( (currentTime - lastTime) > TimeUnit.NANOSECONDS.convert(1L, TimeUnit.SECONDS));
-            {
-                logger.info("Ending Frame:"+frames+" Ticks:"+ticks+ " " 
-                        + (currentTime - lastTime) + " "
-                +TimeUnit.NANOSECONDS.convert(1L, TimeUnit.SECONDS) );
-                ticks = 0;
-                frames = 0;
-                lastTime = System.nanoTime();
-            }
-                        
+            Display.update();
         }
         
-        Display.destroy();       
+        Display.destroy();
     }
     
-    private void initGL()
-    {
-        GL11.glMatrixMode(GL11.GL_PROJECTION);
-        GL11.glLoadIdentity();
-        GL11.glOrtho(0, WINDOW_WIDTH, 0, WINDOW_HEIGHT, 1, -1);
-        GL11.glMatrixMode(GL11.GL_MODELVIEW);
-        GL11.glEnable(GL11.GL_BLEND);
-        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        GL11.glEnable(GL11.GL_LINE_SMOOTH);
-    }
 }
