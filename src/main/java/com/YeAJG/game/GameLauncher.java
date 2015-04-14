@@ -23,11 +23,14 @@
  */
 package main.java.com.YeAJG.game;
 
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 import main.java.com.YeAJG.game.io.ConfigHandler;
-//import org.lwjgl.Sys;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-//import org.lwjgl.LWJGLUtil;
 
 /**
  *
@@ -36,8 +39,10 @@ import org.apache.logging.log4j.Logger;
 public class GameLauncher {
     
     private static final Logger LOG = LogManager.getLogger( Game.class.getName() );
-    private static Game game;
-           
+    private static final ExecutorService threadPool = Executors.newFixedThreadPool(1);
+    
+    public static Game game;
+    
     /*protected void frameInit() {
         super.frameInit();
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
