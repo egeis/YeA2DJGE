@@ -23,9 +23,6 @@
  */
 package main.java.com.YeAJG.game;
 
-
-import java.nio.ByteBuffer;
-
 import main.java.com.YeAJG.game.io.ConfigHandler;
 import main.java.com.YeAJG.game.io.InputHandler;
 
@@ -34,6 +31,7 @@ import org.apache.logging.log4j.Logger;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
+import org.lwjgl.opengl.GL11;
 
 /**
  *
@@ -63,21 +61,43 @@ public class Game implements Runnable {
         
         //Load Screen Size
         WINDOW_WIDTH = Config.getSettings().getJsonObject("display").getInt("width");
-        WINDOW_HEIGHT = Config.getSettings().getJsonObject("display").getInt("height");        
+        WINDOW_HEIGHT = Config.getSettings().getJsonObject("display").getInt("height");  
+        
+        init();
     }
     
     @Override
-    public void run() {
+    public void run() {  
+        final int TICKS_PER_SECOND = 25;
+        final int SKIP_TICKS = 1000 / TICKS_PER_SECOND;
+        final int MAX_FRAMESKIP = 5;
+
+        long game_tick = System.currentTimeMillis();
+        long next_game_tick = System.currentTimeMillis();
+        int loops;
+        float interpolation;        
         
-        try {
-            init();
-            loop(); 
-        } finally {
+        while(!Display.isCloseRequested())
+        {
+            loops = 0;
+            while( game_tick > next_game_tick && loops < MAX_FRAMESKIP) {
+                doTick();
+
+                next_game_tick += SKIP_TICKS;
+                loops++;
+            }
             
+            interpolation = (float) ( System.currentTimeMillis() + 
+                    SKIP_TICKS - next_game_tick ) / (float) SKIP_TICKS;
+            render( interpolation );
         }
         
+        Display.destroy();
     }
  
+    /**
+     * Initiates Display.
+     */
     private void init() {
         try {
             Display.setDisplayMode(new DisplayMode(WINDOW_WIDTH, WINDOW_HEIGHT));
@@ -90,16 +110,31 @@ public class Game implements Runnable {
             System.exit(-1);
         }
         
+        initGL();
+    }
+    
+    /**
+     * Initiates GL.
+     */
+     private void initGL()
+     {
+         GL11.glMatrixMode(GL11.GL_PROJECTION);
+         GL11.glLoadIdentity();
+         GL11.glOrtho(0, WINDOW_WIDTH, 0, WINDOW_HEIGHT, 1, -1);
+         GL11.glMatrixMode(GL11.GL_MODELVIEW);
+         GL11.glEnable(GL11.GL_BLEND);
+         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+     }
+    
+    private void doTick()
+    {
+        
     }
  
-    private void loop() {
-        while(!Display.isCloseRequested())
-        {
-            
-            Display.update();
-        }
+    private void render( float interpolation ) {
+        GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
         
-        Display.destroy();
+        Display.update();
     }
     
 }
