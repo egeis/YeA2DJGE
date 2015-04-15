@@ -23,12 +23,26 @@
  */
 package main.java.com.YeAJG.fx.particle;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  *
  * @author Richard Coan
  */
 
 
-public class Emitter {
+public class Emitter extends ParticleObject {
+
+    @Override
+    public void draw() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean update(long next_game_tick) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
     
 }

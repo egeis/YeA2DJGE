@@ -88,7 +88,10 @@ public class Game implements Runnable {
             new Vector3f(WINDOW_WIDTH / 2, WINDOW_HEIGHT - 10, 0),
             new Vector3f((float) (r.nextInt(2) - 1), (float) (r.nextInt(2) - 2), 0f),
             new Vector3f(0, -0.05f, 0), 
-            255, 1  );
+            false );
+        
+        p.setAgeStep(1);
+        p.setMaxAge(60);
         
         while(!Display.isCloseRequested())
         {

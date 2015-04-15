@@ -30,59 +30,70 @@ import org.lwjgl.util.vector.Vector3f;
  *
  * @author Richard Coan
  */
-public class Particle {
-    private double age;
+public class Particle extends ParticleObject {
     
-    private final double MAX_AGE;
-    private final double AGE_INC;
-    
-    private Vector3f location;
-    private Vector3f velocity;
-    private Vector3f acceleration;
-    
-    private long lastUpdate = 0l; 
-    
-    public Particle(Vector3f location, Vector3f velocity, Vector3f acceleration, double MAX_AGE, double AGE_INC) {
-        this.MAX_AGE = MAX_AGE;
-        this.AGE_INC = AGE_INC;
-        
-        age = 0.0;
-        
+    public Particle(Vector3f location, Vector3f velocity, Vector3f acceleration, boolean keepAlive) {
         this.location = location;
-        this.acceleration = acceleration;
         this.velocity = velocity;
+        this.acceleration = acceleration;
+        this.lastUpdate = 0L;
+        this.age = 0;
+        this.ageStep = 0;
+        this.maxAge = 1;
+        this.keepAlive = keepAlive;
+    }   
+    
+    public void setMaxAge(double maxAge) {
+        this.maxAge = maxAge;
+    }
+
+    public void setAgeStep(double ageStep) {
+        this.ageStep = ageStep;
     }
     
+    @Override
     public void draw()
     {
-        GL11.glColor3f(0.5f,0.5f,1.0f);
+        GL11.glColor4f(0.5f,0.5f,1.0f,0.5f);
         
-        GL11.glBegin(GL11.GL_QUADS);
-            GL11.glVertex2f(location.x,     location.y);
-            GL11.glVertex2f(location.x + 10, location.y);
-            GL11.glVertex2f(location.x + 10, location.y + 10);
-            GL11.glVertex2f(location.x,     location.y + 10);
+        GL11.glLineWidth(3.8f);
+        GL11.glBegin(GL11.GL_LINES);
+            GL11.glVertex3f(px, py, pz);
+            GL11.glVertex3f(location.x, location.y, location.z);
         GL11.glEnd();
     }
     
+    @Override
     public boolean update(long next_game_tick)
     {        
         if( next_game_tick > lastUpdate ) 
         {
+            px = location.x;
+            py = location.y;
+            pz = location.z;
+            
             lastUpdate = next_game_tick;
             Vector3f.add(velocity, acceleration, velocity);
             Vector3f.add(location, velocity, location);
         
-            age += AGE_INC;
+            age += ageStep;
             return true;
         }
         
         return false;
     }
     
+    public boolean updateAndDraw(long next_game_tick)
+    {
+        boolean result = update(next_game_tick);
+        if(result) draw();
+        return result;
+    }
+    
     public boolean isDead()
     {
-        if(age < MAX_AGE)
+        if(keepAlive) return false;
+        else if(age < maxAge)
             return false;
         else
             return true;
