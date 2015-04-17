@@ -31,55 +31,73 @@ import org.lwjgl.util.vector.Vector3f;
  *
  * @author Richard Coan
  */
-public class Particle extends ParticleObject {
-        
-    public Particle(Vector3f location, Vector3f velocity, 
-            Vector3f acceleration, double maxAge, double ageStep, 
+public class Particle extends AParticle {
+      
+    protected long lastUpdate;
+    
+    /**
+     * 
+     * @param location
+     * @param size
+     * @param scale
+     * @param rotation
+     * @param velocity
+     * @param acceleration
+     * @param age
+     * @param ageStep
+     * @param maxAge
+     * @param keepAlive 
+     */
+    public Particle(Vector3f location, Vector3f size, Vector3f scale, Vector3f rotation, Vector3f velocity, 
+            Vector3f acceleration, float age, float ageStep, float maxAge,
             boolean keepAlive) {
-        this.location = location;
+        this.currLocation = location;
+        this.prevLocation = new Vector3f(location.x, location.y, location.z);
         this.velocity = velocity;
         this.acceleration = acceleration;
-        this.age = 0;
-        this.ageStep = maxAge;
-        this.maxAge = ageStep;
-        this.height = 1;
-        this.width = 1;
+        this.rotation = rotation;
+        this.age = age;
+        this.ageStep = ageStep;
+        this.maxAge = maxAge;
+        this.scale = scale;
+        this.size = size;
         this.keepAlive = keepAlive;
         this.visible = true;
         this.texture = null;
         this.color = new Color(255,0,0,255);
+        this.lastUpdate = System.currentTimeMillis();
     }   
-    
-    @Override
-    public void draw() 
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
+    }
+        
+    public void draw( float interpolation ) 
     {
         GL11.glColor4b((byte)(color.getRedByte()-128),(byte)(color.getGreenByte()-128),
                 (byte)(color.getBlueByte()-128),(byte)(color.getAlphaByte()-128));
         
-        GL11.glLineWidth(3.8f);
+        GL11.glLineWidth(30.8f);
         GL11.glBegin(GL11.GL_LINES);
-            GL11.glVertex3f(px, py, pz);
-            GL11.glVertex3f(location.x, location.y, location.z);
+            GL11.glVertex3f(prevLocation.x, prevLocation.y, prevLocation.z);
+            GL11.glVertex3f(currLocation.x, currLocation.y, currLocation.z);
         GL11.glEnd();
     }
     
-    public void update()
+    public void update( long next_game_tick )
     {        
-        //if( next_game_tick > lastUpdate ) 
-        //{
-            px = location.x;
-            py = location.y;
-            pz = location.z;
+        if( next_game_tick > lastUpdate ) 
+        {
+            prevLocation.x = currLocation.x;
+            prevLocation.y = currLocation.y;
+            prevLocation.z = currLocation.z;
             
-           // lastUpdate = next_game_tick;
+            lastUpdate = next_game_tick;
             Vector3f.add(velocity, acceleration, velocity);
-            Vector3f.add(location, velocity, location);
+            Vector3f.add(currLocation, velocity, currLocation);
         
             age += ageStep;
-           // return true;
-        //}
-        
-       // return false;
+        }
     }
     
     public boolean isDead()
