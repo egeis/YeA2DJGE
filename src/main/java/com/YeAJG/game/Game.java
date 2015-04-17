@@ -87,11 +87,9 @@ public class Game implements Runnable {
         p = new Particle(
             new Vector3f(WINDOW_WIDTH / 2, WINDOW_HEIGHT - 10, 0),
             new Vector3f((float) (r.nextInt(2) - 1), (float) (r.nextInt(2) - 2), 0f),
-            new Vector3f(0, -0.05f, 0), 
-            false );
-        
-        p.setAgeStep(1);
-        p.setMaxAge(60);
+            new Vector3f(0, -0.05f, 0),
+            1,0,
+            true );
         
         while(!Display.isCloseRequested())
         {
@@ -144,7 +142,7 @@ public class Game implements Runnable {
     
     private void doTick( long next_game_tick )
     {
-        p.update( next_game_tick );
+        p.update(  );
     }
  
     private void render( float interpolation ) {

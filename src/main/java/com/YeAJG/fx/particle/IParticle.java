@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2015 Richard Coan.
+ * Copyright 2015 Richard.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,14 +25,8 @@ package main.java.com.YeAJG.fx.particle;
 
 /**
  *
- * @author Richard Coan
+ * @author Richard
  */
-
-
-public class Emitter extends ParticleObject {
-
-    @Override
-    public void draw() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
- }
+public interface IParticle {
+    public void update();
+}

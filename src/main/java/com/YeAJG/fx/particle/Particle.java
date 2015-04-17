@@ -24,6 +24,7 @@
 package main.java.com.YeAJG.fx.particle;
 
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.util.Color;
 import org.lwjgl.util.vector.Vector3f;
 
 /**
@@ -31,30 +32,29 @@ import org.lwjgl.util.vector.Vector3f;
  * @author Richard Coan
  */
 public class Particle extends ParticleObject {
-    
-    public Particle(Vector3f location, Vector3f velocity, Vector3f acceleration, boolean keepAlive) {
+        
+    public Particle(Vector3f location, Vector3f velocity, 
+            Vector3f acceleration, double maxAge, double ageStep, 
+            boolean keepAlive) {
         this.location = location;
         this.velocity = velocity;
         this.acceleration = acceleration;
-        this.lastUpdate = 0L;
         this.age = 0;
-        this.ageStep = 0;
-        this.maxAge = 1;
+        this.ageStep = maxAge;
+        this.maxAge = ageStep;
+        this.height = 1;
+        this.width = 1;
         this.keepAlive = keepAlive;
+        this.visible = true;
+        this.texture = null;
+        this.color = new Color(255,0,0,255);
     }   
     
-    public void setMaxAge(double maxAge) {
-        this.maxAge = maxAge;
-    }
-
-    public void setAgeStep(double ageStep) {
-        this.ageStep = ageStep;
-    }
-    
     @Override
-    public void draw()
+    public void draw() 
     {
-        GL11.glColor4f(0.5f,0.5f,1.0f,0.5f);
+        GL11.glColor4b((byte)(color.getRedByte()-128),(byte)(color.getGreenByte()-128),
+                (byte)(color.getBlueByte()-128),(byte)(color.getAlphaByte()-128));
         
         GL11.glLineWidth(3.8f);
         GL11.glBegin(GL11.GL_LINES);
@@ -63,39 +63,30 @@ public class Particle extends ParticleObject {
         GL11.glEnd();
     }
     
-    @Override
-    public boolean update(long next_game_tick)
+    public void update()
     {        
-        if( next_game_tick > lastUpdate ) 
-        {
+        //if( next_game_tick > lastUpdate ) 
+        //{
             px = location.x;
             py = location.y;
             pz = location.z;
             
-            lastUpdate = next_game_tick;
+           // lastUpdate = next_game_tick;
             Vector3f.add(velocity, acceleration, velocity);
             Vector3f.add(location, velocity, location);
         
             age += ageStep;
-            return true;
-        }
+           // return true;
+        //}
         
-        return false;
-    }
-    
-    public boolean updateAndDraw(long next_game_tick)
-    {
-        boolean result = update(next_game_tick);
-        if(result) draw();
-        return result;
+       // return false;
     }
     
     public boolean isDead()
     {
-        if(keepAlive) return false;
-        else if(age < maxAge)
+        if(age < maxAge)
             return false;
         else
-            return true;
+            return !keepAlive;
     }
 }

@@ -5,7 +5,9 @@
  */
 package main.java.com.YeAJG.fx.particle;
 
+import org.lwjgl.util.Color;
 import org.lwjgl.util.vector.Vector3f;
+import org.newdawn.slick.opengl.Texture;
 
 /**
  *
@@ -16,6 +18,9 @@ public abstract class ParticleObject {
     protected double maxAge;
     protected double ageStep;
     
+    protected int width;
+    protected int height;
+    
     protected Vector3f location;
     protected Vector3f velocity;
     protected Vector3f acceleration;
@@ -23,10 +28,12 @@ public abstract class ParticleObject {
     protected float px;
     protected float py;
     protected float pz;
-    
-    protected long lastUpdate; 
+        
     protected boolean keepAlive;
+    protected boolean visible;
     
-    public abstract void draw();
-    public abstract boolean update(long next_game_tick);
+    protected Texture texture;
+    protected Color color;
+    
+    public abstract void draw();    
 }
