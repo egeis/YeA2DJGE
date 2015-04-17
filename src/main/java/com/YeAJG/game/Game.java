@@ -83,13 +83,34 @@ public class Game implements Runnable {
         
         Random r = new Random();
         
+        
+    /**
+     * 
+     * @param location
+     * @param size
+     * @param scale
+     * @param rotation
+     * @param velocity
+     * @param acceleration
+     * @param age
+     * @param ageStep
+     * @param maxAge
+     * @param keepAlive 
+     */
         //Single Particle Test
         p = new Particle(
             new Vector3f(WINDOW_WIDTH / 2, WINDOW_HEIGHT - 10, 0),
+            new Vector3f(10f,10f,10f),
+            new Vector3f(1.0f,1.0f,1.0f),
+            new Vector3f(0f,0f,0f),
             new Vector3f((float) (r.nextInt(2) - 1), (float) (r.nextInt(2) - 2), 0f),
             new Vector3f(0, -0.05f, 0),
-            1,0,
+            1,
+            0,
+            1,
             true );
+        
+        logger.info("particle created");
         
         while(!Display.isCloseRequested())
         {
@@ -142,15 +163,16 @@ public class Game implements Runnable {
     
     private void doTick( long next_game_tick )
     {
-        p.update(  );
+        p.update( next_game_tick );        
     }
  
     private void render( float interpolation ) {
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
         
-        if( !p.isDead() ) p.draw();
+        if( !p.isDead() ) p.draw( interpolation );
         
         Display.update();
+        
     }
     
 }
