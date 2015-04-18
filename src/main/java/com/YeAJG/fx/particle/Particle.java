@@ -23,7 +23,7 @@
  */
 package main.java.com.YeAJG.fx.particle;
 
-import org.lwjgl.opengl.GL11;
+import java.util.ArrayList;
 import org.lwjgl.util.Color;
 import org.lwjgl.util.vector.Vector3f;
 
@@ -59,31 +59,7 @@ public class Particle extends AParticle {
         this.size = size;
         this.keepAlive = keepAlive;
         this.visible = true;
-        this.texture = null;
+        this.textures = new ArrayList();
         this.color = new Color(255,0,0,255);
     }   
-        
-//    public void draw( float interpolation ) 
-//    {
-//        GL11.glColor4b((byte)(color.getRedByte()-128),(byte)(color.getGreenByte()-128),
-//                (byte)(color.getBlueByte()-128),(byte)(color.getAlphaByte()-128));
-//        
-//        GL11.glLineWidth(30.8f);
-//        GL11.glBegin(GL11.GL_LINES);
-//            GL11.glVertex3f(prevLocation.x, prevLocation.y, prevLocation.z);
-//            GL11.glVertex3f(location.x, location.y, location.z);
-//        GL11.glEnd();
-//    }
-//    
-//    public void update( long next_game_tick )
-//    {        
-//        prevLocation.x = location.x;
-//        prevLocation.y = location.y;
-//        prevLocation.z = location.z;
-//
-//        Vector3f.add(velocity, acceleration, velocity);
-//        Vector3f.add(location, velocity, location);
-//
-//        age += ageStep;
-//    }
 }
