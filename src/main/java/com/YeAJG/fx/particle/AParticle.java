@@ -23,6 +23,7 @@
  */
 package main.java.com.YeAJG.fx.particle;
 
+import main.java.com.YeAJG.game.Entity.AEntity;
 import org.lwjgl.util.Color;
 import org.lwjgl.util.vector.Vector3f;
 import org.newdawn.slick.opengl.Texture;
@@ -31,22 +32,41 @@ import org.newdawn.slick.opengl.Texture;
  *
  * @author Richard Coan
  */
-public abstract class AParticle {  
-    protected float age;
-    protected float ageStep;
-    protected float maxAge;
+public abstract class AParticle extends AEntity {  
+    public float age;
+    public float ageStep;
+    public float maxAge;
     
-    protected Vector3f scale;           //x, y, z 
-    protected Vector3f size;            //width, height, depth
-    protected Vector3f rotation;        //pitch, yaw, roll
-    protected Vector3f prevLocation;    //x, y, z 
-    protected Vector3f currLocation;    //x, y, z 
-    protected Vector3f velocity;        //x, y, z 
-    protected Vector3f acceleration;    //x, y, z 
+    public Vector3f prevLocation;    //x, y, z 
             
-    protected boolean keepAlive;
-    protected boolean visible;
+    public boolean keepAlive;
         
-    protected Texture texture;
-    protected Color color;
+    public Texture texture;
+    public Color color;
+    
+    protected void setDefaults(Particle p)
+    {
+        this.acceleration = p.acceleration;
+        this.age = p.age;
+        this.ageStep = p.ageStep;
+        this.color = p.color;
+        this.location = p.location;
+        this.keepAlive = p.keepAlive;
+        this.maxAge = p.maxAge;
+        this.prevLocation = p.prevLocation;
+        this.rotation = p.rotation;
+        this.scale = p.scale;
+        this.size = p.size;
+        this.texture = p.texture;
+        this.velocity = p.velocity;
+        this.visible = p.visible;
+    }
+    
+    public boolean isDead()
+    {
+        if(age < maxAge)
+            return false;
+        else
+            return !keepAlive;
+    }
 }

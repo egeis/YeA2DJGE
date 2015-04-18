@@ -34,7 +34,6 @@ import org.lwjgl.util.vector.Vector3f;
 public class Particle extends AParticle {
           
     /**
-     * 
      * @param location
      * @param size
      * @param scale
@@ -49,7 +48,7 @@ public class Particle extends AParticle {
     public Particle(Vector3f location, Vector3f size, Vector3f scale, Vector3f rotation, Vector3f velocity, 
             Vector3f acceleration, float age, float ageStep, float maxAge,
             boolean keepAlive) {
-        this.currLocation = location;
+        this.location = location;
         this.prevLocation = new Vector3f(location.x, location.y, location.z);
         this.velocity = velocity;
         this.acceleration = acceleration;
@@ -64,10 +63,6 @@ public class Particle extends AParticle {
         this.texture = null;
         this.color = new Color(255,0,0,255);
     }   
-
-    public void setVisible(boolean visible) {
-        this.visible = visible;
-    }
         
 //    public void draw( float interpolation ) 
 //    {
@@ -77,31 +72,19 @@ public class Particle extends AParticle {
 //        GL11.glLineWidth(30.8f);
 //        GL11.glBegin(GL11.GL_LINES);
 //            GL11.glVertex3f(prevLocation.x, prevLocation.y, prevLocation.z);
-//            GL11.glVertex3f(currLocation.x, currLocation.y, currLocation.z);
+//            GL11.glVertex3f(location.x, location.y, location.z);
 //        GL11.glEnd();
 //    }
-    
+//    
 //    public void update( long next_game_tick )
 //    {        
-//        if( next_game_tick > lastUpdate ) 
-//        {
-//            prevLocation.x = currLocation.x;
-//            prevLocation.y = currLocation.y;
-//            prevLocation.z = currLocation.z;
-//            
-//            lastUpdate = next_game_tick;
-//            Vector3f.add(velocity, acceleration, velocity);
-//            Vector3f.add(currLocation, velocity, currLocation);
-//        
-//            age += ageStep;
-//        }
+//        prevLocation.x = location.x;
+//        prevLocation.y = location.y;
+//        prevLocation.z = location.z;
+//
+//        Vector3f.add(velocity, acceleration, velocity);
+//        Vector3f.add(location, velocity, location);
+//
+//        age += ageStep;
 //    }
-    
-    public boolean isDead()
-    {
-        if(age < maxAge)
-            return false;
-        else
-            return !keepAlive;
-    }
 }

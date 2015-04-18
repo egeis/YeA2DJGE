@@ -24,6 +24,9 @@
 package main.java.com.YeAJG.game;
 
 import java.util.Random;
+import java.util.logging.Level;
+import main.java.com.YeAJG.fx.particle.Emitter;
+import main.java.com.YeAJG.fx.particle.IEmitUpdater;
 import main.java.com.YeAJG.fx.particle.Particle;
 import main.java.com.YeAJG.game.io.ConfigHandler;
 import main.java.com.YeAJG.game.io.InputHandler;
@@ -54,6 +57,7 @@ public class Game implements Runnable {
     public static final String Name = "Example";
 
     private Particle p;
+    private Emitter emit;
     
     public static Game getInstance() {
         if(instance == null) instance = new Game();
@@ -82,25 +86,11 @@ public class Game implements Runnable {
         float interpolation; 
         
         Random r = new Random();
-        
-        
-    /**
-     * 
-     * @param location
-     * @param size
-     * @param scale
-     * @param rotation
-     * @param velocity
-     * @param acceleration
-     * @param age
-     * @param ageStep
-     * @param maxAge
-     * @param keepAlive 
-     */
-        //Single Particle Test
+
+            //Single Particle Test
         p = new Particle(
             new Vector3f(WINDOW_WIDTH / 2, WINDOW_HEIGHT - 10, 0),
-            new Vector3f(10f,10f,10f),
+            new Vector3f(10.0f,10.0f,0.0f),
             new Vector3f(1.0f,1.0f,1.0f),
             new Vector3f(0f,0f,0f),
             new Vector3f((float) (r.nextInt(2) - 1), (float) (r.nextInt(2) - 2), 0f),
@@ -110,8 +100,16 @@ public class Game implements Runnable {
             1,
             true );
         
-        logger.info("particle created");
-        
+        try {    
+            try {
+                emit = new Emitter((IEmitUpdater) Class.forName("main.java.com.YeAJG.fx.particle.emitters.FountainEmitter").newInstance(), p, 1000);
+            } catch (InstantiationException | IllegalAccessException ex) {
+                java.util.logging.Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                
         while(!Display.isCloseRequested())
         {
             loops = 0;
@@ -163,13 +161,13 @@ public class Game implements Runnable {
     
     private void doTick( long next_game_tick )
     {
-        p.update( next_game_tick );        
+        //p.update( next_game_tick );        
     }
  
     private void render( float interpolation ) {
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
         
-        if( !p.isDead() ) p.draw( interpolation );
+        //if( !p.isDead() ) p.draw( interpolation );
         
         Display.update();
         

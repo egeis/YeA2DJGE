@@ -23,18 +23,45 @@
  */
 package main.java.com.YeAJG.fx.particle;
 
+import java.util.List;
+import main.java.com.YeAJG.game.Game;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 /**
  *
  * @author Richard Coan
  */
 public class Emitter {
-
+    private static final Logger logger = LogManager.getLogger( Game.class.getName() );
+    private IEmitUpdater updater;
+    private final int num_per_tick;
+    private long lastUpdate;
+    
+    public Emitter(IEmitUpdater updater, Particle p, int num_per_tick)
+    {        
+        this.updater = updater;
+        this.updater.setState(p);
+        this.num_per_tick = num_per_tick;       
+    }
+    
     public void generate(int num) {
-        
+        updater.generate(num);
     }
         
-    public void update() {
-        
+    public void update(long next_game_tick) {
+        if( next_game_tick > lastUpdate ) 
+        {
+            List<Particle> list = updater.getList();
+            for(Particle p : list)
+            {
+                if(p.isDead()) list.remove(p);
+                updater.update(p);
+            }
+            
+            generate(num_per_tick);
+            lastUpdate = next_game_tick;
+        }
     }
 
     public void afterDraw() {
@@ -46,7 +73,11 @@ public class Emitter {
     }
 
     public void draw() {
-        
+        List<Particle> list = updater.getList();
+        for(Particle p : list)
+        {
+            if(p.isVisible()) updater.draw(p);
+        }
     }
     
 }

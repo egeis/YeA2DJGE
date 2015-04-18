@@ -23,29 +23,43 @@
  */
 package main.java.com.YeAJG.fx.particle;
 
+import java.util.ArrayList;
+import java.util.List;
+import org.lwjgl.util.vector.Vector3f;
+
 /**
  *
  * @author Richard Coan
  */
 public abstract class AEmitUpdater implements IEmitUpdater {
-    protected long lastUpdate = System.currentTimeMillis();
     protected int limit;
-    protected Particle EndState;
-    protected Particle startState;
+    protected List<Particle> list = new ArrayList();
+    protected Particle state = null;
     //protected Future<Particle> state;
+    
+    protected Vector3f size;
+    protected Vector3f location;    
     
     @Override
     public abstract void generate(int num);
     
     @Override
-    public abstract void update(long next_game_tick);
+    public abstract void update(Particle p);
     
     @Override
-    public abstract void preDraw();
+    public abstract void preDraw(Particle p);
     
     @Override
-    public abstract void draw();
+    public abstract void draw(Particle p);
     
     @Override
-    public abstract void postDraw();
+    public abstract void postDraw(Particle p);
+
+    public List<Particle> getList() {
+        return list;
+    } 
+
+    public void setState(Particle state) {
+        this.state = state;
+    }
 }

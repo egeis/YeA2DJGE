@@ -23,14 +23,18 @@
  */
 package main.java.com.YeAJG.fx.particle;
 
+import java.util.List;
+
 /**
  *
  * @author Richard
  */
 public interface IEmitUpdater {
-    public void update(long next_game_tick);
-    public void postDraw();
-    public void preDraw();
-    public void draw();
+    public void update(Particle p);
+    public void postDraw(Particle p);
+    public void preDraw(Particle p);
+    public void draw(Particle p);
     public void generate(int num);
+    public List<Particle> getList();
+    public void setState(Particle state);
 }
