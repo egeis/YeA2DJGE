@@ -24,6 +24,7 @@
 package main.java.com.YeAJG.fx.particle;
 
 import java.util.List;
+import org.lwjgl.util.vector.Vector3f;
 
 /**
  *
@@ -37,4 +38,7 @@ public interface IEmitUpdater {
     public void generate(int num);
     public List<Particle> getList();
     public void setState(Particle state);
+    public void setLimit(int limit);
+    public void setLocation(Vector3f location);
+    public void setSize(Vector3f size);
 }

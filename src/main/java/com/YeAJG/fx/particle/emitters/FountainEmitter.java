@@ -34,7 +34,7 @@ import org.lwjgl.util.vector.Vector3f;
  * @author Richard
  */
 public class FountainEmitter extends AEmitUpdater implements IEmitUpdater {
-
+    
     public FountainEmitter()
     {
         //Does Nothing!
@@ -43,32 +43,34 @@ public class FountainEmitter extends AEmitUpdater implements IEmitUpdater {
     @Override
     public void generate(int num) {
         int i = 0;
-        if(state == null) return;
+        if(state == null) {
+            logger.info("State not Initialized!");
+            return;
+        }
         
         while(i < num && list.size() < limit)
         {
             list.add(new Particle(
-                state.location,
+                new Vector3f(location.x, location.y, location.z),
                 state.size,
                 state.scale,
                 state.rotation,
                 state.velocity,
                 state.acceleration,
-                state.age,
                 state.ageStep,
                 state.maxAge,
                 state.keepAlive
             ));
-            
+                        
             i++;
         }
     }
 
     @Override
     public void update(Particle p) {
-        p.prevLocation.x = location.x;
-        p.prevLocation.y = location.y;
-        p.prevLocation.z = location.z;
+        p.prevLocation.x = p.location.x;
+        p.prevLocation.y = p.location.y;
+        p.prevLocation.z = p.location.z;
 
         Vector3f.add(p.velocity, p.acceleration, p.velocity);
         Vector3f.add(p.location, p.velocity, p.location);

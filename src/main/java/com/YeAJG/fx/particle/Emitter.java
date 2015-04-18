@@ -23,10 +23,12 @@
  */
 package main.java.com.YeAJG.fx.particle;
 
+import java.util.ArrayList;
 import java.util.List;
 import main.java.com.YeAJG.game.Game;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.lwjgl.util.vector.Vector3f;
 
 /**
  *
@@ -38,10 +40,13 @@ public class Emitter {
     private final int num_per_tick;
     private long lastUpdate;
     
-    public Emitter(IEmitUpdater updater, Particle p, int num_per_tick)
+    public Emitter(IEmitUpdater updater, Particle p, Vector3f location, Vector3f size, int num_per_tick, int limit)
     {        
         this.updater = updater;
         this.updater.setState(p);
+        this.updater.setLimit(limit);
+        this.updater.setLocation(location);
+        this.updater.setSize(size);
         this.num_per_tick = num_per_tick;       
     }
     
@@ -52,15 +57,22 @@ public class Emitter {
     public void update(long next_game_tick) {
         if( next_game_tick > lastUpdate ) 
         {
+            lastUpdate = next_game_tick;
+            
             List<Particle> list = updater.getList();
+            List<Particle> toRemove = new ArrayList();
             for(Particle p : list)
             {
-                if(p.isDead()) list.remove(p);
-                updater.update(p);
+                if(p.isDead()) {
+                    toRemove.add(p);
+                } else {
+                    updater.update(p);
+                }
             }
             
+            list.removeAll(toRemove);
+            
             generate(num_per_tick);
-            lastUpdate = next_game_tick;
         }
     }
 

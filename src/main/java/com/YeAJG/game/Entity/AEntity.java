@@ -23,6 +23,9 @@
  */
 package main.java.com.YeAJG.game.Entity;
 
+import main.java.com.YeAJG.game.Game;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.lwjgl.util.vector.Vector3f;
 
 /**
@@ -30,7 +33,8 @@ import org.lwjgl.util.vector.Vector3f;
  * @author Richard
  */
 public abstract class AEntity {
-    
+    protected static final Logger logger = LogManager.getLogger( Game.class.getName() );
+
     protected boolean visible;
     
     public Vector3f scale;           //x, y, z 

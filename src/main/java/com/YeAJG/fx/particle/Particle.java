@@ -40,20 +40,19 @@ public class Particle extends AParticle {
      * @param rotation
      * @param velocity
      * @param acceleration
-     * @param age
      * @param ageStep
      * @param maxAge
      * @param keepAlive 
      */
     public Particle(Vector3f location, Vector3f size, Vector3f scale, Vector3f rotation, Vector3f velocity, 
-            Vector3f acceleration, float age, float ageStep, float maxAge,
+            Vector3f acceleration, float ageStep, float maxAge,
             boolean keepAlive) {
         this.location = location;
         this.prevLocation = new Vector3f(location.x, location.y, location.z);
         this.velocity = velocity;
         this.acceleration = acceleration;
         this.rotation = rotation;
-        this.age = age;
+        this.age = 0;
         this.ageStep = ageStep;
         this.maxAge = maxAge;
         this.scale = scale;

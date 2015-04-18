@@ -34,6 +34,7 @@ import main.java.com.YeAJG.game.io.InputHandler;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.LWJGLException;
+import org.lwjgl.Sys;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
@@ -59,6 +60,9 @@ public class Game implements Runnable {
     private Particle p;
     private Emitter emit;
     
+    private int fps;
+    private long lastFPS;
+    
     public static Game getInstance() {
         if(instance == null) instance = new Game();
         return instance;
@@ -72,6 +76,7 @@ public class Game implements Runnable {
         WINDOW_WIDTH = Config.getSettings().getJsonObject("display").getInt("width");
         WINDOW_HEIGHT = Config.getSettings().getJsonObject("display").getInt("height");  
         
+        lastFPS = getTime();
         init();
     }
     
@@ -80,6 +85,7 @@ public class Game implements Runnable {
         final int TICKS_PER_SECOND = 25;
         final int SKIP_TICKS = 1000 / TICKS_PER_SECOND;
         final int MAX_FRAMESKIP = 5;
+        
 
         long next_game_tick = System.currentTimeMillis();
         int loops;
@@ -87,7 +93,7 @@ public class Game implements Runnable {
         
         Random r = new Random();
 
-            //Single Particle Test
+        //Single Particle Test
         p = new Particle(
             new Vector3f(WINDOW_WIDTH / 2, WINDOW_HEIGHT - 10, 0),
             new Vector3f(10.0f,10.0f,0.0f),
@@ -96,13 +102,15 @@ public class Game implements Runnable {
             new Vector3f((float) (r.nextInt(2) - 1), (float) (r.nextInt(2) - 2), 0f),
             new Vector3f(0, -0.05f, 0),
             1,
-            0,
-            1,
-            true );
+            2,
+            false );
         
         try {    
             try {
-                emit = new Emitter((IEmitUpdater) Class.forName("main.java.com.YeAJG.fx.particle.emitters.FountainEmitter").newInstance(), p, 1000);
+                Vector3f location = new Vector3f(WINDOW_WIDTH / 2, WINDOW_HEIGHT - 10, 0);
+                Vector3f size = new Vector3f(10.0f,10.0f,0.0f);
+                
+                emit = new Emitter((IEmitUpdater) Class.forName("main.java.com.YeAJG.fx.particle.emitters.FountainEmitter").newInstance(), p, location, size, 100,1000);
             } catch (InstantiationException | IllegalAccessException ex) {
                 java.util.logging.Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -158,19 +166,42 @@ public class Game implements Runnable {
          GL11.glEnable(GL11.GL_BLEND);
          GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
      }
+     
+    /**
+     * Get the time in milliseconds
+     * 
+     * @return The system time in milliseconds
+     */
+    public long getTime() {
+        return (Sys.getTime() * 1000) / Sys.getTimerResolution();
+    }
     
     private void doTick( long next_game_tick )
     {
-        //p.update( next_game_tick );        
+        //p.update( next_game_tick );  
+        emit.update(next_game_tick);
     }
  
     private void render( float interpolation ) {
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
         
         //if( !p.isDead() ) p.draw( interpolation );
-        
+        emit.draw();
+        updateFPS();
         Display.update();
         
+    }
+    
+    /**
+     * Calculate the FPS and set it in the title bar
+     */
+    public void updateFPS() {
+        if (getTime() - lastFPS > 1000) {
+            Display.setTitle("FPS: " + fps); 
+            fps = 0; //reset the FPS counter
+            lastFPS += 1000; //add one second
+        }
+        fps++;
     }
     
 }

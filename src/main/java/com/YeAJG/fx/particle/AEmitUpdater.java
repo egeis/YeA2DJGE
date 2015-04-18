@@ -25,6 +25,9 @@ package main.java.com.YeAJG.fx.particle;
 
 import java.util.ArrayList;
 import java.util.List;
+import main.java.com.YeAJG.game.Game;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.lwjgl.util.vector.Vector3f;
 
 /**
@@ -32,6 +35,8 @@ import org.lwjgl.util.vector.Vector3f;
  * @author Richard Coan
  */
 public abstract class AEmitUpdater implements IEmitUpdater {
+    protected static final Logger logger = LogManager.getLogger( Game.class.getName() );
+    
     protected int limit;
     protected List<Particle> list = new ArrayList();
     protected Particle state = null;
@@ -55,11 +60,29 @@ public abstract class AEmitUpdater implements IEmitUpdater {
     @Override
     public abstract void postDraw(Particle p);
 
+    @Override
     public List<Particle> getList() {
         return list;
     } 
 
+    @Override
     public void setState(Particle state) {
         this.state = state;
     }
+
+    @Override
+    public void setLimit(int limit) {
+        this.limit = limit;
+    }
+
+    @Override
+    public void setSize(Vector3f size) {
+        this.size = size;
+    }
+
+    @Override
+    public void setLocation(Vector3f location) {
+        this.location = location;
+    }
+    
 }
