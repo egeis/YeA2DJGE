@@ -36,7 +36,7 @@ import org.lwjgl.util.vector.Vector3f;
  */
 public class Emitter {
     private static final Logger logger = LogManager.getLogger( Game.class.getName() );
-    private IEmitUpdater updater;
+    private final IEmitUpdater updater;
     private final int num_per_tick;
     private long lastUpdate;
     
@@ -61,17 +61,15 @@ public class Emitter {
             
             List<Particle> list = updater.getList();
             List<Particle> toRemove = new ArrayList();
-            for(Particle p : list)
-            {
-                if(p.isDead()) {
+            
+            list.stream().forEach((p) -> {
+                if(p.isDead())
                     toRemove.add(p);
-                } else {
+                else
                     updater.update(p);
-                }
-            }
+            });
             
             list.removeAll(toRemove);
-            
             generate(num_per_tick);
         }
     }

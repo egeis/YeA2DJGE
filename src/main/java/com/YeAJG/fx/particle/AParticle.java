@@ -23,6 +23,7 @@
  */
 package main.java.com.YeAJG.fx.particle;
 
+import java.util.ArrayList;
 import main.java.com.YeAJG.game.Entity.AEntity;
 import org.lwjgl.util.Color;
 import org.lwjgl.util.vector.Vector3f;
@@ -41,25 +42,26 @@ public abstract class AParticle extends AEntity {
             
     public boolean keepAlive;
         
-    public Texture texture;
+    protected ArrayList<Texture> textures;
     public Color color;
     
     protected void setDefaults(Particle p)
     {
-        this.acceleration = p.acceleration;
-        this.age = p.age;
-        this.ageStep = p.ageStep;
-        this.color = p.color;
-        this.location = p.location;
+        this.acceleration = new Vector3f(p.acceleration);
+        this.location = new Vector3f(p.location);
+        this.prevLocation = new Vector3f(p.prevLocation);
+        this.rotation = new Vector3f(p.rotation);
+        this.scale = new Vector3f(p.scale);
+        this.size = new Vector3f(p.size);
+        this.velocity = new Vector3f(p.velocity);
+        this.textures = new ArrayList(p.textures);
+        
+        this.color = new Color(p.color);
         this.keepAlive = p.keepAlive;
         this.maxAge = p.maxAge;
-        this.prevLocation = p.prevLocation;
-        this.rotation = p.rotation;
-        this.scale = p.scale;
-        this.size = p.size;
-        this.texture = p.texture;
-        this.velocity = p.velocity;
         this.visible = p.visible;
+        this.age = p.age;
+        this.ageStep = p.ageStep;
     }
     
     public boolean isDead()
@@ -68,5 +70,15 @@ public abstract class AParticle extends AEntity {
             return false;
         else
             return !keepAlive;
+    }
+    
+    public Texture getTexture(int num)
+    {
+        return textures.get(num);
+    }
+    
+    public void addTexture(int num, String path)
+    {
+        
     }
 }

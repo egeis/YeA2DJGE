@@ -38,6 +38,12 @@ import org.lwjgl.Sys;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
+import static org.lwjgl.opengl.GL11.GL_DEPTH_TEST;
+import static org.lwjgl.opengl.GL11.GL_LEQUAL;
+import static org.lwjgl.opengl.GL11.GL_NICEST;
+import static org.lwjgl.opengl.GL11.GL_PERSPECTIVE_CORRECTION_HINT;
+import static org.lwjgl.opengl.GL11.GL_SMOOTH;
+import static org.lwjgl.util.glu.GLU.gluPerspective;
 import org.lwjgl.util.vector.Vector3f;
 
 /**
@@ -95,22 +101,24 @@ public class Game implements Runnable {
 
         //Single Particle Test
         p = new Particle(
-            new Vector3f(WINDOW_WIDTH / 2, WINDOW_HEIGHT - 10, 0),
-            new Vector3f(10.0f,10.0f,0.0f),
+            //new Vector3f(WINDOW_WIDTH / 2, WINDOW_HEIGHT - 10, 0),
+            new Vector3f(0,0,0),
+            new Vector3f(10.0f,10.0f,10.0f),
             new Vector3f(1.0f,1.0f,1.0f),
             new Vector3f(0f,0f,0f),
             new Vector3f((float) (r.nextInt(2) - 1), (float) (r.nextInt(2) - 2), 0f),
             new Vector3f(0, -0.05f, 0),
             1,
-            2,
+            200,
             false );
         
         try {    
             try {
-                Vector3f location = new Vector3f(WINDOW_WIDTH / 2, WINDOW_HEIGHT - 10, 0);
-                Vector3f size = new Vector3f(10.0f,10.0f,0.0f);
+                Vector3f location = new Vector3f(0, WINDOW_HEIGHT + 10, 0);
+                Vector3f size = new Vector3f(1024.0f,10.0f,100.0f);
                 
-                emit = new Emitter((IEmitUpdater) Class.forName("main.java.com.YeAJG.fx.particle.emitters.FountainEmitter").newInstance(), p, location, size, 100,1000);
+                emit = new Emitter((IEmitUpdater) Class.forName("main.java.com.YeAJG.fx.particle.emitters.FountainEmitter").newInstance(), 
+                        p, location, size, 5, 1000);
             } catch (InstantiationException | IllegalAccessException ex) {
                 java.util.logging.Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -159,12 +167,20 @@ public class Game implements Runnable {
      */
      private void initGL()
      {
-         GL11.glMatrixMode(GL11.GL_PROJECTION);
-         GL11.glLoadIdentity();
-         GL11.glOrtho(0, WINDOW_WIDTH, 0, WINDOW_HEIGHT, 1, -1);
-         GL11.glMatrixMode(GL11.GL_MODELVIEW);
-         GL11.glEnable(GL11.GL_BLEND);
-         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        GL11.glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+        GL11.glMatrixMode(GL11.GL_PROJECTION);
+        GL11.glLoadIdentity();
+        //gluPerspective(60f, ((float)WINDOW_WIDTH) / ((float)WINDOW_HEIGHT), 0.001f, 100.0f);
+        GL11.glOrtho(0, WINDOW_WIDTH, 0, WINDOW_HEIGHT, 0, 110);
+        GL11.glMatrixMode(GL11.GL_MODELVIEW);
+        GL11.glShadeModel(GL_SMOOTH);   // Enable smooth shading
+        GL11.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+        GL11.glClearDepth(1.0f);
+        GL11.glEnable(GL_DEPTH_TEST);
+        GL11.glDepthFunc(GL11.GL_LEQUAL);
+        GL11.glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST); 
+        //GL11.glEnable(GL11.GL_BLEND);
+        //GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
      }
      
     /**
@@ -183,8 +199,9 @@ public class Game implements Runnable {
     }
  
     private void render( float interpolation ) {
+        GL11.glLoadIdentity();
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
-        
+
         //if( !p.isDead() ) p.draw( interpolation );
         emit.draw();
         updateFPS();
@@ -197,7 +214,7 @@ public class Game implements Runnable {
      */
     public void updateFPS() {
         if (getTime() - lastFPS > 1000) {
-            Display.setTitle("FPS: " + fps); 
+            Display.setTitle(Name+" "+ConfigHandler.getVersion()+" (FPS: " + fps+")"); 
             fps = 0; //reset the FPS counter
             lastFPS += 1000; //add one second
         }
