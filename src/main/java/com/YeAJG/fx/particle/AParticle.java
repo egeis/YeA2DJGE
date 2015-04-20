@@ -33,43 +33,52 @@ import org.newdawn.slick.opengl.Texture;
  *
  * @author Richard Coan
  */
-public abstract class AParticle extends AEntity {  
-    public float age;
-    public float ageStep;
-    public float maxAge;
-    
+public abstract class AParticle extends AEntity {      
+        
     public Vector3f prevLocation;    //x, y, z 
             
-    public boolean keepAlive;
+    public boolean keepAlive = false;
         
     protected ArrayList<Texture> textures;
     public Color color;
-    
+        
     protected void setDefaults(Particle p)
     {
         this.acceleration = new Vector3f(p.acceleration);
         this.location = new Vector3f(p.location);
         this.prevLocation = new Vector3f(p.prevLocation);
-        this.rotation = new Vector3f(p.rotation);
+        this.rotation = p.rotation;
         this.scale = new Vector3f(p.scale);
         this.size = new Vector3f(p.size);
         this.velocity = new Vector3f(p.velocity);
+        this.spin = p.spin;
+        
         this.textures = new ArrayList(p.textures);
         
         this.color = new Color(p.color);
         this.keepAlive = p.keepAlive;
-        this.maxAge = p.maxAge;
         this.visible = p.visible;
-        this.age = p.age;
-        this.ageStep = p.ageStep;
     }
     
     public boolean isDead()
     {
-        if(age < maxAge)
-            return false;
-        else
-            return !keepAlive;
+        if(keepAlive) return false;
+        
+        if(parameters.containsKey("Age.Max") && 
+                parameters.containsKey("Age.Count"))         
+            if( ((float) parameters.get("Age.Count")) < 
+                    ((float) parameters.get("Age.Max")))
+                return false;
+        
+        if(parameters.containsKey("Death.FADE.Step") &&
+                parameters.containsKey("Death.FADE.End"))
+            if(this.color.getAlpha() > (Integer) this.parameters.get("Death.FADE.End"))
+            {
+                this.color.setAlpha( this.color.getAlpha() - (int) parameters.get("Death.FADE.Step") );
+                return false;
+            }
+        
+        return !keepAlive;
     }
     
     public Texture getTexture(int num)
@@ -80,5 +89,13 @@ public abstract class AParticle extends AEntity {
     public void addTexture(int num, String path)
     {
         
+    }
+
+    public Vector3f getPrevLocation() {
+        return prevLocation;
+    }
+
+    public void setPrevLocation(Vector3f prevLocation) {
+        this.prevLocation = new Vector3f(prevLocation);
     }
 }

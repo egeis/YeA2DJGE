@@ -24,6 +24,8 @@
 package main.java.com.YeAJG.fx.particle;
 
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.concurrent.Callable;
 import org.lwjgl.util.Color;
 import org.lwjgl.util.vector.Vector3f;
 
@@ -40,26 +42,24 @@ public class Particle extends AParticle {
      * @param rotation
      * @param velocity
      * @param acceleration
-     * @param ageStep
-     * @param maxAge
+     * @param spin
+     * @param parameters
      * @param keepAlive 
      */
-    public Particle(Vector3f location, Vector3f size, Vector3f scale, Vector3f rotation, Vector3f velocity, 
-            Vector3f acceleration, float ageStep, float maxAge,
-            boolean keepAlive) {
+    public Particle(Vector3f location, Vector3f size, Vector3f scale, Vector3f velocity, 
+            Vector3f acceleration, Vector3f rotation, Vector3f spin, Map<String, Object> parameters, Color color, boolean keepAlive) {
         this.location = location;
         this.prevLocation = new Vector3f(location.x, location.y, location.z);
         this.velocity = velocity;
         this.acceleration = acceleration;
         this.rotation = rotation;
-        this.age = 0;
-        this.ageStep = ageStep;
-        this.maxAge = maxAge;
         this.scale = scale;
         this.size = size;
+        this.spin = spin;
         this.keepAlive = keepAlive;
         this.visible = true;
         this.textures = new ArrayList();
-        this.color = new Color(255,0,0,255);
-    }   
+        this.color = new Color(color);
+        this.parameters = parameters;
+    } 
 }

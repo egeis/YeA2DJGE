@@ -23,9 +23,11 @@
  */
 package main.java.com.YeAJG.game.Entity;
 
+import java.util.Map;
 import main.java.com.YeAJG.game.Game;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.lwjgl.util.Color;
 import org.lwjgl.util.vector.Vector3f;
 
 /**
@@ -35,14 +37,19 @@ import org.lwjgl.util.vector.Vector3f;
 public abstract class AEntity {
     protected static final Logger logger = LogManager.getLogger( Game.class.getName() );
 
-    protected boolean visible;
+    public boolean visible;
     
     public Vector3f scale;           //x, y, z 
-    public Vector3f size;            //width, height, depth
-    public Vector3f rotation;        //pitch, yaw, roll
-    public Vector3f location;        //x, y, z 
+    public Vector3f size;            //width, height, depth      
+    public Vector3f location;        //x, y, z
     public Vector3f velocity;        //x, y, z 
-    public Vector3f acceleration;    //x, y, z 
+    public Vector3f acceleration;    //x, y, z
+    public Vector3f spin;
+    public Vector3f rotation;
+    
+    public Color color;
+    
+    public Map<String, Object> parameters;
     
     public void setVisible(boolean visible) {
         this.visible = visible;
