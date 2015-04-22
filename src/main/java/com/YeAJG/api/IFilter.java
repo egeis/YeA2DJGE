@@ -21,38 +21,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package main.java.com.YeAJG.game.Entity;
-
-import java.util.ArrayList;
-import java.util.Map;
-import main.java.com.YeAJG.game.Game;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.lwjgl.util.Color;
-import org.lwjgl.util.vector.Vector3f;
-import org.newdawn.slick.opengl.Texture;
+package main.java.com.YeAJG.api;
 
 /**
  *
  * @author Richard
  */
-public abstract class AEntity {
-    protected static final Logger logger = LogManager.getLogger( Game.class.getName() );
-
-    public boolean visible;
-    
-    public Vector3f scale;           
-    public Vector3f location;        
-    public Vector3f rotation;
-    
-    public Vector3f velocity;         
-    public Vector3f acceleration;       
-    public Vector3f spin;
-    
-    public Color color;
-    public ArrayList<Texture> textures;
-    public Map<String, Object> parameters;
-   
-    public abstract void tick();
-    public abstract void render();
+public interface IFilter {
+    public void apply();
 }

@@ -5,6 +5,7 @@
  */
 package main.java.com.YeAJG.fx.particle.graphics.filters;
 
+import main.java.com.YeAJG.api.IFilter;
 import java.nio.IntBuffer;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.EXTTextureRectangle;

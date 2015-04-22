@@ -34,8 +34,16 @@ public class Randomizer {
     
     public static float getValue(float a, float b)
     {
-        if(b > 0)
-            return (r.nextInt((int) b)) + a;
+        if( (b-a) > 0.0f)
+            return (float) ((r.nextFloat() * (b - a)) + a);
+        else
+            return a;
+    }
+    
+    public static int getValue(int a, int b)
+    {
+        if( (b-a) > 0.0f)
+            return (r.nextInt(b - a) + a);
         else
             return a;
     }

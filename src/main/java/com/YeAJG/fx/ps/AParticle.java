@@ -21,11 +21,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package main.java.com.YeAJG.fx.particle;
+package main.java.com.YeAJG.fx.ps;
 
 import java.util.ArrayList;
 import main.java.com.YeAJG.game.Entity.AEntity;
 import org.lwjgl.util.Color;
+import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 import org.newdawn.slick.opengl.Texture;
 
@@ -36,14 +37,18 @@ import org.newdawn.slick.opengl.Texture;
 public abstract class AParticle extends AEntity {      
                     
     public boolean keepAlive = false;
-        
+    public float Age;
+    
+    //Size of the Quad
+    public Vector2f size;   
+            
     protected void setDefaults(Particle p)
     {
         this.acceleration = new Vector3f(p.acceleration);
         this.location = new Vector3f(p.location);
         this.rotation = p.rotation;
         this.scale = new Vector3f(p.scale);
-        this.size = new Vector3f(p.size);
+        this.size = new Vector2f(p.size);
         this.velocity = new Vector3f(p.velocity);
         this.spin = p.spin;
         
@@ -64,8 +69,9 @@ public abstract class AParticle extends AEntity {
                     ((float) parameters.get("Age.Max")))
                 return false;
         
-        if(parameters.containsKey("Death.FADE.Step") &&
-                parameters.containsKey("Death.FADE.End"))
+        
+        if(parameters.containsKey("Age.Death.FADE.Step") &&
+                parameters.containsKey("Age.Death.FADE.End"))
             if(this.color.getAlpha() > (Integer) this.parameters.get("Death.FADE.End"))
             {
                 this.color.setAlpha( this.color.getAlpha() - (int) parameters.get("Death.FADE.Step") );

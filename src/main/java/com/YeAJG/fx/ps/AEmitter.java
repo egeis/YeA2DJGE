@@ -21,24 +21,23 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package main.java.com.YeAJG.fx.particle;
+package main.java.com.YeAJG.fx.ps;
 
+import main.java.com.YeAJG.api.IEmitUpdater;
+import java.util.ArrayList;
 import java.util.List;
-import org.lwjgl.util.vector.Vector3f;
+import main.java.com.YeAJG.game.Entity.AEntity;
 
 /**
  *
  * @author Richard
  */
-public interface IEmitUpdater {
-    public void update(Particle p);
-    public void postDraw(Particle p);
-    public void preDraw(Particle p);
-    public void draw(Particle p);
-    public void generate(int num);
-    public List<Particle> getList();
-    public void setState(Particle state);
-    public void setLimit(int limit);
-    public void setLocation(Vector3f location);
-    public void setSize(Vector3f size);
+public abstract class AEmitter extends AEntity {
+    protected List<Particle> particles = new ArrayList();
+    protected IEmitUpdater updater;
+    protected int num_per_tick;
+    protected long lastUpdate;
+    protected int particle_limit;
+    
+    public abstract void generate();
 }

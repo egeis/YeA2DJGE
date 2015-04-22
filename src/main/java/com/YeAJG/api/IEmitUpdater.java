@@ -21,12 +21,22 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package main.java.com.YeAJG.fx.particle.graphics.filters;
+package main.java.com.YeAJG.api;
+
+import java.util.List;
+import main.java.com.YeAJG.fx.ps.Particle;
+import org.lwjgl.util.vector.Vector3f;
 
 /**
  *
  * @author Richard
  */
-public interface IFilter {
-    public void apply();
+public interface IEmitUpdater {
+    public void tick();
+    public void postRender();
+    public void preRender();
+    public void render();
+    public List<Particle> getList();
+    public void setState(Particle state);
+    public void setLimit(int limit);
 }

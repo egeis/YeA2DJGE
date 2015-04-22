@@ -27,10 +27,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 import java.util.logging.Level;
-import main.java.com.YeAJG.fx.particle.Emitter;
-import main.java.com.YeAJG.fx.particle.IEmitUpdater;
-import main.java.com.YeAJG.fx.particle.Particle;
-import main.java.com.YeAJG.fx.particle.graphics.filters.MotionBlurPostFilter;
+import main.java.com.YeAJG.fx.ps.Emitter;
+import main.java.com.YeAJG.api.IEmitUpdater;
+import main.java.com.YeAJG.fx.ps.Particle;
 import main.java.com.YeAJG.game.io.ConfigHandler;
 import main.java.com.YeAJG.game.io.InputHandler;
 
@@ -48,6 +47,7 @@ import static org.lwjgl.opengl.GL11.GL_PERSPECTIVE_CORRECTION_HINT;
 import static org.lwjgl.opengl.GL11.GL_SMOOTH;
 import org.lwjgl.util.Color;
 import static org.lwjgl.util.glu.GLU.gluPerspective;
+import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
 /**
@@ -115,7 +115,7 @@ public class Game implements Runnable {
         //Single Particle Test
         p = new Particle(
             new Vector3f(0,0,0),
-            new Vector3f(0.2f,10.0f,0.0f),
+            new Vector2f(0.2f,10.0f),
             new Vector3f(1.0f,1.0f,1.0f),
             new Vector3f( 10f, -50.0f, 0f),
             new Vector3f(0, 0.0f, 0),

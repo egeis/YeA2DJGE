@@ -21,10 +21,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package main.java.com.YeAJG.fx.particle;
+package main.java.com.YeAJG.fx.ps.updaters;
 
+import main.java.com.YeAJG.api.IEmitUpdater;
 import java.util.ArrayList;
 import java.util.List;
+import main.java.com.YeAJG.fx.ps.Particle;
 import main.java.com.YeAJG.game.Game;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -34,32 +36,9 @@ import org.lwjgl.util.vector.Vector3f;
  *
  * @author Richard Coan
  */
-public abstract class AEmitUpdater implements IEmitUpdater {
-    protected static final Logger logger = LogManager.getLogger( Game.class.getName() );
-    
-    protected int limit;
-    protected List<Particle> list = new ArrayList();
+public abstract class AEmitUpdater implements IEmitUpdater {    
     protected Particle state = null;
-    //protected Future<Particle> state;
     
-    protected Vector3f size;
-    protected Vector3f location;    
-    
-    @Override
-    public abstract void generate(int num);
-    
-    @Override
-    public abstract void update(Particle p);
-    
-    @Override
-    public abstract void preDraw(Particle p);
-    
-    @Override
-    public abstract void draw(Particle p);
-    
-    @Override
-    public abstract void postDraw(Particle p);
-
     @Override
     public List<Particle> getList() {
         return list;

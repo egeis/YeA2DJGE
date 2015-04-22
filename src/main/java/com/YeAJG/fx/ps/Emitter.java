@@ -21,8 +21,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package main.java.com.YeAJG.fx.particle;
+package main.java.com.YeAJG.fx.ps;
 
+import main.java.com.YeAJG.api.IEmitUpdater;
 import java.util.ArrayList;
 import java.util.List;
 import main.java.com.YeAJG.game.Game;
@@ -34,27 +35,27 @@ import org.lwjgl.util.vector.Vector3f;
  *
  * @author Richard Coan
  */
-public class Emitter {
-    private static final Logger logger = LogManager.getLogger( Game.class.getName() );
-    private final IEmitUpdater updater;
-    private final int num_per_tick;
-    private long lastUpdate;
+public class Emitter extends AEmitter {
+
     
     public Emitter(IEmitUpdater updater, Particle p, Vector3f location, Vector3f size, int num_per_tick, int limit)
     {        
         this.updater = updater;
         this.updater.setState(p);
         this.updater.setLimit(limit);
-        this.updater.setLocation(location);
-        this.updater.setSize(size);
         this.num_per_tick = num_per_tick;       
     }
     
-    public void generate(int num) {
-        updater.generate(num);
+    public void generate() {
+        int i = 0;
+        while(i < num_per_tick && particles.size() < particle_limit)
+        {
+            
+            i++;
+        }
     }
         
-    public void update(long next_game_tick) {
+    /*public void update(long next_game_tick) {
         if( next_game_tick > lastUpdate ) 
         {
             lastUpdate = next_game_tick;
@@ -70,24 +71,19 @@ public class Emitter {
             });
             
             list.removeAll(toRemove);
-            generate(num_per_tick);
         }
+    }*/
+    
+    @Override
+    public void render() {
+        updater.preRender();
+        updater.render();
+        updater.postRender();
     }
 
-    public void afterDraw() {
-        
-    }
-
-    public void beforeDraw() {
-        
-    }
-
-    public void draw() {
-        List<Particle> list = updater.getList();
-        for(Particle p : list)
-        {
-            if(p.isVisible()) updater.draw(p);
-        }
+    @Override
+    public void tick() {
+        updater.tick();
     }
     
 }
