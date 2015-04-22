@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package main.java.com.YeAJG.fx.particle.emitters;
+package main.java.com.example.emitters;
 
 import java.util.HashMap;
 import java.util.List;
