@@ -25,7 +25,7 @@ package main.java.com.YeAJG.fx.particle;
 
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.concurrent.Callable;
+import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.Color;
 import org.lwjgl.util.vector.Vector3f;
 
@@ -49,7 +49,6 @@ public class Particle extends AParticle {
     public Particle(Vector3f location, Vector3f size, Vector3f scale, Vector3f velocity, 
             Vector3f acceleration, Vector3f rotation, Vector3f spin, Map<String, Object> parameters, Color color, boolean keepAlive) {
         this.location = location;
-        this.prevLocation = new Vector3f(location.x, location.y, location.z);
         this.velocity = velocity;
         this.acceleration = acceleration;
         this.rotation = rotation;
@@ -62,4 +61,39 @@ public class Particle extends AParticle {
         this.color = new Color(color);
         this.parameters = parameters;
     } 
+
+    @Override
+    public void tick() {
+        Vector3f.add(this.rotation, this.spin, this.rotation);
+        Vector3f.add(this.velocity, this.acceleration, this.velocity);
+        Vector3f.add(this.location, this.velocity, this.location);
+        
+        if(this.parameters.containsKey("Age.Count") && this.parameters.containsKey("Age.Step"))
+            this.parameters.put("Age.Count",
+                    ((float) this.parameters.get("Age.Count") + 
+                    (float) this.parameters.get("Age.Step")));
+    }
+
+    @Override
+    public void render() {
+        GL11.glColor4b((byte)(this.color.getRedByte()-128),
+            (byte)(this.color.getGreenByte()-128),
+            (byte)(this.color.getBlueByte()-128),
+            (byte)(this.color.getAlphaByte()-128));
+        
+        GL11.glPushMatrix();
+            GL11.glTranslatef(this.location.x,this.location.y,0);
+            GL11.glRotated(this.rotation.z, 0.0f, 0.0f, 1.0f);
+            GL11.glTranslatef(-this.location.x,-this.location.y,0);
+            
+            GL11.glBegin(GL11.GL_QUADS);
+                GL11.glVertex2f(this.location.x - this.size.x, this.location.y - this.size.y);
+                GL11.glVertex2f(this.location.x + this.size.x, this.location.y - this.size.y);
+                GL11.glVertex2f(this.location.x + this.size.x, this.location.y + this.size.y);
+                GL11.glVertex2f(this.location.x - this.size.x, this.location.y + this.size.y);                
+            GL11.glEnd();
+        GL11.glPopMatrix();
+    }
+    
+    
 }
