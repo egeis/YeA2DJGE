@@ -3,7 +3,6 @@
  * Modifications made by Richard Coan for use with LWJGL. 
  * Original based on JOGL.
  */
-
 package main.java.com.YeAJG.fx.particle.graphics.filters;
 
 import java.nio.IntBuffer;
@@ -11,13 +10,13 @@ import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.EXTTextureRectangle;
 import org.lwjgl.opengl.GL11;
 
-public class MotionBlurPostFilter
+public class MotionBlurPostFilter implements IFilter
 {
    private int textureHandle;
-   private int width;
-   private int height;
-   private float alpha;
-   private float zoom;
+   private final int width;
+   private final int height;
+   private final float alpha;
+   private final float zoom;
    private int frameCount;
 
    public MotionBlurPostFilter(int width, int height, float alpha, float zoom)
@@ -29,6 +28,7 @@ public class MotionBlurPostFilter
        setupTexture();
    }
 
+   @Override
    public void apply()
    {
        GL11.glEnable(EXTTextureRectangle.GL_TEXTURE_RECTANGLE_EXT);
