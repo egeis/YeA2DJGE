@@ -39,23 +39,18 @@ public abstract class AEntity {
 
     public boolean visible;
     
-    public Vector3f scale;           //x, y, z 
-    public Vector3f size;            //width, height, depth      
-    public Vector3f location;        //x, y, z
-    public Vector3f velocity;        //x, y, z 
-    public Vector3f acceleration;    //x, y, z
-    public Vector3f spin;
+    public Vector3f scale;           
+    public Vector3f size;                 
+    public Vector3f location;        
     public Vector3f rotation;
     
+    public Vector3f velocity;         
+    public Vector3f acceleration;       
+    public Vector3f spin;
+    
     public Color color;
-    
     public Map<String, Object> parameters;
-    
-    public void setVisible(boolean visible) {
-        this.visible = visible;
-    }
-
-    public boolean isVisible() {
-        return visible;
-    }    
+   
+    public abstract void tick();
+    public abstract void render();
 }
