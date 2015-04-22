@@ -34,19 +34,13 @@ import org.newdawn.slick.opengl.Texture;
  * @author Richard Coan
  */
 public abstract class AParticle extends AEntity {      
-        
-    public Vector3f prevLocation;    //x, y, z 
-            
+                    
     public boolean keepAlive = false;
-        
-    protected ArrayList<Texture> textures;
-    public Color color;
         
     protected void setDefaults(Particle p)
     {
         this.acceleration = new Vector3f(p.acceleration);
         this.location = new Vector3f(p.location);
-        this.prevLocation = new Vector3f(p.prevLocation);
         this.rotation = p.rotation;
         this.scale = new Vector3f(p.scale);
         this.size = new Vector3f(p.size);
@@ -79,23 +73,5 @@ public abstract class AParticle extends AEntity {
             }
         
         return !keepAlive;
-    }
-    
-    public Texture getTexture(int num)
-    {
-        return textures.get(num);
-    }
-    
-    public void addTexture(int num, String path)
-    {
-        
-    }
-
-    public Vector3f getPrevLocation() {
-        return prevLocation;
-    }
-
-    public void setPrevLocation(Vector3f prevLocation) {
-        this.prevLocation = new Vector3f(prevLocation);
     }
 }
