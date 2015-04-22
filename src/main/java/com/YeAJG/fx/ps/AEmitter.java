@@ -40,4 +40,8 @@ public abstract class AEmitter extends AEntity {
     protected int particle_limit;
     
     public abstract void generate();
+    
+    public List<Particle> getParticles() {
+        return particles;
+    } 
 }

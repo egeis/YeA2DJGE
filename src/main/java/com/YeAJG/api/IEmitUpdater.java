@@ -36,7 +36,4 @@ public interface IEmitUpdater {
     public void postRender();
     public void preRender();
     public void render();
-    public List<Particle> getList();
-    public void setState(Particle state);
-    public void setLimit(int limit);
 }

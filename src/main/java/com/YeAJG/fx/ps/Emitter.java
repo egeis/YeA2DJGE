@@ -38,12 +38,11 @@ import org.lwjgl.util.vector.Vector3f;
 public class Emitter extends AEmitter {
 
     
-    public Emitter(IEmitUpdater updater, Particle p, Vector3f location, Vector3f size, int num_per_tick, int limit)
+    public Emitter(IEmitUpdater updater, Vector3f location, Vector3f size, int num_per_tick, int limit)
     {        
         this.updater = updater;
-        this.updater.setState(p);
-        this.updater.setLimit(limit);
-        this.num_per_tick = num_per_tick;       
+        this.num_per_tick = num_per_tick; 
+        this.particle_limit = limit;
     }
     
     public void generate() {

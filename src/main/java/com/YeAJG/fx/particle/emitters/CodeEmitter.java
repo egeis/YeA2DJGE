@@ -24,10 +24,11 @@
 package main.java.com.YeAJG.fx.particle.emitters;
 
 import java.util.HashMap;
-import main.java.com.YeAJG.fx.ps.updaters.AEmitUpdater;
+import java.util.List;
 import main.java.com.YeAJG.api.IEmitUpdater;
 import main.java.com.YeAJG.fx.ps.Particle;
 import main.java.com.YeAJG.fx.particle.graphics.filters.MotionBlurPostFilter;
+import main.java.com.YeAJG.fx.ps.AEmitter;
 import main.java.com.YeAJG.game.Game;
 import main.java.com.YeAJG.game.utils.Randomizer;
 import org.lwjgl.util.Color;
@@ -38,7 +39,7 @@ import org.lwjgl.util.vector.Vector3f;
  *
  * @author Richard Coan
  */
-public class CodeEmitter extends AEmitUpdater implements IEmitUpdater
+public class CodeEmitter extends AEmitter implements IEmitUpdater
 {
     @Override
     public void tick() {
@@ -59,6 +60,12 @@ public class CodeEmitter extends AEmitUpdater implements IEmitUpdater
     public void render() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    @Override
+    public void generate() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
     /*
     
     public CodeEmitter()
@@ -134,4 +141,6 @@ public class CodeEmitter extends AEmitUpdater implements IEmitUpdater
     @Override
     public void postDraw(Particle p) {
     }*/
+
+   
 }

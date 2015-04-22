@@ -113,7 +113,7 @@ public class Game implements Runnable {
         parameters.put("Death.FADE.End", 0);
         
         //Single Particle Test
-        p = new Particle(
+        /*p = new Particle(
             new Vector3f(0,0,0),
             new Vector2f(0.2f,10.0f),
             new Vector3f(1.0f,1.0f,1.0f),
@@ -137,7 +137,7 @@ public class Game implements Runnable {
             }
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
                 
         while(!Display.isCloseRequested())
         {
@@ -208,7 +208,7 @@ public class Game implements Runnable {
     
     private void doTick( long next_game_tick )
     {
-        emit.update(next_game_tick);
+        //emit.update(next_game_tick);
     }
  
     private void render( float interpolation ) {
@@ -216,7 +216,7 @@ public class Game implements Runnable {
         GL11.glLoadIdentity();
 
         //if( !p.isDead() ) p.draw( interpolation );
-        emit.draw();
+        //emit.draw();
         Display.update();
         
     }
