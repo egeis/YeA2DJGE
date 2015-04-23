@@ -31,7 +31,7 @@ import org.lwjgl.util.vector.Vector3f;
  *
  * @author Richard
  */
-public interface IEmitUpdater {
+public interface IEmitter {
     public void tick();
     public void postRender();
     public void preRender();
