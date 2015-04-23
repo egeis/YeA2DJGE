@@ -23,12 +23,10 @@
  */
 package main.java.com.YeAJG.fx.ps;
 
-import java.util.ArrayList;
 import main.java.com.YeAJG.game.Entity.AEntity;
 import org.lwjgl.util.Color;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
-import org.newdawn.slick.opengl.Texture;
 
 /**
  *
@@ -51,9 +49,7 @@ public abstract class AParticle extends AEntity {
         this.size = new Vector2f(p.size);
         this.velocity = new Vector3f(p.velocity);
         this.spin = p.spin;
-        
-        this.textures = new ArrayList(p.textures);
-        
+                
         this.color = new Color(p.color);
         this.keepAlive = p.keepAlive;
         this.visible = p.visible;
@@ -61,7 +57,7 @@ public abstract class AParticle extends AEntity {
     
     public boolean isDead()
     {
-        if(keepAlive) return false;
+        /*if(keepAlive) return false;
         
         if(parameters.containsKey("Age.Max") && 
                 parameters.containsKey("Age.Count"))         
@@ -77,7 +73,7 @@ public abstract class AParticle extends AEntity {
                 this.color.setAlpha( this.color.getAlpha() - (int) parameters.get("Death.FADE.Step") );
                 return false;
             }
-        
+        */
         return !keepAlive;
     }
 }

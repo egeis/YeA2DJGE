@@ -25,7 +25,7 @@ package main.java.com.example.emitters;
 
 import java.util.HashMap;
 import java.util.List;
-import main.java.com.YeAJG.api.IEmitUpdater;
+import main.java.com.YeAJG.api.IEmitter;
 import main.java.com.YeAJG.fx.ps.Particle;
 import main.java.com.YeAJG.fx.particle.graphics.filters.MotionBlurPostFilter;
 import main.java.com.YeAJG.fx.ps.AEmitter;
@@ -39,7 +39,7 @@ import org.lwjgl.util.vector.Vector3f;
  *
  * @author Richard Coan
  */
-public class CodeEmitter extends AEmitter implements IEmitUpdater
+public class CodeEmitter extends AEmitter implements IEmitter
 {
     @Override
     public void tick() {

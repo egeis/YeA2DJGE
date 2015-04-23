@@ -23,36 +23,43 @@
  */
 package main.java.com.YeAJG.game.Entity;
 
-import java.util.ArrayList;
+import java.nio.ByteBuffer;
 import java.util.Map;
 import main.java.com.YeAJG.game.Game;
+import main.java.com.YeAJG.game.utils.VertexData;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.util.Color;
+import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
-import org.newdawn.slick.opengl.Texture;
 
 /**
  *
- * @author Richard
+ * @author Richard Coan
  */
 public abstract class AEntity {
     protected static final Logger logger = LogManager.getLogger( Game.class.getName() );
-
+   
     public boolean visible;
-    
-    public Vector3f scale;           
+              
     public Vector3f location;        
     public Vector3f rotation;
-    
+    public Vector3f scale; 
     public Vector3f velocity;         
     public Vector3f acceleration;       
     public Vector3f spin;
     
-    public Color color;
-    public ArrayList<Texture> textures;
-    public Map<String, Object> parameters;
-   
-    public abstract void tick();
-    public abstract void render();
+    protected Color color;
+    protected int[] textureIds;
+    
+    protected Vector3f modelPos = null;
+    protected Vector3f modelAngle = null;
+    protected Vector3f modelScale = null;
+    protected Matrix4f modelMatrix = null;
+    protected VertexData[] vertices = null;
+    protected ByteBuffer verticesByteBuffer = null;
+    protected int indicesCount = 0;
+    protected int vaoId = 0;
+    protected int vboId = 0;
+    protected int vboiId = 0;
 }

@@ -23,22 +23,18 @@
  */
 package main.java.com.YeAJG.fx.ps;
 
-import main.java.com.YeAJG.api.IEmitUpdater;
-import java.util.ArrayList;
-import java.util.List;
-import main.java.com.YeAJG.game.Game;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import main.java.com.YeAJG.api.IEmitter;
+import main.java.com.YeAJG.api.IEntity;
 import org.lwjgl.util.vector.Vector3f;
 
 /**
  *
  * @author Richard Coan
  */
-public class Emitter extends AEmitter {
+public class Emitter extends AEmitter implements IEntity {
 
     
-    public Emitter(IEmitUpdater updater, Vector3f location, Vector3f size, int num_per_tick, int limit)
+    public Emitter(IEmitter updater, Vector3f location, Vector3f size, int num_per_tick, int limit)
     {        
         this.updater = updater;
         this.num_per_tick = num_per_tick; 
@@ -83,6 +79,10 @@ public class Emitter extends AEmitter {
     @Override
     public void tick() {
         updater.tick();
+    }
+
+    @Override
+    public void setup() {
     }
     
 }

@@ -25,6 +25,7 @@ package main.java.com.YeAJG.fx.ps;
 
 import java.util.ArrayList;
 import java.util.Map;
+import main.java.com.YeAJG.api.IEntity;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.Color;
 import org.lwjgl.util.vector.Vector2f;
@@ -34,7 +35,7 @@ import org.lwjgl.util.vector.Vector3f;
  *
  * @author Richard Coan
  */
-public class Particle extends AParticle {
+public class Particle extends AParticle implements IEntity {
           
     /**
      * @param location
@@ -59,9 +60,7 @@ public class Particle extends AParticle {
         this.spin = spin;
         this.keepAlive = keepAlive;
         this.visible = true;
-        this.textures = new ArrayList();
         this.color = new Color(color);
-        this.parameters = parameters;
     } 
 
     @Override
@@ -69,11 +68,6 @@ public class Particle extends AParticle {
         Vector3f.add(this.rotation, this.spin, this.rotation);
         Vector3f.add(this.velocity, this.acceleration, this.velocity);
         Vector3f.add(this.location, this.velocity, this.location);
-        
-        if(this.parameters.containsKey("Age.Count") && this.parameters.containsKey("Age.Step"))
-            this.parameters.put("Age.Count",
-                    ((float) this.parameters.get("Age.Count") + 
-                    (float) this.parameters.get("Age.Step")));
     }
 
     @Override
@@ -96,6 +90,9 @@ public class Particle extends AParticle {
             GL11.glEnd();
         GL11.glPopMatrix();
     }
-    
-    
+
+    @Override
+    public void setup() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    } 
 }

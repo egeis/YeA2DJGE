@@ -29,4 +29,6 @@ package main.java.com.YeAJG.api;
  */
 public interface IEntity {
     public void setup();
+    public void tick();
+    public void render();
 }

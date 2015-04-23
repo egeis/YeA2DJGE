@@ -23,7 +23,7 @@
  */
 package main.java.com.YeAJG.fx.ps;
 
-import main.java.com.YeAJG.api.IEmitUpdater;
+import main.java.com.YeAJG.api.IEmitter;
 import java.util.ArrayList;
 import java.util.List;
 import main.java.com.YeAJG.game.Entity.AEntity;
@@ -34,7 +34,7 @@ import main.java.com.YeAJG.game.Entity.AEntity;
  */
 public abstract class AEmitter extends AEntity {
     protected List<Particle> particles = new ArrayList();
-    protected IEmitUpdater updater;
+    protected IEmitter updater;
     protected int num_per_tick;
     protected long lastUpdate;
     protected int particle_limit;
