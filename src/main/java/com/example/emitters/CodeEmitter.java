@@ -27,7 +27,7 @@ import java.util.HashMap;
 import java.util.List;
 import main.java.com.YeAJG.api.IEmitter;
 import main.java.com.YeAJG.fx.ps.Particle;
-import main.java.com.YeAJG.fx.particle.graphics.filters.MotionBlurPostFilter;
+import main.java.com.YeAJG.example.filters.MotionBlurPostFilter;
 import main.java.com.YeAJG.fx.ps.AEmitter;
 import main.java.com.YeAJG.game.Game;
 import main.java.com.YeAJG.game.utils.Randomizer;

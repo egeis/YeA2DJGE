@@ -3,7 +3,7 @@
  * Modifications made by Richard Coan for use with LWJGL. 
  * Original based on JOGL.
  */
-package main.java.com.YeAJG.fx.particle.graphics.filters;
+package main.java.com.YeAJG.example.filters;
 
 import main.java.com.YeAJG.api.IFilter;
 import java.nio.IntBuffer;
