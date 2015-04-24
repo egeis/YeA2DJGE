@@ -23,11 +23,13 @@
  */
 package main.java.com.example.primitives;
 
+import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import main.java.com.YeAJG.api.IEntity;
 import main.java.com.YeAJG.game.Entity.AEntity;
 import main.java.com.YeAJG.game.Game;
+import main.java.com.YeAJG.game.io.FileIOHandler;
 import main.java.com.YeAJG.game.utils.VertexData;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
@@ -43,9 +45,52 @@ import org.lwjgl.util.vector.Vector3f;
  */
 public class Quad extends AEntity implements IEntity {
 
-    @Override
-    public void setup() {
-        // Setup model matrix
+    
+    private void setupShaders()
+    {
+        
+        int vsId = 0, fsId = 0;
+       
+        try {
+            // Load the vertex shader
+            vsId = FileIOHandler.loadShader("assets/shaders/vertex.glsl", GL20.GL_VERTEX_SHADER);      
+            
+            // Load the fragment shader
+            fsId = FileIOHandler.loadShader("assets/shaders/fragment.glsl", GL20.GL_FRAGMENT_SHADER);
+        } catch (IOException ex) {
+            logger.error(ex.getMessage());
+        }
+        
+        logger.info(vsId + " " + fsId);
+        
+        if(vsId != 0 && fsId != 0)
+        {
+            // Create a new shader program that links both shaders
+            pId = GL20.glCreateProgram();
+            GL20.glAttachShader(pId, vsId);
+            GL20.glAttachShader(pId, fsId);
+
+            // Position information will be attribute 0
+            GL20.glBindAttribLocation(pId, 0, "in_Position");
+            // Color information will be attribute 1
+            GL20.glBindAttribLocation(pId, 1, "in_Color");
+            // Textute information will be attribute 2
+            GL20.glBindAttribLocation(pId, 2, "in_TextureCoord");
+
+            GL20.glLinkProgram(pId);
+            GL20.glValidateProgram(pId);
+
+            // Get matrices uniform locations
+            projectionMatrixLocation = GL20.glGetUniformLocation(pId,"projectionMatrix");
+            viewMatrixLocation = GL20.glGetUniformLocation(pId, "viewMatrix");
+            modelMatrixLocation = GL20.glGetUniformLocation(pId, "modelMatrix");
+        }
+ 
+        Game.exitOnGLError("setupShaders");
+    }
+    
+    private void setupQuad() { 
+       // Setup model matrix
         modelMatrix = new Matrix4f();
         
         //Default Position, Angle, Scale of the Quad.
@@ -64,7 +109,7 @@ public class Quad extends AEntity implements IEntity {
         v3.setXYZ(0.5f, 0.5f, 0); v3.setRGB(1, 1, 1); v3.setST(1, 0);
          
         vertices = new VertexData[] {v0, v1, v2, v3};
-        
+         
         // Put each 'Vertex' in one FloatBuffer
         verticesByteBuffer = BufferUtils.createByteBuffer(vertices.length * 
                 VertexData.stride);             
@@ -80,16 +125,20 @@ public class Quad extends AEntity implements IEntity {
                 0, 1, 2,
                 2, 3, 0
         };
-        
         indicesCount = indices.length;
         ByteBuffer indicesBuffer = BufferUtils.createByteBuffer(indicesCount);
         indicesBuffer.put(indices);
         indicesBuffer.flip();
-        
+         
         // Create a new Vertex Array Object in memory and select it (bind)
         vaoId = GL30.glGenVertexArrays();
         GL30.glBindVertexArray(vaoId);
-        
+         
+        // Create a new Vertex Buffer Object in memory and select it (bind)
+        vboId = GL15.glGenBuffers();
+        GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, vboId);
+        GL15.glBufferData(GL15.GL_ARRAY_BUFFER, verticesFloatBuffer, GL15.GL_STREAM_DRAW);
+         
         // Put the position coordinates in attribute list 0
         GL20.glVertexAttribPointer(0, VertexData.positionElementCount, GL11.GL_FLOAT, 
                 false, VertexData.stride, VertexData.positionByteOffset);
@@ -113,6 +162,17 @@ public class Quad extends AEntity implements IEntity {
         GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, 0);
         
         Game.exitOnGLError("setupQuad");
+    } 
+    
+    private void setupTextures() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    @Override
+    public void setup() {
+        this.setupQuad();
+        this.setupShaders();
+        this.setupTextures();
     }
 
     @Override
@@ -123,5 +183,9 @@ public class Quad extends AEntity implements IEntity {
     public void render() {
         
     }
+
+    
+
+   
     
 }

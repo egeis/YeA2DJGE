@@ -28,13 +28,16 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import main.java.com.YeAJG.game.Game;
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL20;
 
 /**
  *
  * @author Richard Coan
  */
 public class FileIOHandler {
-    
+        
     public static String load(String PathToFile) 
             throws FileNotFoundException, IOException
     {
@@ -60,6 +63,33 @@ public class FileIOHandler {
         }
         
         return contents.toString();
+    }
+    
+    public static int loadShader(String filename, int type) throws IOException {
+        StringBuilder shaderSource = new StringBuilder();
+        int shaderID = 0;
+         
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(filename));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                shaderSource.append(line).append("\n");
+            }
+            reader.close();
+        } catch (IOException e) {
+            throw new IOException(e.getMessage());
+        }
+         
+        shaderID = GL20.glCreateShader(type);
+        GL20.glShaderSource(shaderID, shaderSource);
+        GL20.glCompileShader(shaderID);
+         
+        if (GL20.glGetShader(shaderID, GL20.GL_COMPILE_STATUS) == GL11.GL_FALSE) {
+            throw new IOException("Could not compile shader.");
+        }
+         
+        Game.exitOnGLError("loadShader");
+        return shaderID;
     }
      
 }

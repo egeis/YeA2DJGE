@@ -52,6 +52,9 @@ public abstract class AEntity {
     protected Color color;
     protected int[] textureIds;
     
+    protected int projectionMatrixLocation = 0;
+    protected int viewMatrixLocation = 0;
+    protected int modelMatrixLocation = 0;
     protected Vector3f modelPos = null;
     protected Vector3f modelAngle = null;
     protected Vector3f modelScale = null;
@@ -62,4 +65,6 @@ public abstract class AEntity {
     protected int vaoId = 0;
     protected int vboId = 0;
     protected int vboiId = 0;
+    
+    protected int pId = 0;
 }

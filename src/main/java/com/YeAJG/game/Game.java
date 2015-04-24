@@ -31,6 +31,7 @@ import main.java.com.YeAJG.fx.ps.Particle;
 import main.java.com.YeAJG.game.io.ConfigHandler;
 import main.java.com.YeAJG.game.io.InputHandler;
 import main.java.com.YeAJG.game.utils.Conversions;
+import main.java.com.example.primitives.Quad;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -46,6 +47,7 @@ import static org.lwjgl.opengl.GL11.GL_LEQUAL;
 import static org.lwjgl.opengl.GL11.GL_NICEST;
 import static org.lwjgl.opengl.GL11.GL_PERSPECTIVE_CORRECTION_HINT;
 import static org.lwjgl.opengl.GL11.GL_SMOOTH;
+import org.lwjgl.opengl.GL15;
 import org.lwjgl.opengl.PixelFormat;
 import org.lwjgl.util.glu.GLU;
 import static org.lwjgl.util.glu.GLU.gluPerspective;
@@ -78,13 +80,12 @@ public class Game implements Runnable {
     public static Vector3f cameraPos = null;
     
     //Moving Varibles
-    private int projectionMatrixLocation = 0;
-    private int viewMatrixLocation = 0;
-    private int modelMatrixLocation = 0;
     private Matrix4f projectionMatrix = null;
     private Matrix4f viewMatrix = null;
-    private Matrix4f modelMatrix = null;
     private FloatBuffer matrix44Buffer = null;
+    
+    
+    private Quad q = new Quad();
             
     public static Game getInstance() {
         if(instance == null) instance = new Game();
@@ -101,10 +102,10 @@ public class Game implements Runnable {
         
         lastFPS = getTime();
         
-        setupGL();
-        setupMatrices();
-        
         cameraPos = new Vector3f(0, 0, -1);
+        
+        setupGL();
+        setupMatrices();       
     }
     
     private void setupMatrices() {
@@ -142,7 +143,9 @@ public class Game implements Runnable {
         long next_game_tick = System.currentTimeMillis();
         int loops;
         float interpolation; 
-            
+        
+        q.setup();
+        
         while(!Display.isCloseRequested())
         {
             loops = 0;
@@ -188,6 +191,8 @@ public class Game implements Runnable {
         
         //Sets the Background color.
         GL11.glClearColor(0.3f, 0.3f, 0.3f, 0.0f);
+        
+        GL11.glEnable(GL15.GL_ARRAY_BUFFER_BINDING);
     }
     
      /**
@@ -209,11 +214,13 @@ public class Game implements Runnable {
     
     private void doTick( long next_game_tick )
     {
-
+        q.tick();
     }
  
     private void render( float interpolation ) {
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
+        
+        q.render();
         
         Display.sync(60);
         Display.update();
