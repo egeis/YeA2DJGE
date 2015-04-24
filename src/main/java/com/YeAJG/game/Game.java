@@ -24,10 +24,6 @@
 package main.java.com.YeAJG.game;
 
 import java.nio.FloatBuffer;
-import java.util.HashMap;
-import java.util.Map;
-import main.java.com.YeAJG.fx.ps.Emitter;
-import main.java.com.YeAJG.fx.ps.Particle;
 import main.java.com.YeAJG.game.io.ConfigHandler;
 import main.java.com.YeAJG.game.io.InputHandler;
 import main.java.com.YeAJG.game.utils.Conversions;
@@ -37,7 +33,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.LWJGLException;
-import org.lwjgl.Sys;
 import org.lwjgl.opengl.ContextAttribs;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
@@ -62,9 +57,6 @@ public class Game implements Runnable {
     private long lastFPS;
     private int fps;
     
-    private Particle p;
-    private Emitter emit;
-    
     //Global Static Values
     public static int WINDOW_WIDTH;
     public static int WINDOW_HEIGHT;
@@ -75,7 +67,7 @@ public class Game implements Runnable {
     public static Matrix4f viewMatrix = null;
     private FloatBuffer matrix44Buffer = null;
     
-    
+    //Example
     private Quad q = new Quad();
             
     public static Game getInstance() {
@@ -83,6 +75,9 @@ public class Game implements Runnable {
         return instance;
     }
     
+    /**
+     * Constructor - Singleton
+     */
     private Game() {                
         Config = ConfigHandler.getInstance();
         Input = InputHandler.getInstance();
@@ -99,6 +94,9 @@ public class Game implements Runnable {
         setupMatrices();       
     }
     
+    /**
+     * Set up for the projection matrix.
+     */
     private void setupMatrices() {
         // Setup projection matrix
         projectionMatrix = new Matrix4f();
@@ -125,6 +123,9 @@ public class Game implements Runnable {
         matrix44Buffer = BufferUtils.createFloatBuffer(16);
     }
     
+    /**
+     * Game Loop
+     */
     @Override
     public void run() {  
         final int TICKS_PER_SECOND = 25;
@@ -135,6 +136,7 @@ public class Game implements Runnable {
         int loops;
         float interpolation; 
         
+        //Example
         q.setup();
         
         while(!Display.isCloseRequested())
@@ -154,7 +156,6 @@ public class Game implements Runnable {
         }
         
         this.destroyGL();
-        Display.destroy();
     }
  
     /**
@@ -188,17 +189,24 @@ public class Game implements Runnable {
       */
      private void destroyGL()
      {
-
+         //TODO: handle desctruction
          
-         
-        Display.destroy();
-     }
+         Display.destroy();
+    }
      
+     /**
+      * Runs an number of work units (ticks).
+      * @param next_game_tick 
+      */
     private void doTick( long next_game_tick )
     {
         q.tick();
     }
  
+    /**
+     * Renders the Scene.
+     * @param interpolation 
+     */
     private void render( float interpolation ) {
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
         
