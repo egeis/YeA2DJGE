@@ -33,6 +33,7 @@ import main.java.com.YeAJG.game.io.FileIOHandler;
 import main.java.com.YeAJG.game.utils.VertexData;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL15;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
@@ -60,11 +61,11 @@ public class Quad extends AEntity implements IEntity {
         } catch (IOException ex) {
             logger.error(ex.getMessage());
         }
-        
-        logger.info(vsId + " " + fsId);
-        
+                
         if(vsId != 0 && fsId != 0)
         {
+            //logger.info(vsId + " " + fsId);
+
             // Create a new shader program that links both shaders
             pId = GL20.glCreateProgram();
             GL20.glAttachShader(pId, vsId);
@@ -165,7 +166,15 @@ public class Quad extends AEntity implements IEntity {
     } 
     
     private void setupTextures() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        texIds = new int[2];
+        try {
+            texIds[0] = FileIOHandler.loadPNGTexture("assets/textures/stGrid1.png", GL13.GL_TEXTURE0);
+            texIds[1] = FileIOHandler.loadPNGTexture("assets/textures/stGrid2.png", GL13.GL_TEXTURE0);
+        } catch (IOException ex) {
+            logger.error(ex.getMessage());
+        }
+         
+        Game.exitOnGLError("setupTexture");
     }
     
     @Override
@@ -181,7 +190,36 @@ public class Quad extends AEntity implements IEntity {
 
     @Override
     public void render() {
-        
+        GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
+         
+        GL20.glUseProgram(pId);
+         
+        // Bind the texture
+        GL13.glActiveTexture(GL13.GL_TEXTURE0);
+        GL11.glBindTexture(GL11.GL_TEXTURE_2D, texIds[textureSelector]);
+         
+        // Bind to the VAO that has all the information about the vertices
+        GL30.glBindVertexArray(vaoId);
+        GL20.glEnableVertexAttribArray(0);
+        GL20.glEnableVertexAttribArray(1);
+        GL20.glEnableVertexAttribArray(2);
+         
+        // Bind to the index VBO that has all the information about the order of the vertices
+        GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, vboiId);
+         
+        // Draw the vertices
+        GL11.glDrawElements(GL11.GL_TRIANGLES, indicesCount, GL11.GL_UNSIGNED_BYTE, 0);
+         
+        // Put everything back to default (deselect)
+        GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, 0);
+        GL20.glDisableVertexAttribArray(0);
+        GL20.glDisableVertexAttribArray(1);
+        GL20.glDisableVertexAttribArray(2);
+        GL30.glBindVertexArray(0);
+         
+        GL20.glUseProgram(0);
+         
+        Game.exitOnGLError("renderCycle");
     }
 
     

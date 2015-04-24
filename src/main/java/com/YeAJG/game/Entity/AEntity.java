@@ -24,11 +24,14 @@
 package main.java.com.YeAJG.game.Entity;
 
 import java.nio.ByteBuffer;
-import java.util.Map;
 import main.java.com.YeAJG.game.Game;
 import main.java.com.YeAJG.game.utils.VertexData;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL15;
+import org.lwjgl.opengl.GL20;
+import org.lwjgl.opengl.GL30;
 import org.lwjgl.util.Color;
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
@@ -50,7 +53,8 @@ public abstract class AEntity {
     public Vector3f spin;
     
     protected Color color;
-    protected int[] textureIds;
+    protected int[] texIds;
+    protected int textureSelector = 0;
     
     protected int projectionMatrixLocation = 0;
     protected int viewMatrixLocation = 0;
@@ -67,4 +71,34 @@ public abstract class AEntity {
     protected int vboiId = 0;
     
     protected int pId = 0;
+    
+    public void destroy()
+    {
+        // Delete the texture
+        GL11.glDeleteTextures(texIds[0]);
+        GL11.glDeleteTextures(texIds[1]);
+         
+        // Delete the shaders
+        GL20.glUseProgram(0);
+        GL20.glDeleteProgram(pId);
+         
+        // Select the VAO
+        GL30.glBindVertexArray(vaoId);
+         
+        // Disable the VBO index from the VAO attributes list
+        GL20.glDisableVertexAttribArray(0);
+        GL20.glDisableVertexAttribArray(1);
+         
+        // Delete the vertex VBO
+        GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
+        GL15.glDeleteBuffers(vboId);
+         
+        // Delete the index VBO
+        GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, 0);
+        GL15.glDeleteBuffers(vboiId);
+         
+        // Delete the VAO
+        GL30.glBindVertexArray(0);
+        GL30.glDeleteVertexArrays(vaoId);
+    }
 }

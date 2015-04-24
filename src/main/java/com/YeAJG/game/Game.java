@@ -42,19 +42,10 @@ import org.lwjgl.opengl.ContextAttribs;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
-import static org.lwjgl.opengl.GL11.GL_DEPTH_TEST;
-import static org.lwjgl.opengl.GL11.GL_LEQUAL;
-import static org.lwjgl.opengl.GL11.GL_NICEST;
-import static org.lwjgl.opengl.GL11.GL_PERSPECTIVE_CORRECTION_HINT;
-import static org.lwjgl.opengl.GL11.GL_SMOOTH;
-import org.lwjgl.opengl.GL15;
 import org.lwjgl.opengl.PixelFormat;
 import org.lwjgl.util.glu.GLU;
-import static org.lwjgl.util.glu.GLU.gluPerspective;
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
-
-
 
 /**
  *
@@ -80,8 +71,8 @@ public class Game implements Runnable {
     public static Vector3f cameraPos = null;
     
     //Moving Varibles
-    private Matrix4f projectionMatrix = null;
-    private Matrix4f viewMatrix = null;
+    public static Matrix4f projectionMatrix = null;
+    public static Matrix4f viewMatrix = null;
     private FloatBuffer matrix44Buffer = null;
     
     
@@ -100,11 +91,11 @@ public class Game implements Runnable {
         WINDOW_WIDTH = Config.getSettings().getJsonObject("display").getInt("width");
         WINDOW_HEIGHT = Config.getSettings().getJsonObject("display").getInt("height");  
         
-        lastFPS = getTime();
+        lastFPS = System.currentTimeMillis();
         
         cameraPos = new Vector3f(0, 0, -1);
         
-        setupGL();
+        setupOpenGL();
         setupMatrices();       
     }
     
@@ -169,7 +160,7 @@ public class Game implements Runnable {
     /**
      * Initiates Display and OpenGL.
      */
-    private void setupGL() {
+    private void setupOpenGL() {
         try {
             PixelFormat pixelFormat = new PixelFormat();
             ContextAttribs contextAtrributes = new ContextAttribs(3, 2)
@@ -185,14 +176,11 @@ public class Game implements Runnable {
             logger.fatal(e.getMessage());
             System.exit(-1);
         }
-        
-        //Creates the Viewport.       
-        GL11.glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT); 
-        
         //Sets the Background color.
         GL11.glClearColor(0.3f, 0.3f, 0.3f, 0.0f);
         
-        GL11.glEnable(GL15.GL_ARRAY_BUFFER_BINDING);
+        //Creates the Viewport.       
+        GL11.glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);         
     }
     
      /**
@@ -200,18 +188,12 @@ public class Game implements Runnable {
       */
      private void destroyGL()
      {
+
          
+         
+        Display.destroy();
      }
      
-    /**
-     * Get the time in milliseconds
-     * 
-     * @return The system time in milliseconds
-     */
-    public long getTime() {
-        return (Sys.getTime() * 1000) / Sys.getTimerResolution();
-    }
-    
     private void doTick( long next_game_tick )
     {
         q.tick();
@@ -230,7 +212,7 @@ public class Game implements Runnable {
      * Calculate the FPS and set it in the title bar
      */
     public void updateFPS() {
-        if (getTime() - lastFPS > 1000) {
+        if (System.currentTimeMillis() - lastFPS > 1000) {
             Display.setTitle(Name+" "+ConfigHandler.getVersion()+" (FPS: " + fps+")"); 
             fps = 0; //reset the FPS counter
             lastFPS += 1000; //add one second
