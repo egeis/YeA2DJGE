@@ -61,11 +61,12 @@ public class Game implements Runnable {
     public static int WINDOW_WIDTH;
     public static int WINDOW_HEIGHT;
     public static Vector3f cameraPos = null;
+    public static FloatBuffer matrix44Buffer = null;
     
     //Moving Varibles
     public static Matrix4f projectionMatrix = null;
     public static Matrix4f viewMatrix = null;
-    private FloatBuffer matrix44Buffer = null;
+    
     
     //Example
     private Quad q = new Quad();
@@ -101,7 +102,7 @@ public class Game implements Runnable {
         // Setup projection matrix
         projectionMatrix = new Matrix4f();
         float fieldOfView = 60f;
-        float aspectRatio = (float)WINDOW_WIDTH / (float)WINDOW_HEIGHT;
+        float aspectRatio = (float) WINDOW_WIDTH / (float) WINDOW_HEIGHT;
         float near_plane = 0.1f;
         float far_plane = 100f;
          
@@ -118,7 +119,7 @@ public class Game implements Runnable {
          
         // Setup view matrix
         viewMatrix = new Matrix4f();
-                  
+         
         // Create a FloatBuffer with the proper size to store our matrices later
         matrix44Buffer = BufferUtils.createFloatBuffer(16);
     }
@@ -178,10 +179,12 @@ public class Game implements Runnable {
             System.exit(-1);
         }
         //Sets the Background color.
-        GL11.glClearColor(0.3f, 0.3f, 0.3f, 0.0f);
+        GL11.glClearColor(0.4f, 0.6f, 0.9f, 0f);
         
         //Creates the Viewport.       
-        GL11.glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);         
+        GL11.glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);    
+        
+        this.exitOnGLError("setupOpenGL");
     }
     
      /**

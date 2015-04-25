@@ -44,10 +44,12 @@ public abstract class AEntity {
     protected static final Logger logger = LogManager.getLogger( Game.class.getName() );
    
     public boolean visible;
-              
-    public Vector3f location;        
-    public Vector3f rotation;
-    public Vector3f scale; 
+    
+    
+    protected Vector3f modelPos = null;
+    protected Vector3f modelAngle = null;
+    protected Vector3f modelScale = null;
+    protected Matrix4f modelMatrix = null;          
     public Vector3f velocity;         
     public Vector3f acceleration;       
     public Vector3f spin;
@@ -59,10 +61,7 @@ public abstract class AEntity {
     protected int projectionMatrixLocation = 0;
     protected int viewMatrixLocation = 0;
     protected int modelMatrixLocation = 0;
-    protected Vector3f modelPos = null;
-    protected Vector3f modelAngle = null;
-    protected Vector3f modelScale = null;
-    protected Matrix4f modelMatrix = null;
+    
     protected VertexData[] vertices = null;
     protected ByteBuffer verticesByteBuffer = null;
     protected int indicesCount = 0;

@@ -26,10 +26,13 @@ package main.java.com.example.primitives;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import main.java.com.YeAJG.api.IEntity;
 import main.java.com.YeAJG.game.Entity.AEntity;
 import main.java.com.YeAJG.game.Game;
 import main.java.com.YeAJG.game.io.FileIOHandler;
+import main.java.com.YeAJG.game.utils.Conversions;
 import main.java.com.YeAJG.game.utils.VertexData;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
@@ -49,56 +52,42 @@ public class Quad extends AEntity implements IEntity {
     
     private void setupShaders()
     {
+        // Load the vertex shader and fragment shader
+        int vsId;
+        int fsId;
         
-        int vsId = 0, fsId = 0;
-       
         try {
-            // Load the vertex shader
             vsId = FileIOHandler.loadShader("assets/shaders/vertex.glsl", GL20.GL_VERTEX_SHADER);      
-            
-            // Load the fragment shader
             fsId = FileIOHandler.loadShader("assets/shaders/fragment.glsl", GL20.GL_FRAGMENT_SHADER);
         } catch (IOException ex) {
             logger.error(ex.getMessage());
+            return;
         }
-                
-        if(vsId != 0 && fsId != 0)
-        {
-            //logger.info(vsId + " " + fsId);
-
-            // Create a new shader program that links both shaders
-            pId = GL20.glCreateProgram();
-            GL20.glAttachShader(pId, vsId);
-            GL20.glAttachShader(pId, fsId);
-
-            // Position information will be attribute 0
-            GL20.glBindAttribLocation(pId, 0, "in_Position");
-            // Color information will be attribute 1
-            GL20.glBindAttribLocation(pId, 1, "in_Color");
-            // Textute information will be attribute 2
-            GL20.glBindAttribLocation(pId, 2, "in_TextureCoord");
-
-            GL20.glLinkProgram(pId);
-            GL20.glValidateProgram(pId);
-
-            // Get matrices uniform locations
-            projectionMatrixLocation = GL20.glGetUniformLocation(pId,"projectionMatrix");
-            viewMatrixLocation = GL20.glGetUniformLocation(pId, "viewMatrix");
-            modelMatrixLocation = GL20.glGetUniformLocation(pId, "modelMatrix");
-        }
+         
+        // Create a new shader program that links both shaders
+        pId = GL20.glCreateProgram();
+        GL20.glAttachShader(pId, vsId);
+        GL20.glAttachShader(pId, fsId);
+ 
+        // Position information will be attribute 0
+        GL20.glBindAttribLocation(pId, 0, "in_Position");
+        // Color information will be attribute 1
+        GL20.glBindAttribLocation(pId, 1, "in_Color");
+        // Textute information will be attribute 2
+        GL20.glBindAttribLocation(pId, 2, "in_TextureCoord");
+ 
+        GL20.glLinkProgram(pId);
+        GL20.glValidateProgram(pId);
+ 
+        // Get matrices uniform locations
+        projectionMatrixLocation = GL20.glGetUniformLocation(pId,"projectionMatrix");
+        viewMatrixLocation = GL20.glGetUniformLocation(pId, "viewMatrix");
+        modelMatrixLocation = GL20.glGetUniformLocation(pId, "modelMatrix");
  
         Game.exitOnGLError("setupShaders");
     }
     
-    private void setupQuad() { 
-       // Setup model matrix
-        modelMatrix = new Matrix4f();
-        
-        //Default Position, Angle, Scale of the Quad.
-        modelPos = new Vector3f(0, 0, 0);
-        modelAngle = new Vector3f(0, 0, 0);
-        modelScale = new Vector3f(1, 1, 1);
-        
+    private void setupQuad() {         
         // We'll define our quad using 4 vertices of the custom 'TexturedVertex' class
         VertexData v0 = new VertexData(); 
         v0.setXYZ(-0.5f, 0.5f, 0); v0.setRGB(1, 0, 0); v0.setST(0, 0);
@@ -120,12 +109,13 @@ public class Quad extends AEntity implements IEntity {
             verticesFloatBuffer.put(vertices[i].getElements());
         }
         verticesFloatBuffer.flip();
-        
+         
         // OpenGL expects to draw vertices in counter clockwise order by default
         byte[] indices = {
                 0, 1, 2,
                 2, 3, 0
         };
+        
         indicesCount = indices.length;
         ByteBuffer indicesBuffer = BufferUtils.createByteBuffer(indicesCount);
         indicesBuffer.put(indices);
@@ -161,12 +151,17 @@ public class Quad extends AEntity implements IEntity {
         GL15.glBufferData(GL15.GL_ELEMENT_ARRAY_BUFFER, indicesBuffer, 
                 GL15.GL_STATIC_DRAW);
         GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, 0);
+         
+        // Set the default quad rotation, scale and position values
+        modelPos = new Vector3f(0, 0, 0);
+        modelAngle = new Vector3f(0, 0, 0);
+        modelScale = new Vector3f(1, 1, 1);
+        Game.cameraPos = new Vector3f(0, 0, -1);
         
         Game.exitOnGLError("setupQuad");
     } 
     
     private void setupTextures() {
-        texIds = new int[2];
         try {
             texIds[0] = FileIOHandler.loadPNGTexture("assets/textures/stGrid1.png", GL13.GL_TEXTURE0);
             texIds[1] = FileIOHandler.loadPNGTexture("assets/textures/stGrid2.png", GL13.GL_TEXTURE0);
@@ -179,6 +174,16 @@ public class Quad extends AEntity implements IEntity {
     
     @Override
     public void setup() {
+        // Setup model matrix
+        modelMatrix = new Matrix4f();
+        
+        //Default Position, Angle, Scale of the Quad.
+        modelPos = new Vector3f(0, 0, 0);
+        modelAngle = new Vector3f(0, 0, 0);
+        modelScale = new Vector3f(1, 1, 1);
+        
+        texIds = new int[2];
+        
         this.setupQuad();
         this.setupShaders();
         this.setupTextures();
@@ -186,6 +191,49 @@ public class Quad extends AEntity implements IEntity {
 
     @Override
     public void tick() {
+        
+        //-- Input processing
+        float rotationDelta = 15f;
+        float scaleDelta = 0.1f;
+        float posDelta = 0.1f;
+        Vector3f scaleAddResolution = new Vector3f(scaleDelta, scaleDelta, scaleDelta);
+        Vector3f scaleMinusResolution = new Vector3f(-scaleDelta, -scaleDelta, 
+                -scaleDelta);
+        
+        //TODO: Stuff
+        
+        //-- Update matrices
+        // Reset view and model matrices
+        Game.viewMatrix = new Matrix4f();
+        modelMatrix = new Matrix4f();
+         
+        // Translate camera
+        Matrix4f.translate(Game.cameraPos, Game.viewMatrix, Game.viewMatrix);
+         
+        // Scale, translate and rotate model
+        Matrix4f.scale(modelScale, modelMatrix, modelMatrix);
+        Matrix4f.translate(modelPos, modelMatrix, modelMatrix);
+        Matrix4f.rotate(Conversions.degreesToRadians(modelAngle.z), new Vector3f(0, 0, 1), 
+                modelMatrix, modelMatrix);
+        Matrix4f.rotate(Conversions.degreesToRadians(modelAngle.y), new Vector3f(0, 1, 0), 
+                modelMatrix, modelMatrix);
+        Matrix4f.rotate(Conversions.degreesToRadians(modelAngle.x), new Vector3f(1, 0, 0), 
+                modelMatrix, modelMatrix);
+         
+        // Upload matrices to the uniform variables
+        GL20.glUseProgram(pId);
+         
+        Game.projectionMatrix.store(Game.matrix44Buffer);
+        Game.matrix44Buffer.flip();
+        GL20.glUniformMatrix4(projectionMatrixLocation, false, Game.matrix44Buffer);
+        Game.viewMatrix.store(Game.matrix44Buffer); 
+        Game.matrix44Buffer.flip();
+        GL20.glUniformMatrix4(viewMatrixLocation, false, Game.matrix44Buffer);
+        modelMatrix.store(Game.matrix44Buffer);
+        Game.matrix44Buffer.flip();
+        GL20.glUniformMatrix4(modelMatrixLocation, false, Game.matrix44Buffer);
+         
+        GL20.glUseProgram(0);
     }
 
     @Override
