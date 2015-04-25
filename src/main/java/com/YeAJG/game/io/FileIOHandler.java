@@ -36,7 +36,10 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
-import org.newdawn.slick.opengl.PNGDecoder;
+
+import de.matthiasmann.twl.utils.PNGDecoder;
+import de.matthiasmann.twl.utils.PNGDecoder.Format;
+
 
 /**
  *
@@ -123,7 +126,7 @@ public class FileIOHandler {
             // Decode the PNG file in a ByteBuffer
             buf = ByteBuffer.allocateDirect(
                     4 * decoder.getWidth() * decoder.getHeight());
-            decoder.decode(buf, decoder.getWidth() * 4, PNGDecoder.RGBA);
+            decoder.decode(buf, decoder.getWidth() * 4, Format.RGBA);
             buf.flip();
              
             in.close();
