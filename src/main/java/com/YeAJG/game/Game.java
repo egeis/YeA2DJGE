@@ -70,7 +70,8 @@ public class Game implements Runnable {
     
     //Example
     private Quad q = new Quad();
-            
+    private Quad q2 = new Quad();
+    
     public static Game getInstance() {
         if(instance == null) instance = new Game();
         return instance;
@@ -138,7 +139,8 @@ public class Game implements Runnable {
         float interpolation; 
         
         //Example
-        q.setup();
+        q.setup(new Vector3f(0, 0, 0), new Vector3f(0.0f, 10.0f, 0.5f), new Vector3f(1, 1, 1));
+        q2.setup(new Vector3f(0.1f, 0.1f, 0), new Vector3f(0.0f, -10.0f, -0.5f), new Vector3f(1, 1, 1));
         
         while(!Display.isCloseRequested())
         {
@@ -184,6 +186,7 @@ public class Game implements Runnable {
         //Creates the Viewport.       
         GL11.glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);    
         
+            
         this.exitOnGLError("setupOpenGL");
     }
     
@@ -204,6 +207,7 @@ public class Game implements Runnable {
     private void doTick( long next_game_tick )
     {
         q.tick();
+        q2.tick();
     }
  
     /**
@@ -213,7 +217,8 @@ public class Game implements Runnable {
     private void render( float interpolation ) {
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
         
-        q.render();
+        q.render(interpolation);
+        q2.render(interpolation);
         
         Display.sync(60);
         Display.update();

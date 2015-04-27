@@ -66,6 +66,7 @@ public class Quad extends AEntity implements IEntity {
          
         // Create a new shader program that links both shaders
         pId = GL20.glCreateProgram();
+        logger.info(pId);
         GL20.glAttachShader(pId, vsId);
         GL20.glAttachShader(pId, fsId);
  
@@ -152,10 +153,6 @@ public class Quad extends AEntity implements IEntity {
                 GL15.GL_STATIC_DRAW);
         GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, 0);
          
-        // Set the default quad rotation, scale and position values
-        modelPos = new Vector3f(0, 0, 0);
-        modelAngle = new Vector3f(0, 0, 0);
-        modelScale = new Vector3f(1, 1, 1);
         Game.cameraPos = new Vector3f(0, 0, -1);
         
         Game.exitOnGLError("setupQuad");
@@ -173,14 +170,14 @@ public class Quad extends AEntity implements IEntity {
     }
     
     @Override
-    public void setup() {
+    public void setup(Vector3f pos, Vector3f angle, Vector3f scale) {
         // Setup model matrix
         modelMatrix = new Matrix4f();
         
         //Default Position, Angle, Scale of the Quad.
-        modelPos = new Vector3f(0, 0, 0);
-        modelAngle = new Vector3f(0, 0, 0);
-        modelScale = new Vector3f(1, 1, 1);
+        modelPos = new Vector3f(pos);
+        modelAngle = new Vector3f(angle);
+        modelScale = new Vector3f(scale);
         
         texIds = new int[2];
         
@@ -237,41 +234,36 @@ public class Quad extends AEntity implements IEntity {
     }
 
     @Override
-    public void render() {
-        GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
+    public void render(float interpolation) {
          
-        GL20.glUseProgram(pId);
-         
-        // Bind the texture
-        GL13.glActiveTexture(GL13.GL_TEXTURE0);
-        GL11.glBindTexture(GL11.GL_TEXTURE_2D, texIds[textureSelector]);
-         
-        // Bind to the VAO that has all the information about the vertices
-        GL30.glBindVertexArray(vaoId);
-        GL20.glEnableVertexAttribArray(0);
-        GL20.glEnableVertexAttribArray(1);
-        GL20.glEnableVertexAttribArray(2);
-         
-        // Bind to the index VBO that has all the information about the order of the vertices
-        GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, vboiId);
-         
-        // Draw the vertices
-        GL11.glDrawElements(GL11.GL_TRIANGLES, indicesCount, GL11.GL_UNSIGNED_BYTE, 0);
-         
-        // Put everything back to default (deselect)
-        GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, 0);
-        GL20.glDisableVertexAttribArray(0);
-        GL20.glDisableVertexAttribArray(1);
-        GL20.glDisableVertexAttribArray(2);
-        GL30.glBindVertexArray(0);
-         
-        GL20.glUseProgram(0);
+            GL20.glUseProgram(pId);
+
+            // Bind the texture
+            GL13.glActiveTexture(GL13.GL_TEXTURE0);
+            GL11.glBindTexture(GL11.GL_TEXTURE_2D, texIds[textureSelector]);
+
+            // Bind to the VAO that has all the information about the vertices
+            GL30.glBindVertexArray(vaoId);
+            GL20.glEnableVertexAttribArray(0);
+            GL20.glEnableVertexAttribArray(1);
+            GL20.glEnableVertexAttribArray(2);
+
+            // Bind to the index VBO that has all the information about the order of the vertices
+            GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, vboiId);
+
+            // Draw the vertices
+            GL11.glDrawElements(GL11.GL_TRIANGLES, indicesCount, GL11.GL_UNSIGNED_BYTE, 0);
+
+            // Put everything back to default (deselect)
+            GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, 0);
+            GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
+            GL20.glDisableVertexAttribArray(0);
+            GL20.glDisableVertexAttribArray(1);
+            GL20.glDisableVertexAttribArray(2);
+            GL30.glBindVertexArray(0);
+
+            GL20.glUseProgram(0);
          
         Game.exitOnGLError("renderCycle");
-    }
-
-    
-
-   
-    
+    }   
 }

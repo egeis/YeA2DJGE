@@ -23,12 +23,14 @@
  */
 package main.java.com.YeAJG.api;
 
+import org.lwjgl.util.vector.Vector3f;
+
 /**
  *
  * @author Richard
  */
 public interface IEntity {
-    public void setup();
+    public void setup(Vector3f pos, Vector3f angle, Vector3f scale);
     public void tick();
-    public void render();
+    public void render(float interpolation);
 }

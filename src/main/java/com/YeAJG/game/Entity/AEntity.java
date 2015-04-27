@@ -45,7 +45,6 @@ public abstract class AEntity {
    
     public boolean visible;
     
-    
     protected Vector3f modelPos = null;
     protected Vector3f modelAngle = null;
     protected Vector3f modelScale = null;
