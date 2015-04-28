@@ -23,17 +23,14 @@
  */
 package main.java.com.YeAJG.api;
 
-import java.util.List;
-import main.java.com.YeAJG.fx.ps.Particle;
-import org.lwjgl.util.vector.Vector3f;
-
 /**
  *
  * @author Richard
  */
 public interface IEmitter {
-    public void tick();
-    public void postRender();
-    public void preRender();
-    public void render();
+    public void Tick();
+    public void PostRender();
+    public void PreRender();
+    public void Render();
+    public void Generate();
 }

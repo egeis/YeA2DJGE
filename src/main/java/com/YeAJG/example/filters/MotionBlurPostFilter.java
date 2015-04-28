@@ -30,7 +30,7 @@ public class MotionBlurPostFilter implements IFilter
    }
 
    @Override
-   public void apply()
+   public void Apply()
    {
        GL11.glEnable(EXTTextureRectangle.GL_TEXTURE_RECTANGLE_EXT);
        GL11.glBindTexture(EXTTextureRectangle.GL_TEXTURE_RECTANGLE_EXT, textureHandle);

@@ -23,56 +23,41 @@
  */
 package main.java.com.example.emitters;
 
-import java.util.HashMap;
-import java.util.List;
 import main.java.com.YeAJG.api.IEmitter;
-import main.java.com.YeAJG.fx.ps.Particle;
-import main.java.com.YeAJG.example.filters.MotionBlurPostFilter;
-import main.java.com.YeAJG.fx.ps.AEmitter;
-import main.java.com.YeAJG.game.Game;
-import main.java.com.YeAJG.game.utils.Randomizer;
-import org.lwjgl.util.Color;
-import org.lwjgl.util.vector.Vector2f;
-import org.lwjgl.util.vector.Vector3f;
+import main.java.com.YeAJG.fx.ps.Emitter;
 
 /**
  *
  * @author Richard Coan
  */
-public class CodeEmitter extends AEmitter implements IEmitter
+public class ExampleEmitter extends Emitter implements IEmitter
 {
     @Override
-    public void tick() {
+    public void Tick() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void postRender() {
+    public void PostRender() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void preRender() {
+    public void PreRender() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void render() {
+    public void Render() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     @Override
-    public void generate() {
+    public void Generate() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     /*
-    
-    public CodeEmitter()
-    {
-    }    
-        
-    @Override
     public void generate(int num) {
         int i = 0;
         if(state == null) {
@@ -119,28 +104,5 @@ public class CodeEmitter extends AEmitter implements IEmitter
                         
             i++;
         }
-    }
-
-    @Override
-    public void update(Particle p) 
-    {
-
-    }
-
-    @Override
-    public void preDraw(Particle p) 
-    {
-        
-    }
-
-    @Override
-    public void draw(Particle p) {        
-        
-    }
-
-    @Override
-    public void postDraw(Particle p) {
     }*/
-
-   
 }

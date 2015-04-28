@@ -40,7 +40,7 @@ import org.lwjgl.util.vector.Vector3f;
  *
  * @author Richard Coan
  */
-public abstract class AEntity {
+public abstract class Entity implements Cloneable {
     protected static final Logger logger = LogManager.getLogger( Game.class.getName() );
    
     public boolean visible;
@@ -75,7 +75,7 @@ public abstract class AEntity {
         // Delete the texture
         GL11.glDeleteTextures(texIds[0]);
         GL11.glDeleteTextures(texIds[1]);
-         
+                         
         // Delete the shaders
         GL20.glUseProgram(0);
         GL20.glDeleteProgram(pId);

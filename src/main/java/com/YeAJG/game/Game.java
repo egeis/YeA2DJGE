@@ -139,8 +139,8 @@ public class Game implements Runnable {
         float interpolation; 
         
         //Example
-        q.setup(new Vector3f(0, 0, 0), new Vector3f(0.0f, 10.0f, 0.5f), new Vector3f(1, 1, 1));
-        q2.setup(new Vector3f(0.1f, 0.1f, -2f), new Vector3f(0.0f, -10.0f, -0.5f), new Vector3f(1, 1, 1));
+        q.Setup(new Vector3f(0, 0, 0), new Vector3f(0.0f, 10.0f, 0.5f), new Vector3f(1, 1, 1));
+        q2.Setup(new Vector3f(0.1f, 0.1f, -2f), new Vector3f(0.0f, -10.0f, -0.5f), new Vector3f(1, 1, 1));
         
         while(!Display.isCloseRequested())
         {
@@ -209,8 +209,8 @@ public class Game implements Runnable {
       */
     private void doTick( long next_game_tick )
     {
-        q.tick();
-        q2.tick();
+        q.Tick();
+        q2.Tick();
     }
  
     /**
@@ -220,8 +220,8 @@ public class Game implements Runnable {
     private void render( float interpolation ) {
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
         
-        q.render(interpolation);
-        q2.render(interpolation);        
+        q.Render(interpolation);
+        q2.Render(interpolation);        
         
         Display.sync(60);
         Display.update();

@@ -28,5 +28,5 @@ package main.java.com.YeAJG.api;
  * @author Richard
  */
 public interface IFilter {
-    public void apply();
+    public void Apply();
 }

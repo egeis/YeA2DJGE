@@ -19,85 +19,50 @@
  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * HTE SOFTWARE.
+ * THE SOFTWARE.
  */
 package main.java.com.YeAJG.fx.ps;
 
-import main.java.com.YeAJG.api.IEntity;
+import main.java.com.YeAJG.game.Entity.Entity;
+import org.lwjgl.util.Color;
+import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
 /**
  *
  * @author Richard Coan
  */
-public class Particle extends AParticle implements IEntity {
-
-    @Override
-    public void setup(Vector3f pos, Vector3f angle, Vector3f scale) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void render(float interpolation) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-          
-    /**
-     * @param location
-     * @param size
-     * @param scale
-     * @param rotation
-     * @param velocity
-     * @param acceleration
-     * @param spin
-     * @param parameters
-     * @param color
-     * @param keepAlive 
-     */
-    /*public Particle(Vector3f location, Vector2f size, Vector3f scale, Vector3f velocity, 
-            Vector3f acceleration, Vector3f rotation, Vector3f spin, Map<String, Object> parameters, Color color, boolean keepAlive) {
-        this.location = location;
-        this.velocity = velocity;
-        this.acceleration = acceleration;
-        this.rotation = rotation;
-        this.scale = scale;
-        this.size = size;
-        this.spin = spin;
-        this.keepAlive = keepAlive;
-        this.visible = true;
-        this.color = new Color(color);
-    } 
-
-    @Override
-    public void tick() {
-        Vector3f.add(this.rotation, this.spin, this.rotation);
+public abstract class Particle extends Entity {      
+                    
+    public boolean keepAlive = false;
+    public float age;
+    public float mass;
+  
+    /*public void Tick() {        
+        Vector3f.add(this.modelAngle, this.spin, this.modelAngle);
         Vector3f.add(this.velocity, this.acceleration, this.velocity);
-        Vector3f.add(this.location, this.velocity, this.location);
-    }
-
-    @Override
-    public void render() {
-        GL11.glColor4b((byte)(this.color.getRedByte()-128),
-            (byte)(this.color.getGreenByte()-128),
-            (byte)(this.color.getBlueByte()-128),
-            (byte)(this.color.getAlphaByte()-128));
+        Vector3f.add(this.modelPos, this.velocity, this.modelPos);
+    }*/
+    
+    /*public boolean isDead()
+    {
+        if(keepAlive) return false;
         
-        GL11.glPushMatrix();
-            GL11.glTranslatef(this.location.x,this.location.y,0);
-            GL11.glRotated(this.rotation.z, 0.0f, 0.0f, 1.0f);
-            GL11.glTranslatef(-this.location.x,-this.location.y,0);
-            
-            GL11.glBegin(GL11.GL_QUADS);
-                GL11.glVertex2f(this.location.x - this.size.x, this.location.y - this.size.y);
-                GL11.glVertex2f(this.location.x + this.size.x, this.location.y - this.size.y);
-                GL11.glVertex2f(this.location.x + this.size.x, this.location.y + this.size.y);
-                GL11.glVertex2f(this.location.x - this.size.x, this.location.y + this.size.y);                
-            GL11.glEnd();
-        GL11.glPopMatrix();
-    }
-
-    @Override
-    public void setup() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    } */
+        if(parameters.containsKey("Age.Max") && 
+                parameters.containsKey("Age.Count"))         
+            if( ((float) parameters.get("Age.Count")) < 
+                    ((float) parameters.get("Age.Max")))
+                return false;
+        
+        
+        if(parameters.containsKey("Age.Death.FADE.Step") &&
+                parameters.containsKey("Age.Death.FADE.End"))
+            if(this.color.getAlpha() > (Integer) this.parameters.get("Death.FADE.End"))
+            {
+                this.color.setAlpha( this.color.getAlpha() - (int) parameters.get("Death.FADE.Step") );
+                return false;
+            }
+        
+        return !keepAlive;
+    }*/
 }

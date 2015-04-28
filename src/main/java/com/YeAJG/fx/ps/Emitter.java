@@ -23,66 +23,25 @@
  */
 package main.java.com.YeAJG.fx.ps;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import main.java.com.YeAJG.api.IEmitter;
-import main.java.com.YeAJG.api.IEntity;
-import org.lwjgl.util.vector.Vector3f;
+import main.java.com.YeAJG.api.IParticle;
+import main.java.com.YeAJG.game.Entity.Entity;
 
 /**
  *
- * @author Richard Coan
+ * @author Richard
  */
-public class Emitter extends AEmitter implements IEntity {
-
-    
-    public Emitter(IEmitter updater, Vector3f location, Vector3f size, int num_per_tick, int limit)
-    {        
-        this.updater = updater;
-        this.num_per_tick = num_per_tick; 
-        this.particle_limit = limit;
-    }
-    
-    public void generate() {
-        int i = 0;
-        while(i < num_per_tick && particles.size() < particle_limit)
-        {
-            
-            i++;
-        }
-    }
+public abstract class Emitter extends Entity {
+    protected List<IParticle> particles = new ArrayList();
+    protected IEmitter updater;
+    protected int num_per_tick;
+    protected long lastUpdate;
+    protected int particle_limit;
         
-    /*public void update(long next_game_tick) {
-        if( next_game_tick > lastUpdate ) 
-        {
-            lastUpdate = next_game_tick;
-            
-            List<Particle> list = updater.getList();
-            List<Particle> toRemove = new ArrayList();
-            
-            list.stream().forEach((p) -> {
-                if(p.isDead())
-                    toRemove.add(p);
-                else
-                    updater.update(p);
-            });
-            
-            list.removeAll(toRemove);
-        }
-    }*/
-
-    @Override
-    public void tick() {
-        updater.tick();
-    }
-
-    @Override
-    public void setup(Vector3f pos, Vector3f angle, Vector3f scale) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void render(float interpolation) {
-        updater.preRender();
-        updater.render();
-        updater.postRender();    }
-    
+    public List<IParticle> getParticles() {
+        return particles;
+    } 
 }

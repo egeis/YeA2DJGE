@@ -29,7 +29,7 @@ import java.nio.FloatBuffer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import main.java.com.YeAJG.api.IEntity;
-import main.java.com.YeAJG.game.Entity.AEntity;
+import main.java.com.YeAJG.game.Entity.Entity;
 import main.java.com.YeAJG.game.Game;
 import main.java.com.YeAJG.game.io.FileIOHandler;
 import main.java.com.YeAJG.game.utils.Conversions;
@@ -47,7 +47,7 @@ import org.lwjgl.util.vector.Vector3f;
  *
  * @author Richard Coan
  */
-public class Quad extends AEntity implements IEntity {
+public class Quad extends Entity implements IEntity {
     private void setupShaders()
     {
         // Load the vertex shader and fragment shader
@@ -167,7 +167,7 @@ public class Quad extends AEntity implements IEntity {
     }
     
     @Override
-    public void setup(Vector3f pos, Vector3f angle, Vector3f scale) {
+    public void Setup(Vector3f pos, Vector3f angle, Vector3f scale) {
         // Setup model matrix
         modelMatrix = new Matrix4f();
         
@@ -184,7 +184,7 @@ public class Quad extends AEntity implements IEntity {
     }
 
     @Override
-    public void tick() {
+    public void Tick() {
         
         //-- Input processing
         float rotationDelta = 15f;
@@ -231,7 +231,7 @@ public class Quad extends AEntity implements IEntity {
     }
 
     @Override
-    public void render(float interpolation) {
+    public void Render(float interpolation) {
          
             GL20.glUseProgram(pId);
 
