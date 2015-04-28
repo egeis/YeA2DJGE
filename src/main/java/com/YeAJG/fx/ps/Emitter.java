@@ -68,13 +68,6 @@ public class Emitter extends AEmitter implements IEntity {
             list.removeAll(toRemove);
         }
     }*/
-    
-    @Override
-    public void render() {
-        updater.preRender();
-        updater.render();
-        updater.postRender();
-    }
 
     @Override
     public void tick() {
@@ -82,7 +75,14 @@ public class Emitter extends AEmitter implements IEntity {
     }
 
     @Override
-    public void setup() {
+    public void setup(Vector3f pos, Vector3f angle, Vector3f scale) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public void render(float interpolation) {
+        updater.preRender();
+        updater.render();
+        updater.postRender();    }
     
 }

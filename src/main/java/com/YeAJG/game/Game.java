@@ -140,7 +140,7 @@ public class Game implements Runnable {
         
         //Example
         q.setup(new Vector3f(0, 0, 0), new Vector3f(0.0f, 10.0f, 0.5f), new Vector3f(1, 1, 1));
-        q2.setup(new Vector3f(0.1f, 0.1f, 0), new Vector3f(0.0f, -10.0f, -0.5f), new Vector3f(1, 1, 1));
+        q2.setup(new Vector3f(0.1f, 0.1f, -2f), new Vector3f(0.0f, -10.0f, -0.5f), new Vector3f(1, 1, 1));
         
         while(!Display.isCloseRequested())
         {
@@ -162,7 +162,7 @@ public class Game implements Runnable {
     }
  
     /**
-     * Initiates Display and OpenGL.
+     * Initiates Display and OpenGL, using OpenGL 3.2
      */
     private void setupOpenGL() {
         try {
@@ -184,10 +184,13 @@ public class Game implements Runnable {
         GL11.glClearColor(0.4f, 0.6f, 0.9f, 0f);
         
         //Creates the Viewport.       
-        GL11.glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);    
+        GL11.glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT); 
         
-            
-        this.exitOnGLError("setupOpenGL");
+        //Enables Depth Testing.
+        GL11.glEnable (GL11.GL_DEPTH_TEST);
+        
+        //Exit on Setup Error.
+        Game.exitOnGLError("setupOpenGL");
     }
     
      /**
@@ -218,7 +221,7 @@ public class Game implements Runnable {
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
         
         q.render(interpolation);
-        q2.render(interpolation);
+        q2.render(interpolation);        
         
         Display.sync(60);
         Display.update();

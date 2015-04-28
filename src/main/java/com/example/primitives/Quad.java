@@ -48,8 +48,6 @@ import org.lwjgl.util.vector.Vector3f;
  * @author Richard Coan
  */
 public class Quad extends AEntity implements IEntity {
-
-    
     private void setupShaders()
     {
         // Load the vertex shader and fragment shader
@@ -66,7 +64,6 @@ public class Quad extends AEntity implements IEntity {
          
         // Create a new shader program that links both shaders
         pId = GL20.glCreateProgram();
-        logger.info(pId);
         GL20.glAttachShader(pId, vsId);
         GL20.glAttachShader(pId, fsId);
  

@@ -35,24 +35,30 @@ import org.lwjgl.util.vector.Vector3f;
 public abstract class AParticle extends AEntity {      
                     
     public boolean keepAlive = false;
-    public float Age;
-    
-    //Size of the Quad
-    public Vector2f size;   
-            
+    public float age;
+    public float mass;
+                
     protected void setDefaults(Particle p)
     {
         this.acceleration = new Vector3f(p.acceleration);
-        this.location = new Vector3f(p.location);
-        this.rotation = p.rotation;
-        this.scale = new Vector3f(p.scale);
-        this.size = new Vector2f(p.size);
+        this.modelPos = new Vector3f(p.modelPos);
+        this.modelAngle = new Vector3f(p.modelAngle);
+        this.modelScale = new Vector3f(p.modelScale);
         this.velocity = new Vector3f(p.velocity);
         this.spin = p.spin;
                 
         this.color = new Color(p.color);
         this.keepAlive = p.keepAlive;
         this.visible = p.visible;
+        
+        this.age = p.age;
+        this.mass = p.mass;
+    }
+    
+    public void tick() {
+        Vector3f.add(this.modelAngle, this.spin, this.modelAngle);
+        Vector3f.add(this.velocity, this.acceleration, this.velocity);
+        Vector3f.add(this.modelPos, this.velocity, this.modelPos);
     }
     
     public boolean isDead()

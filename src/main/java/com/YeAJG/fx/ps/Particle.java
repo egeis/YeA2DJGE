@@ -23,12 +23,7 @@
  */
 package main.java.com.YeAJG.fx.ps;
 
-import java.util.ArrayList;
-import java.util.Map;
 import main.java.com.YeAJG.api.IEntity;
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.util.Color;
-import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
 /**
@@ -36,6 +31,16 @@ import org.lwjgl.util.vector.Vector3f;
  * @author Richard Coan
  */
 public class Particle extends AParticle implements IEntity {
+
+    @Override
+    public void setup(Vector3f pos, Vector3f angle, Vector3f scale) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void render(float interpolation) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
           
     /**
      * @param location
@@ -49,7 +54,7 @@ public class Particle extends AParticle implements IEntity {
      * @param color
      * @param keepAlive 
      */
-    public Particle(Vector3f location, Vector2f size, Vector3f scale, Vector3f velocity, 
+    /*public Particle(Vector3f location, Vector2f size, Vector3f scale, Vector3f velocity, 
             Vector3f acceleration, Vector3f rotation, Vector3f spin, Map<String, Object> parameters, Color color, boolean keepAlive) {
         this.location = location;
         this.velocity = velocity;
@@ -94,5 +99,5 @@ public class Particle extends AParticle implements IEntity {
     @Override
     public void setup() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    } 
+    } */
 }

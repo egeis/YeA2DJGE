@@ -23,14 +23,12 @@
  */
 package main.java.com.YeAJG.game;
 
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
 import main.java.com.YeAJG.game.io.ConfigHandler;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.lwjgl.Sys;
 
 /**
  *
@@ -53,9 +51,9 @@ public class GameLauncher {
                 +System.getProperty("line.separator")
                 +"OS: "+System.getProperty("os.name")
                 +" v."+System.getProperty("os.version")
-                + System.getProperty("line.separator")
-                //+"LWJGL v."+Sys.getVersion()
-                //+"Classpath: "+System.getProperty("java.class.path")
+                +System.getProperty("line.separator")
+                +"LWJGL v."+Sys.getVersion()
+                +"Classpath: "+System.getProperty("java.class.path")
         );
 
         game = Game.getInstance();
