@@ -23,46 +23,69 @@
  */
 package main.java.com.YeAJG.fx.ps;
 
+import main.java.com.YeAJG.api.IEntity;
 import main.java.com.YeAJG.game.Entity.Entity;
-import org.lwjgl.util.Color;
-import org.lwjgl.util.vector.Vector2f;
-import org.lwjgl.util.vector.Vector3f;
+
 
 /**
- *
+ * Abstract Particle Class.
  * @author Richard Coan
  */
-public abstract class Particle extends Entity {      
-                    
-    public boolean keepAlive = false;
-    public float age;
-    public float mass;
+public abstract class Particle extends Entity implements IEntity {      
+    protected boolean keepAlive = false;
+    protected float age = 1.0f;
+    protected float decay = 0.01f;
+    protected float mass;
   
     /*public void Tick() {        
         Vector3f.add(this.modelAngle, this.spin, this.modelAngle);
         Vector3f.add(this.velocity, this.acceleration, this.velocity);
         Vector3f.add(this.modelPos, this.velocity, this.modelPos);
     }*/
-    
-    /*public boolean isDead()
-    {
-        if(keepAlive) return false;
         
-        if(parameters.containsKey("Age.Max") && 
-                parameters.containsKey("Age.Count"))         
-            if( ((float) parameters.get("Age.Count")) < 
-                    ((float) parameters.get("Age.Max")))
-                return false;
-        
-        
-        if(parameters.containsKey("Age.Death.FADE.Step") &&
-                parameters.containsKey("Age.Death.FADE.End"))
-            if(this.color.getAlpha() > (Integer) this.parameters.get("Death.FADE.End"))
-            {
-                this.color.setAlpha( this.color.getAlpha() - (int) parameters.get("Death.FADE.Step") );
-                return false;
-            }
-        
-        return !keepAlive;
-    }*/
+    public boolean isAlive()
+    {       
+        if(keepAlive) return keepAlive;
+        else if(age < 0.0f) return false;
+        return true;
+    }
+
+    public boolean isKeepAlive() {
+        return keepAlive;
+    }
+
+    public void setKeepAlive(boolean keepAlive) {
+        this.keepAlive = keepAlive;
+    }
+
+    public float getAge() {
+        return age;
+    }
+
+    public void setAge(float age) {
+        this.age = age;
+    }
+
+    public float getDecay() {
+        return decay;
+    }
+
+    /**
+     * Sets the decay rate, must be a positive non-zero number
+     * @param decay rate.
+     * @return 0 if not set or decay value if set.
+     */
+    public float setDecay(float decay) {
+        if(decay <= 0.0f) return 0.0f;
+        this.decay = decay;
+        return decay;
+    }
+
+    public float getMass() {
+        return mass;
+    }
+
+    public void setMass(float mass) {
+        this.mass = mass;
+    }    
 }

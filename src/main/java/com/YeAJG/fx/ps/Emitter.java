@@ -31,15 +31,15 @@ import main.java.com.YeAJG.api.IParticle;
 import main.java.com.YeAJG.game.Entity.Entity;
 
 /**
- *
- * @author Richard
+ *  Abstract Emitter Class
+ * @author Richard Coan
  */
 public abstract class Emitter extends Entity {
     protected List<IParticle> particles = new ArrayList();
-    protected IEmitter updater;
-    protected int num_per_tick;
-    protected long lastUpdate;
-    protected int particle_limit;
+    protected IEmitter updater;     
+    protected int num_per_tick;     //Spawn Rate
+    protected long lastUpdate;      
+    protected int particle_limit;   //Spawn Limit (Hard)
         
     public List<IParticle> getParticles() {
         return particles;

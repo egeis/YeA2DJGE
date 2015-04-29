@@ -23,6 +23,7 @@
  */
 package main.java.com.YeAJG.api;
 
+import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
 /**
@@ -30,7 +31,17 @@ import org.lwjgl.util.vector.Vector3f;
  * @author Richard
  */
 public interface IEntity {
-    public void Setup(Vector3f pos, Vector3f angle, Vector3f scale);
+    public void Setup(
+            Vector3f pos, 
+            Vector3f angle, 
+            Vector3f scale, 
+            String shaderPath, 
+            String fragmentPath, 
+            String[] texturePaths,
+            Vector3f[] vertex, 
+            Vector3f[] color, 
+            Vector2f[] uv
+    );
     public void Tick();
     public void Render(float interpolation);
 }

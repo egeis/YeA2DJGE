@@ -40,6 +40,7 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.PixelFormat;
 import org.lwjgl.util.glu.GLU;
 import org.lwjgl.util.vector.Matrix4f;
+import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
 /**
@@ -139,8 +140,37 @@ public class Game implements Runnable {
         float interpolation; 
         
         //Example
-        q.Setup(new Vector3f(0, 0, 0), new Vector3f(0.0f, 10.0f, 0.5f), new Vector3f(1, 1, 1));
-        q2.Setup(new Vector3f(0.1f, 0.1f, -2f), new Vector3f(0.0f, -10.0f, -0.5f), new Vector3f(1, 1, 1));
+        q.Setup(
+            new Vector3f(0, 0, 0), 
+            new Vector3f(0.0f, 10.0f, 0.5f), 
+            new Vector3f(1, 1, 1), 
+            "assets/shaders/vertex.glsl", 
+            "assets/shaders/fragment.glsl", 
+            new String[] {
+                "assets/textures/stGrid1.png",
+                "assets/textures/stGrid2.png"
+            },
+            new Vector3f[] { 
+                new Vector3f(-0.5f, 0.5f, 0),
+                new Vector3f(-0.5f, -0.5f, 0), 
+                new Vector3f(0.5f, -0.5f, 0),
+                new Vector3f(0.5f, 0.5f, 0) 
+            }, 
+            new Vector3f[] { 
+                new Vector3f(1, 0, 0), 
+                new Vector3f(0, 1, 0),
+                new Vector3f(0, 0, 1), 
+                new Vector3f(1,1,1)
+            },
+            new Vector2f[] {
+                new Vector2f(0, 0),       
+                new Vector2f(0, 1),
+                new Vector2f(1, 1),
+                new Vector2f(1, 0)
+            }
+        );        
+        
+       //q2.Setup(new Vector3f(0.1f, 0.1f, -2f), new Vector3f(0.0f, -10.0f, -0.5f), new Vector3f(1, 1, 1));
         
         while(!Display.isCloseRequested())
         {
@@ -210,7 +240,7 @@ public class Game implements Runnable {
     private void doTick( long next_game_tick )
     {
         q.Tick();
-        q2.Tick();
+        //q2.Tick();
     }
  
     /**
@@ -219,9 +249,15 @@ public class Game implements Runnable {
      */
     private void render( float interpolation ) {
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
+       
+        // Reset view and model matrices
+        Game.viewMatrix = new Matrix4f();
+        
+        // Translate camera
+        Matrix4f.translate(Game.cameraPos, Game.viewMatrix, Game.viewMatrix);
         
         q.Render(interpolation);
-        q2.Render(interpolation);        
+        //q2.Render(interpolation);        
         
         Display.sync(60);
         Display.update();
