@@ -57,9 +57,9 @@ public abstract class Entity implements Cloneable, IEntity {
     protected Vector3f modelScale = null;
     protected Matrix4f modelMatrix = null;          
     
-    protected Vector3f modelVelcity;         
-    protected Vector3f modelAccel;       
-    protected Vector3f modelSpin;
+    protected Vector3f modelVelcity = new Vector3f(0,0,0);         
+    protected Vector3f modelAccel = new Vector3f(0,0,0); ;       
+    protected Vector3f modelSpin = new Vector3f(0,0,0); ;
     
     protected int[] texIds;
     protected int textureSelector = 0;
@@ -156,7 +156,7 @@ public abstract class Entity implements Cloneable, IEntity {
         {
             vertices[i] = new VertexData(); 
             vertices[i].setXYZ(vertex[i].x, vertex[i].y, vertex[i].z);
-            vertices[i].setRGB(color[i].x, color[i].y, color[i].z);
+            vertices[i].setRGBA(color[i].x, color[i].y, color[i].z, 1.0f);
             vertices[i].setST(uv[i].x, uv[i].y);
         }    
          
@@ -251,7 +251,13 @@ public abstract class Entity implements Cloneable, IEntity {
         Game.exitOnGLError("renderCycle");
     }
     
+    @Override
     public void Tick() {
+        // Update Positions
+        Vector3f.add(this.modelAngle, this.modelSpin, this.modelAngle);
+        Vector3f.add(this.modelVelcity, this.modelAccel, this.modelVelcity);
+        Vector3f.add(this.modelPos, this.modelVelcity, this.modelPos);
+
         // Reset view and model matrices
         modelMatrix = new Matrix4f();
          
