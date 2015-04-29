@@ -21,24 +21,16 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package main.java.com.YeAJG.fx.particle;
-
-import java.util.List;
-import org.lwjgl.util.vector.Vector3f;
+package main.java.com.YeAJG.api;
 
 /**
  *
  * @author Richard
  */
-public interface IEmitUpdater {
-    public void update(Particle p);
-    public void postDraw(Particle p);
-    public void preDraw(Particle p);
-    public void draw(Particle p);
-    public void generate(int num);
-    public List<Particle> getList();
-    public void setState(Particle state);
-    public void setLimit(int limit);
-    public void setLocation(Vector3f location);
-    public void setSize(Vector3f size);
+public interface IEmitter {
+    public void Tick();
+    public void PostRender();
+    public void PreRender();
+    public void Render();
+    public void Generate();
 }

@@ -21,30 +21,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package main.java.com.YeAJG.game.utils;
-
-import java.util.Random;
+package main.java.com.YeAJG.api;
 
 /**
  *
  * @author Richard
  */
-public class Randomizer {
-    private static Random r = new Random();
-    
-    public static float getValue(float a, float b)
-    {
-        if( (b-a) > 0.0f)
-            return (float) ((r.nextFloat() * (b - a)) + a);
-        else
-            return a;
-    }
-    
-    public static int getValue(int a, int b)
-    {
-        if( (b-a) > 0.0f)
-            return (r.nextInt(b - a) + a);
-        else
-            return a;
-    }
+public interface IParticle {
+    public boolean isAlive();
 }

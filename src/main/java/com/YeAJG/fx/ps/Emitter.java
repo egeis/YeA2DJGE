@@ -21,12 +21,27 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package main.java.com.YeAJG.fx.particle.graphics.filters;
+package main.java.com.YeAJG.fx.ps;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import main.java.com.YeAJG.api.IEmitter;
+import main.java.com.YeAJG.api.IParticle;
+import main.java.com.YeAJG.game.Entity.Entity;
 
 /**
- *
- * @author Richard
+ *  Abstract Emitter Class
+ * @author Richard Coan
  */
-public interface IFilter {
-    public void apply();
+public abstract class Emitter extends Entity {
+    protected List<IParticle> particles = new ArrayList();
+    protected IEmitter updater;     
+    protected int num_per_tick;     //Spawn Rate
+    protected long lastUpdate;      
+    protected int particle_limit;   //Spawn Limit (Hard)
+        
+    public List<IParticle> getParticles() {
+        return particles;
+    } 
 }

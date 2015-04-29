@@ -21,30 +21,28 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package main.java.com.YeAJG.game.utils;
+package main.java.com.example.primitives;
 
-import java.util.Random;
+import main.java.com.YeAJG.api.IEntity;
+import main.java.com.YeAJG.game.Entity.Entity;
 
 /**
  *
- * @author Richard
+ * @author Richard Coan
  */
-public class Randomizer {
-    private static Random r = new Random();
-    
-    public static float getValue(float a, float b)
-    {
-        if( (b-a) > 0.0f)
-            return (float) ((r.nextFloat() * (b - a)) + a);
-        else
-            return a;
+public class Quad extends Entity implements IEntity {
+    @Override
+    public void Tick() {
+        //TODO: Input processing
+                
+        //TODO: Update matrices
+        
+        super.Tick();
     }
     
-    public static int getValue(int a, int b)
-    {
-        if( (b-a) > 0.0f)
-            return (r.nextInt(b - a) + a);
-        else
-            return a;
+    @Override
+    public void Render(float interpolation) {
+        
+        super.Render(interpolation);
     }
 }
