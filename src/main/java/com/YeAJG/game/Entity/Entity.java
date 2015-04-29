@@ -32,7 +32,6 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL15;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
-import org.lwjgl.util.Color;
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
 
@@ -43,17 +42,17 @@ import org.lwjgl.util.vector.Vector3f;
 public abstract class Entity implements Cloneable {
     protected static final Logger logger = LogManager.getLogger( Game.class.getName() );
    
-    public boolean visible;
+    protected boolean visible = true;
     
     protected Vector3f modelPos = null;
     protected Vector3f modelAngle = null;
     protected Vector3f modelScale = null;
     protected Matrix4f modelMatrix = null;          
-    public Vector3f velocity;         
-    public Vector3f acceleration;       
-    public Vector3f spin;
     
-    protected Color color;
+    protected Vector3f modelVelcity;         
+    protected Vector3f modelAccel;       
+    protected Vector3f modelSpin;
+    
     protected int[] texIds;
     protected int textureSelector = 0;
     
@@ -69,6 +68,62 @@ public abstract class Entity implements Cloneable {
     protected int vboiId = 0;
     
     protected int pId = 0;
+
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
+    }
+    
+    public Vector3f getModelPos() {
+        return modelPos;
+    }
+
+    public void setModelPos(Vector3f modelPos) {
+        this.modelPos = new Vector3f(modelPos);
+    }
+
+    public Vector3f getModelAngle() {
+        return modelAngle;
+    }
+
+    public void setModelAngle(Vector3f modelAngle) {
+        this.modelAngle = new Vector3f(modelAngle);
+    }
+
+    public Vector3f getModelScale() {
+        return modelScale;
+    }
+
+    public void setModelScale(Vector3f modelScale) {
+        this.modelScale = new Vector3f(modelScale);
+    }
+
+    public Vector3f getModelVelcity() {
+        return modelVelcity;
+    }
+
+    public void setModelVelcity(Vector3f modelVelcity) {
+        this.modelVelcity = new Vector3f(modelVelcity);
+    }
+
+    public Vector3f getModelAccel() {
+        return modelAccel;
+    }
+
+    public void setModelAccel(Vector3f modelAccel) {
+        this.modelAccel = new Vector3f(modelAccel);
+    }
+
+    public Vector3f getModelSpin() {
+        return modelSpin;
+    }
+
+    public void setModelSpin(Vector3f modelSpin) {
+        this.modelSpin = new Vector3f(modelSpin);
+    }
     
     public void destroy()
     {
@@ -99,4 +154,6 @@ public abstract class Entity implements Cloneable {
         GL30.glBindVertexArray(0);
         GL30.glDeleteVertexArrays(vaoId);
     }
+    
+    
 }
