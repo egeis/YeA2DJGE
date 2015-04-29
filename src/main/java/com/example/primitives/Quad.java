@@ -33,15 +33,9 @@ import main.java.com.YeAJG.game.Entity.Entity;
 public class Quad extends Entity implements IEntity {
     @Override
     public void Tick() {
-        //-- Input processing
-        /*float rotationDelta = 15f;
-        float scaleDelta = 0.1f;
-        float posDelta = 0.1f;
-        Vector3f scaleAddResolution = new Vector3f(scaleDelta, scaleDelta, scaleDelta);
-        Vector3f scaleMinusResolution = new Vector3f(-scaleDelta, -scaleDelta, 
-                -scaleDelta);*/
+        //TODO: Input processing
                 
-        //-- Update matrices
+        //TODO: Update matrices
         
         super.Tick();
     }
