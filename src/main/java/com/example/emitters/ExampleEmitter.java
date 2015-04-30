@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2015 Richard.
+ * Copyright 2015 Richard Coan.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,85 +24,98 @@
 package main.java.com.example.emitters;
 
 import main.java.com.YeAJG.api.IEmitter;
+import main.java.com.YeAJG.api.IEntity;
 import main.java.com.YeAJG.fx.ps.Emitter;
+import main.java.com.YeAJG.fx.ps.Particle;
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.util.vector.Vector2f;
+import org.lwjgl.util.vector.Vector3f;
 
 /**
  *
  * @author Richard Coan
  */
-public class ExampleEmitter extends Emitter implements IEmitter
-{
-    @Override
-    public void Tick() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+public class ExampleEmitter extends Emitter implements IEmitter, IEntity
+{    
 
-    @Override
-    public void PostRender() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void PreRender() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void Render() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ExampleEmitter(Particle p, int num_per_tick, int particle_limit)
+    {
+        this.particle = p;
+        this.num_per_tick = num_per_tick;
+        this.particle_limit = particle_limit;
     }
     
-    @Override
-    public void Generate() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void Setup(Vector3f pos, Vector3f angle, Vector3f[] vertex)
+    {
+        //this.Setup(pos, angle, null, "", "", null, vertex, null, null);
     }
-    
-    /*
-    public void generate(int num) {
-        int i = 0;
-        if(state == null) {
-            logger.info("State not Initialized!");
-            return;
-        }
-        Vector2f nsize;
-        float modifier = 0.0f, rot = 0.0f;
-        int n;
         
-        while(i < num && list.size() < limit)
-        {            
-            if(state.parameters.containsKey("Distance.Min") || 
-                    state.parameters.containsKey("Distance.Max"))
-                modifier = Randomizer.getValue(
-                        (float) state.parameters.get("Distance.Min"), 
-                        (float) state.parameters.get("Distance.Max"));
-            
-            nsize = new Vector2f(state.size.x * modifier,
-                    state.size.y * modifier);
-            
-            n = Randomizer.getValue(0, 255);
-            rot = Randomizer.getValue(-2.0f, 2.f);
-            logger.info(rot);
-            
-            Vector3f rotation = new Vector3f(state.rotation);
-            rotation.z = rotation.z + rot;
-            
-            list.add(new Particle(
-                new Vector3f(
-                        Randomizer.getValue(location.x, size.x),
-                        Randomizer.getValue(location.y, size.y), 
-                        0f),
-                new Vector2f(nsize),
-                new Vector3f(state.scale),
-                new Vector3f(state.velocity),
-                new Vector3f(state.acceleration),
-                rotation,
-                new Vector3f(state.spin),               
-                new HashMap(state.parameters),
-                new Color(n,n,255,255),
-                state.keepAlive
-            ));
-                        
+    @Override
+    public void Tick()
+    {
+        Generate();
+        
+        particles.stream().forEach((p) -> {        
+            p.Tick();
+        });
+    }
+
+    @Override
+    public void Render(float interpolation)
+    {
+        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        
+        particles.stream().forEach((p) -> {        
+            p.Render(interpolation);
+        });
+                
+        GL11.glDisable(GL11.GL_BLEND);
+    }
+    
+    @Override
+    public void Generate()
+    {
+        int i = 0;
+        
+        while(i < num_per_tick && (particles.size() < particle_limit) )
+        { 
+            logger.info("Adding Particle");
+            ExampleParticle p = new ExampleParticle();
+            p.Setup(
+                particle.getModelPos(), 
+                particle.getModelAngle(), 
+                particle.getModelScale(),
+                "assets/shaders/vertex.glsl", 
+                "assets/shaders/fragment.glsl", 
+                new String[] {
+                    "assets/textures/snowflake.png",
+                    "assets/textures/stGrid1.png",
+                    "assets/textures/stGrid2.png"
+                },
+                new Vector3f[] { 
+                    new Vector3f(-0.5f, 0.5f, 0),
+                    new Vector3f(-0.5f, -0.5f, 0), 
+                    new Vector3f(0.5f, -0.5f, 0),
+                    new Vector3f(0.5f, 0.5f, 0) 
+                }, 
+                new Vector3f[] { 
+                    new Vector3f(1, 0, 0), 
+                    new Vector3f(0, 1, 0),
+                    new Vector3f(0, 0, 1), 
+                    new Vector3f(1,1,1)
+                },
+                new Vector2f[] {
+                    new Vector2f(0, 0),       
+                    new Vector2f(0, 1),
+                    new Vector2f(1, 1),
+                    new Vector2f(1, 0)
+                }
+            );
+                
+            particles.add(p);
+       
             i++;
         }
-    }*/
+    }
 }

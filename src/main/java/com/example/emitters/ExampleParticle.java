@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2015 Richard.
+ * Copyright 2015 Richard Coan.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -27,22 +27,16 @@ import main.java.com.YeAJG.api.IEntity;
 import main.java.com.YeAJG.api.IParticle;
 import main.java.com.YeAJG.fx.ps.Particle;
 import org.lwjgl.opengl.GL11;
-import static org.lwjgl.opengl.GL14.GL_COLOR_SUM;
-import static org.lwjgl.opengl.GL14.glSecondaryColor3f;
-import org.lwjgl.util.vector.Vector2f;
-import org.lwjgl.util.vector.Vector3f;
 
 /**
  *
- * @author Richard
+ * @author Richard Coan
  */
 public class ExampleParticle extends Particle implements IParticle, IEntity {
-
+    
     public ExampleParticle() {
         this.age = 1.2f;
         this.decay = 0.01f;
-        
-        
     }    
     
     @Override
@@ -52,21 +46,16 @@ public class ExampleParticle extends Particle implements IParticle, IEntity {
 
     @Override
     public void Tick() {
-        
         super.Tick();
     }
 
     @Override
     public void Render(float interpolation) {
+        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        
         super.Render(interpolation);
-        
-        GL11.glEnable(GL_COLOR_SUM);
-        glSecondaryColor3f(1.0f, 0.0f, 0.0f);
-        GL11.glTexEnvi(GL11.GL_TEXTURE_ENV, GL11.GL_TEXTURE_ENV_MODE, GL11.GL_MODULATE);
-        // render texture
-        GL11.glDisable(GL_COLOR_SUM);
-
-        
+        GL11.glDisable(GL11.GL_BLEND);
     }
     
     

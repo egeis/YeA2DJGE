@@ -24,6 +24,7 @@
 package main.java.com.YeAJG.fx.ps;
 
 import main.java.com.YeAJG.api.IEntity;
+import main.java.com.YeAJG.api.IParticle;
 import main.java.com.YeAJG.game.Entity.Entity;
 
 
@@ -31,7 +32,7 @@ import main.java.com.YeAJG.game.Entity.Entity;
  * Abstract Particle Class.
  * @author Richard Coan
  */
-public abstract class Particle extends Entity implements IEntity {      
+public abstract class Particle extends Entity implements IEntity, IParticle {      
     protected boolean keepAlive = false;
     protected float age = 1.0f;
     protected float decay = 0.01f;
@@ -42,7 +43,7 @@ public abstract class Particle extends Entity implements IEntity {
         Vector3f.add(this.velocity, this.acceleration, this.velocity);
         Vector3f.add(this.modelPos, this.velocity, this.modelPos);
     }*/
-        
+    
     public boolean isAlive()
     {       
         if(keepAlive) return keepAlive;

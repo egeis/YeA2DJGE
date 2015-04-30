@@ -89,16 +89,24 @@ public abstract class Entity implements Cloneable, IEntity {
         this.setModelAngle(angle);
         this.setModelScale(scale);
         
-        texIds = new int[texturePaths.length];
+        if(uv != null && color != null && vertex != null )
+            this.SetupEntity(vertex, color, uv);
         
-        this.SetupEntity(vertex, color, uv);
-        this.SetupShaders(shaderPath, fragmentPath);
-        this.SetupTextures(texturePaths);
+        if(!shaderPath.equals("") && !fragmentPath.equals("")
+                ) this.SetupShaders(shaderPath, fragmentPath);
+        
+        if(texturePaths != null) this.SetupTextures(texturePaths);
+    }
+    
+    public Object clone() throws CloneNotSupportedException
+    {
+        return super.clone();
     }
     
     private void SetupShaders(String shaderPath, String fragPath)
     {
         // Load the vertex shader and fragment shader
+        //TODO: Shader Handler.
         int vsId;
         int fsId;
         
@@ -134,6 +142,8 @@ public abstract class Entity implements Cloneable, IEntity {
     }
     
     private void SetupTextures(String[] texturePaths) {
+        texIds = new int[texturePaths.length];
+        
         try {
             for(int i = 0; i < texIds.length; i++)
             {
@@ -171,6 +181,7 @@ public abstract class Entity implements Cloneable, IEntity {
         verticesFloatBuffer.flip();
          
         // OpenGL expects to draw vertices in counter clockwise order by default
+        // TODO: Move this to Setup.
         byte[] indices = {
                 0, 1, 2,
                 2, 3, 0
@@ -300,7 +311,7 @@ public abstract class Entity implements Cloneable, IEntity {
     }
 
     public void setModelPos(Vector3f modelPos) {
-        this.modelPos = new Vector3f(modelPos);
+        if(modelPos != null) this.modelPos = new Vector3f(modelPos);
     }
 
     public Vector3f getModelAngle() {
@@ -308,7 +319,7 @@ public abstract class Entity implements Cloneable, IEntity {
     }
 
     public void setModelAngle(Vector3f modelAngle) {
-        this.modelAngle = new Vector3f(modelAngle);
+        if(modelAngle != null) this.modelAngle = new Vector3f(modelAngle);
     }
 
     public Vector3f getModelScale() {
@@ -316,7 +327,7 @@ public abstract class Entity implements Cloneable, IEntity {
     }
 
     public void setModelScale(Vector3f modelScale) {
-        this.modelScale = new Vector3f(modelScale);
+        if(modelScale != null) this.modelScale = new Vector3f(modelScale);
     }
 
     public Vector3f getModelVelcity() {
@@ -324,7 +335,7 @@ public abstract class Entity implements Cloneable, IEntity {
     }
 
     public void setModelVelcity(Vector3f modelVelcity) {
-        this.modelVelcity = new Vector3f(modelVelcity);
+        if(modelVelcity != null) this.modelVelcity = new Vector3f(modelVelcity);
     }
 
     public Vector3f getModelAccel() {
@@ -332,7 +343,7 @@ public abstract class Entity implements Cloneable, IEntity {
     }
 
     public void setModelAccel(Vector3f modelAccel) {
-        this.modelAccel = new Vector3f(modelAccel);
+        if(modelAccel != null) this.modelAccel = new Vector3f(modelAccel);
     }
 
     public Vector3f getModelSpin() {
@@ -340,7 +351,7 @@ public abstract class Entity implements Cloneable, IEntity {
     }
 
     public void setModelSpin(Vector3f modelSpin) {
-        this.modelSpin = new Vector3f(modelSpin);
+        if(modelSpin != null) this.modelSpin = new Vector3f(modelSpin);
     }
     
     public void destroy()
