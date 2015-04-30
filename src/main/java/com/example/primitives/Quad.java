@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2015 Richard.
+ * Copyright 2015 Richard Coan.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,6 +25,7 @@ package main.java.com.example.primitives;
 
 import main.java.com.YeAJG.api.IEntity;
 import main.java.com.YeAJG.game.Entity.Entity;
+import org.lwjgl.opengl.GL11;
 
 /**
  *
@@ -34,15 +35,17 @@ public class Quad extends Entity implements IEntity {
     @Override
     public void Tick() {
         //TODO: Input processing
-                
-        //TODO: Update matrices
         
+        //Update matrices
         super.Tick();
     }
     
     @Override
     public void Render(float interpolation) {
+        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         
         super.Render(interpolation);
+        GL11.glDisable(GL11.GL_BLEND);
     }
 }

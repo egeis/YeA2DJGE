@@ -27,6 +27,8 @@ import java.nio.FloatBuffer;
 import main.java.com.YeAJG.game.io.ConfigHandler;
 import main.java.com.YeAJG.game.io.InputHandler;
 import main.java.com.YeAJG.game.utils.Conversions;
+import main.java.com.example.emitters.ExampleEmitter;
+import main.java.com.example.emitters.ExampleParticle;
 import main.java.com.example.primitives.Quad;
 
 import org.apache.logging.log4j.LogManager;
@@ -70,8 +72,8 @@ public class Game implements Runnable {
     
     
     //Example
-    private Quad q = new Quad();
-    private Quad q2 = new Quad();
+    private ExampleEmitter e;
+    private ExampleParticle p;
     
     public static Game getInstance() {
         if(instance == null) instance = new Game();
@@ -117,7 +119,7 @@ public class Game implements Runnable {
         projectionMatrix.m22 = -((far_plane + near_plane) / frustum_length);
         projectionMatrix.m23 = -1;
         projectionMatrix.m32 = -((2 * near_plane * far_plane) / frustum_length);
-                projectionMatrix.m33 = 0;
+        projectionMatrix.m33 = 0;
          
         // Setup view matrix
         viewMatrix = new Matrix4f();
@@ -139,8 +141,10 @@ public class Game implements Runnable {
         int loops;
         float interpolation; 
         
+        p = new ExampleParticle();
+        
         //Example
-        q.Setup(
+        p.Setup(
             new Vector3f(0, 0, 0), 
             new Vector3f(0.0f, 10.0f, 0.5f), 
             new Vector3f(1, 1, 1), 
@@ -169,7 +173,10 @@ public class Game implements Runnable {
                 new Vector2f(1, 1),
                 new Vector2f(1, 0)
             }
-        );        
+        ); 
+        
+        e = new ExampleEmitter(p, 1, 50);
+        e.Setup(new Vector3f(0, 0, 0), new Vector3f(0.0f, 0.0f, 0.0f), null );
         
        //q2.Setup(new Vector3f(0.1f, 0.1f, -2f), new Vector3f(0.0f, -10.0f, -0.5f), new Vector3f(1, 1, 1));
         
@@ -219,11 +226,7 @@ public class Game implements Runnable {
         
         //Enables Depth Testing.
         GL11.glEnable (GL11.GL_DEPTH_TEST);
-        
-        //Enable Blending
-        GL11.glEnable(GL11.GL_BLEND);
-        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        
+                
         //Exit on Setup Error.
         Game.exitOnGLError("setupOpenGL");
     }
@@ -244,7 +247,8 @@ public class Game implements Runnable {
       */
     private void doTick( long next_game_tick )
     {
-        q.Tick();
+       e.Tick();
+       //p.Tick();
         //q2.Tick();
     }
  
@@ -261,7 +265,8 @@ public class Game implements Runnable {
         // Translate camera
         Matrix4f.translate(Game.cameraPos, Game.viewMatrix, Game.viewMatrix);
         
-        q.Render(interpolation);
+        e.Render(interpolation);
+        //p.Render(interpolation);
         //q2.Render(interpolation);        
         
         Display.sync(60);

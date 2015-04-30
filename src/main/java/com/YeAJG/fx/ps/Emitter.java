@@ -25,23 +25,33 @@ package main.java.com.YeAJG.fx.ps;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import main.java.com.YeAJG.api.IEmitter;
-import main.java.com.YeAJG.api.IParticle;
+import main.java.com.YeAJG.api.IEntity;
 import main.java.com.YeAJG.game.Entity.Entity;
+import org.lwjgl.util.vector.Vector3f;
 
 /**
  *  Abstract Emitter Class
  * @author Richard Coan
+ * @param <T>
  */
 public abstract class Emitter extends Entity {
-    protected List<IParticle> particles = new ArrayList();
-    protected IEmitter updater;     
+    static public final int TYPE_PLANE = 1;
+    static public final int TYPE_CUBE = 2;
+    static public final int TYPE_SPHERE = 3;
+    
+    protected List<Particle> particles = new ArrayList();
+    protected Particle particle;    //Default Particle
     protected int num_per_tick;     //Spawn Rate
     protected long lastUpdate;      
     protected int particle_limit;   //Spawn Limit (Hard)
-        
-    public List<IParticle> getParticles() {
-        return particles;
-    } 
+    
+    protected float radius = 1.0f;
+
+    public float getRadius() {
+        return radius;
+    }
+
+    public void setRadius(float radius) {
+        this.radius = radius;
+    }  
 }

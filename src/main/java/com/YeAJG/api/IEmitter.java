@@ -28,9 +28,5 @@ package main.java.com.YeAJG.api;
  * @author Richard
  */
 public interface IEmitter {
-    public void Tick();
-    public void PostRender();
-    public void PreRender();
-    public void Render();
     public void Generate();
 }

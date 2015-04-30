@@ -42,6 +42,7 @@ public interface IEntity {
             Vector3f[] color, 
             Vector2f[] uv
     );
+    
     public void Tick();
     public void Render(float interpolation);
 }
