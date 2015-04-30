@@ -219,11 +219,7 @@ public class Game implements Runnable {
         
         //Enables Depth Testing.
         GL11.glEnable (GL11.GL_DEPTH_TEST);
-        
-        //Enable Blending
-        GL11.glEnable(GL11.GL_BLEND);
-        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        
+                
         //Exit on Setup Error.
         Game.exitOnGLError("setupOpenGL");
     }

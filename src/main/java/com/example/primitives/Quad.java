@@ -25,6 +25,9 @@ package main.java.com.example.primitives;
 
 import main.java.com.YeAJG.api.IEntity;
 import main.java.com.YeAJG.game.Entity.Entity;
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL14;
+import org.lwjgl.opengl.GL33;
 
 /**
  *
@@ -34,15 +37,17 @@ public class Quad extends Entity implements IEntity {
     @Override
     public void Tick() {
         //TODO: Input processing
-                
-        //TODO: Update matrices
         
+        //Update matrices
         super.Tick();
     }
     
     @Override
     public void Render(float interpolation) {
+        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         
         super.Render(interpolation);
+        GL11.glDisable(GL11.GL_BLEND);
     }
 }

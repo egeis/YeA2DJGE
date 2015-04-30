@@ -26,6 +26,9 @@ package main.java.com.example.emitters;
 import main.java.com.YeAJG.api.IEntity;
 import main.java.com.YeAJG.api.IParticle;
 import main.java.com.YeAJG.fx.ps.Particle;
+import org.lwjgl.opengl.GL11;
+import static org.lwjgl.opengl.GL14.GL_COLOR_SUM;
+import static org.lwjgl.opengl.GL14.glSecondaryColor3f;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
@@ -36,7 +39,10 @@ import org.lwjgl.util.vector.Vector3f;
 public class ExampleParticle extends Particle implements IParticle, IEntity {
 
     public ExampleParticle() {
-    
+        this.age = 1.2f;
+        this.decay = 0.01f;
+        
+        
     }    
     
     @Override
@@ -45,20 +51,22 @@ public class ExampleParticle extends Particle implements IParticle, IEntity {
     }
 
     @Override
-    public void Setup(Vector3f pos, Vector3f angle, Vector3f scale,
-            String shaderPath, String fragmentPath, String[] texturePaths,
-            Vector3f[] vertex, Vector3f[] color, Vector2f[] uv) {
-        this.setModelPos(pos);
-        this.setModelAngle(angle);
-        this.setModelScale(scale);
-    }
-
-    @Override
     public void Tick() {
+        
+        super.Tick();
     }
 
     @Override
     public void Render(float interpolation) {
+        super.Render(interpolation);
+        
+        GL11.glEnable(GL_COLOR_SUM);
+        glSecondaryColor3f(1.0f, 0.0f, 0.0f);
+        GL11.glTexEnvi(GL11.GL_TEXTURE_ENV, GL11.GL_TEXTURE_ENV_MODE, GL11.GL_MODULATE);
+        // render texture
+        GL11.glDisable(GL_COLOR_SUM);
+
+        
     }
     
     
