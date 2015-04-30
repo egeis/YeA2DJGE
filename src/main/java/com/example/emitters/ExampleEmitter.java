@@ -80,7 +80,6 @@ public class ExampleEmitter extends Emitter implements IEmitter, IEntity
         
         while(i < num_per_tick && (particles.size() < particle_limit) )
         { 
-            logger.info("Adding Particle");
             ExampleParticle p = new ExampleParticle();
             p.Setup(
                 particle.getModelPos(), 
@@ -89,7 +88,6 @@ public class ExampleEmitter extends Emitter implements IEmitter, IEntity
                 "assets/shaders/vertex.glsl", 
                 "assets/shaders/fragment.glsl", 
                 new String[] {
-                    "assets/textures/snowflake.png",
                     "assets/textures/stGrid1.png",
                     "assets/textures/stGrid2.png"
                 },
@@ -112,6 +110,8 @@ public class ExampleEmitter extends Emitter implements IEmitter, IEntity
                     new Vector2f(1, 0)
                 }
             );
+            
+            p.setModelVelcity(new Vector3f(0.0f, 0.0009f, 0.0f));
                 
             particles.add(p);
        

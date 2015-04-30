@@ -175,7 +175,7 @@ public class Game implements Runnable {
             }
         ); 
         
-        e = new ExampleEmitter(p, 1, 1);
+        e = new ExampleEmitter(p, 1, 50);
         e.Setup(new Vector3f(0, 0, 0), new Vector3f(0.0f, 0.0f, 0.0f), null );
         
        //q2.Setup(new Vector3f(0.1f, 0.1f, -2f), new Vector3f(0.0f, -10.0f, -0.5f), new Vector3f(1, 1, 1));
