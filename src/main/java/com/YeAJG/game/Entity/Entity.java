@@ -23,14 +23,12 @@
  */
 package main.java.com.YeAJG.game.Entity;
 
-import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import main.java.com.YeAJG.api.IEntity;
 import main.java.com.YeAJG.game.Game;
 import main.java.com.YeAJG.game.gfx.ShaderHandler;
 import main.java.com.YeAJG.game.gfx.TextureHandler;
-import main.java.com.YeAJG.game.io.FileIOHandler;
 import main.java.com.YeAJG.game.utils.Conversions;
 import main.java.com.YeAJG.game.utils.VertexData;
 import org.apache.logging.log4j.LogManager;

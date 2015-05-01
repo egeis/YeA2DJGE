@@ -152,7 +152,7 @@ public class Game implements Runnable {
             new Vector3f(0.25f, 0.25f, 0.25f), 
             "assets/shaders/vertex.glsl", 
             "assets/shaders/fragment.glsl", 
-            "assets/textures/stGrid1.png",
+            "assets/textures/blank_white.png",
             new Vector3f[] { 
                 new Vector3f(-0.5f, 0.5f, 0),
                 new Vector3f(-0.5f, -0.5f, 0), 

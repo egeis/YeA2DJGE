@@ -35,7 +35,7 @@ import org.lwjgl.opengl.GL13;
  * @author Richard Coan
  */
 public class TextureHandler extends Base {
-    protected static Map<String, Integer> Textures = new HashMap();
+    public static Map<String, Integer> Textures = new HashMap();
     
     public static int getTexture(String path)
     {

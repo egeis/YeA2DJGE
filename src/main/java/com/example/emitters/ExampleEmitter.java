@@ -27,6 +27,7 @@ import main.java.com.YeAJG.api.IEmitter;
 import main.java.com.YeAJG.api.IEntity;
 import main.java.com.YeAJG.fx.ps.Emitter;
 import main.java.com.YeAJG.fx.ps.Particle;
+import main.java.com.YeAJG.game.utils.Randomizer;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
@@ -87,7 +88,7 @@ public class ExampleEmitter extends Emitter implements IEmitter, IEntity
                 particle.getModelScale(),
                 "assets/shaders/vertex.glsl", 
                 "assets/shaders/fragment.glsl", 
-                "assets/textures/stGrid1.png",
+                "assets/textures/blank_white.png",
                 new Vector3f[] { 
                     new Vector3f(-0.5f, 0.5f, 0),
                     new Vector3f(-0.5f, -0.5f, 0), 
@@ -108,7 +109,19 @@ public class ExampleEmitter extends Emitter implements IEmitter, IEntity
                 }
             );
             
-            p.setModelVelcity(new Vector3f(0.0f, 0.0009f, 0.0f));
+            p.setModelPos(Vector3f.add(
+                    p.getModelPos(), 
+                    new Vector3f(
+                            Randomizer.getValue(-1.0f, 1.0f),
+                            Randomizer.getValue(-1.0f, 1.0f),
+                            Randomizer.getValue(-1.0f, 1.0f)
+                    ), 
+                    p.getModelPos())
+            );
+            
+            //p.setModelAccel(new Vector3f(0.0f, 0.01f, 0.0f));
+            p.setModelSpin(new Vector3f(0.0f, 1.0f, 0.0f));
+            p.setModelVelcity(new Vector3f(0.0f, 0.01f, 0.0f));
                 
             particles.add(p);
        
