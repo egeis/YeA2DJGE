@@ -72,7 +72,6 @@ public class Game implements Runnable {
     public static Matrix4f projectionMatrix = null;
     public static Matrix4f viewMatrix = null;
     
-    
     //Example
     private ExampleEmitter e;
     private ExampleParticle p;
@@ -149,7 +148,7 @@ public class Game implements Runnable {
         p.Setup(
             new Vector3f(0, 0, 0), 
             new Vector3f(0.0f, 10.0f, 0.5f), 
-            new Vector3f(0.25f, 0.25f, 0.25f), 
+            new Vector3f(0.05f, 0.05f, 0.05f), 
             "assets/shaders/vertex.glsl", 
             "assets/shaders/fragment.glsl", 
             "assets/textures/blank_white.png",
