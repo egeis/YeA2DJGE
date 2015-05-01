@@ -24,6 +24,9 @@
 package main.java.com.YeAJG.game;
 
 import java.nio.FloatBuffer;
+import java.util.Iterator;
+import java.util.Map.Entry;
+import main.java.com.YeAJG.game.gfx.TextureHandler;
 import main.java.com.YeAJG.game.io.ConfigHandler;
 import main.java.com.YeAJG.game.io.InputHandler;
 import main.java.com.YeAJG.game.utils.Conversions;
@@ -146,7 +149,7 @@ public class Game implements Runnable {
         p.Setup(
             new Vector3f(0, 0, 0), 
             new Vector3f(0.0f, 10.0f, 0.5f), 
-            new Vector3f(1, 1, 1), 
+            new Vector3f(0.25f, 0.25f, 0.25f), 
             "assets/shaders/vertex.glsl", 
             "assets/shaders/fragment.glsl", 
             "assets/textures/stGrid1.png",
@@ -230,8 +233,12 @@ public class Game implements Runnable {
       * Destroys OpenGL
       */
      private void destroyGL()
-     {
-         //TODO: handle desctruction
+     {         
+        //Deletes Textures
+         for (Iterator<Entry<String, Integer>> it = TextureHandler.Textures.entrySet().iterator(); it.hasNext();) {
+            Entry<String, Integer> set = it.next();
+            GL11.glDeleteTextures(set.getValue());
+        }
          
          Display.destroy();
     }
