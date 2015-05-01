@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2015 Richard.
+ * Copyright 2015 Richard Coan.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,7 +25,7 @@ package main.java.com.YeAJG.game.Entity;
 
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
-import main.java.com.YeAJG.api.IEntity;
+import main.java.com.YeAJG.api.Entity.IEntity;
 import main.java.com.YeAJG.game.Game;
 import main.java.com.YeAJG.game.gfx.ShaderHandler;
 import main.java.com.YeAJG.game.gfx.TextureHandler;
@@ -47,7 +47,7 @@ import org.lwjgl.util.vector.Vector3f;
  *
  * @author Richard Coan
  */
-public abstract class Entity implements Cloneable, IEntity {
+public abstract class Entity implements IEntity {
     protected static final Logger logger = LogManager.getLogger( Game.class.getName() );
    
     protected boolean visible = true;
@@ -76,7 +76,7 @@ public abstract class Entity implements Cloneable, IEntity {
     protected int texId = 0;
     
     protected int pId = 0;
-
+    
     @Override
     public void Setup( Vector3f pos, Vector3f angle, Vector3f scale,
             String shaderPath, String fragmentPath, String texturePath,
@@ -99,17 +99,12 @@ public abstract class Entity implements Cloneable, IEntity {
             this.texId = TextureHandler.loadTexture(texturePath);
     }
     
-    public Object clone() throws CloneNotSupportedException
-    {
-        return super.clone();
-    }
-    
     private void SetupShaders( String shaderPath, String fragPath )
     {
         // Load the vertex shader and fragment shader
         int vsId = ShaderHandler.loadShader(shaderPath);
         int fsId = ShaderHandler.loadFrag(fragPath);
-                 
+        
         // Create a new shader program that links both shaders
         pId = GL20.glCreateProgram();
         GL20.glAttachShader(pId, vsId);
