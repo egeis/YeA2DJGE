@@ -23,10 +23,10 @@
  */
 package main.java.com.example.emitters;
 
-import main.java.com.YeAJG.api.IEmitter;
-import main.java.com.YeAJG.api.IEntity;
-import main.java.com.YeAJG.fx.ps.Emitter;
-import main.java.com.YeAJG.fx.ps.Particle;
+import main.java.com.YeAJG.api.Entity.IEmitter;
+import main.java.com.YeAJG.api.Entity.IEntity;
+import main.java.com.YeAJG.game.Entity.Emitter;
+import main.java.com.YeAJG.game.Entity.Particle;
 import main.java.com.YeAJG.game.utils.Randomizer;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Vector2f;
@@ -57,7 +57,8 @@ public class ExampleEmitter extends Emitter implements IEmitter, IEntity
         Generate();
         
         particles.stream().forEach((p) -> {        
-            p.Tick();
+             p.applyForce(-5.0f, 5.0f, 1.0f, false);
+             p.Tick();
         });
     }
 
@@ -83,7 +84,7 @@ public class ExampleEmitter extends Emitter implements IEmitter, IEntity
         { 
             ExampleParticle p = new ExampleParticle();
             p.Setup(
-                particle.getModelPos(), 
+                new Vector3f(Randomizer.getValue(-15.0f, 15.0f), 0, 0), 
                 particle.getModelAngle(), 
                 particle.getModelScale(),
                 "assets/shaders/vertex.glsl", 
@@ -120,8 +121,7 @@ public class ExampleEmitter extends Emitter implements IEmitter, IEntity
             );
             
             //p.setModelAccel(new Vector3f(0.0f, 0.01f, 0.0f));
-            p.setModelSpin(new Vector3f(0.0f, 1.0f, 0.0f));
-            p.setModelVelcity(new Vector3f(0.0f, 0.01f, 0.0f));
+            p.setModelVelcity(new Vector3f(0.0f, -0.1f, 0.0f));
                 
             particles.add(p);
        

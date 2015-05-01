@@ -23,7 +23,7 @@
  */
 package main.java.com.example.primitives;
 
-import main.java.com.YeAJG.api.IEntity;
+import main.java.com.YeAJG.api.Entity.IEntity;
 import main.java.com.YeAJG.game.Entity.Entity;
 import org.lwjgl.opengl.GL11;
 
