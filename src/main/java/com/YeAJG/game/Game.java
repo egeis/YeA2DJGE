@@ -29,7 +29,6 @@ import main.java.com.YeAJG.game.io.InputHandler;
 import main.java.com.YeAJG.game.utils.Conversions;
 import main.java.com.example.emitters.ExampleEmitter;
 import main.java.com.example.emitters.ExampleParticle;
-import main.java.com.example.primitives.Quad;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -150,11 +149,7 @@ public class Game implements Runnable {
             new Vector3f(1, 1, 1), 
             "assets/shaders/vertex.glsl", 
             "assets/shaders/fragment.glsl", 
-            new String[] {
-                "assets/textures/snowflake.png",
-                "assets/textures/stGrid1.png",
-                "assets/textures/stGrid2.png"
-            },
+            "assets/textures/stGrid1.png",
             new Vector3f[] { 
                 new Vector3f(-0.5f, 0.5f, 0),
                 new Vector3f(-0.5f, -0.5f, 0), 

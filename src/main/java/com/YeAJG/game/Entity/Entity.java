@@ -28,6 +28,8 @@ import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import main.java.com.YeAJG.api.IEntity;
 import main.java.com.YeAJG.game.Game;
+import main.java.com.YeAJG.game.gfx.ShaderHandler;
+import main.java.com.YeAJG.game.gfx.TextureHandler;
 import main.java.com.YeAJG.game.io.FileIOHandler;
 import main.java.com.YeAJG.game.utils.Conversions;
 import main.java.com.YeAJG.game.utils.VertexData;
@@ -61,7 +63,6 @@ public abstract class Entity implements Cloneable, IEntity {
     protected Vector3f modelAccel = new Vector3f(0,0,0); ;       
     protected Vector3f modelSpin = new Vector3f(0,0,0); ;
     
-    protected int[] texIds;
     protected int textureSelector = 0;
     
     protected int projectionMatrixLocation = 0;
@@ -74,13 +75,14 @@ public abstract class Entity implements Cloneable, IEntity {
     protected int vaoId = 0;
     protected int vboId = 0;
     protected int vboiId = 0;
+    protected int texId = 0;
     
     protected int pId = 0;
 
     @Override
-    public void Setup(Vector3f pos, Vector3f angle, Vector3f scale,
-            String shaderPath, String fragmentPath, String[] texturePaths,
-            Vector3f[] vertex, Vector3f[] color, Vector2f[] uv) {
+    public void Setup( Vector3f pos, Vector3f angle, Vector3f scale,
+            String shaderPath, String fragmentPath, String texturePath,
+            Vector3f[] vertex, Vector3f[] color, Vector2f[] uv ) {
         // Setup model matrix
         modelMatrix = new Matrix4f();
         
@@ -89,13 +91,14 @@ public abstract class Entity implements Cloneable, IEntity {
         this.setModelAngle(angle);
         this.setModelScale(scale);
         
-        if(uv != null && color != null && vertex != null )
+        if( uv != null && color != null && vertex != null )
             this.SetupEntity(vertex, color, uv);
         
-        if(!shaderPath.equals("") && !fragmentPath.equals("")
-                ) this.SetupShaders(shaderPath, fragmentPath);
+        if( !shaderPath.equals("") && !fragmentPath.equals("") ) 
+            this.SetupShaders(shaderPath, fragmentPath);
         
-        if(texturePaths != null) this.SetupTextures(texturePaths);
+        if( !texturePath.equals("") )
+            this.texId = TextureHandler.loadTexture(texturePath);
     }
     
     public Object clone() throws CloneNotSupportedException
@@ -103,21 +106,12 @@ public abstract class Entity implements Cloneable, IEntity {
         return super.clone();
     }
     
-    private void SetupShaders(String shaderPath, String fragPath)
+    private void SetupShaders( String shaderPath, String fragPath )
     {
         // Load the vertex shader and fragment shader
-        //TODO: Shader Handler.
-        int vsId;
-        int fsId;
-        
-        try {
-            vsId = FileIOHandler.loadShader(shaderPath, GL20.GL_VERTEX_SHADER);      
-            fsId = FileIOHandler.loadShader(fragPath, GL20.GL_FRAGMENT_SHADER);
-        } catch (IOException ex) {
-            logger.error(ex.getMessage());
-            return;
-        }
-         
+        int vsId = ShaderHandler.loadShader(shaderPath);
+        int fsId = ShaderHandler.loadFrag(fragPath);
+                 
         // Create a new shader program that links both shaders
         pId = GL20.glCreateProgram();
         GL20.glAttachShader(pId, vsId);
@@ -139,21 +133,6 @@ public abstract class Entity implements Cloneable, IEntity {
         modelMatrixLocation = GL20.glGetUniformLocation(pId, "modelMatrix");
  
         Game.exitOnGLError("setupShaders");
-    }
-    
-    private void SetupTextures(String[] texturePaths) {
-        texIds = new int[texturePaths.length];
-        
-        try {
-            for(int i = 0; i < texIds.length; i++)
-            {
-                texIds[i] = FileIOHandler.loadPNGTexture(texturePaths[i], GL13.GL_TEXTURE0);
-            }
-        } catch (IOException ex) {
-            logger.error(ex.getMessage());
-        }
-         
-        Game.exitOnGLError("setupTexture");
     }
     
     private void SetupEntity(Vector3f[] vertex, Vector3f[] color, 
@@ -235,7 +214,7 @@ public abstract class Entity implements Cloneable, IEntity {
 
             // Bind the texture
             GL13.glActiveTexture(GL13.GL_TEXTURE0);
-            GL11.glBindTexture(GL11.GL_TEXTURE_2D, texIds[textureSelector]);
+            GL11.glBindTexture(GL11.GL_TEXTURE_2D, texId);
 
             // Bind to the VAO that has all the information about the vertices
             GL30.glBindVertexArray(vaoId);
@@ -355,12 +334,8 @@ public abstract class Entity implements Cloneable, IEntity {
     }
     
     public void destroy()
-    {
-        // Delete the texture
-        GL11.glDeleteTextures(texIds[0]);
-        GL11.glDeleteTextures(texIds[1]);
-                         
-        // Delete the shaders
+    {                         
+        // Delete the Program
         GL20.glUseProgram(0);
         GL20.glDeleteProgram(pId);
          

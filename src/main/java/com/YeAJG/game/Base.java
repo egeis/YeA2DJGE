@@ -21,39 +21,15 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package main.java.com.YeAJG.game.gfx;
+package main.java.com.YeAJG.game;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import main.java.com.YeAJG.game.Base;
-import main.java.com.YeAJG.game.io.FileIOHandler;
-import org.lwjgl.opengl.GL13;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  *
- * @author Richard Coan
+ * @author Richard
  */
-public class TextureHandler extends Base {
-    protected static Map<String, Integer> Textures = new HashMap();
-    
-    public static int getTexture(String path)
-    {
-        return Textures.get(path);
-    }
-    
-    public static int loadTexture(String path)
-    {
-        int id = 0;
-        if(Textures.containsKey(path)) return getTexture(path);
-        
-        try {
-            id = FileIOHandler.loadPNGTexture(path, GL13.GL_TEXTURE0);
-            Textures.put(path, id);
-        } catch (IOException ex) {
-            logger.error(ex.getMessage());
-        }
-        
-        return id;
-    }
+public abstract class Base {
+    protected static final Logger logger = LogManager.getLogger( Game.class.getName() );
 }

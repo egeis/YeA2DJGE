@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2015 Richard.
+ * Copyright 2015 Richard Coan.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,10 +23,60 @@
  */
 package main.java.com.YeAJG.game.gfx;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import main.java.com.YeAJG.game.Base;
+import main.java.com.YeAJG.game.io.FileIOHandler;
+import org.lwjgl.opengl.GL20;
+
 /**
  *
- * @author Richard
+ * @author Richard Coan
  */
-public class ShaderHandler {
+public class ShaderHandler extends Base{
+    protected static Map<String, Integer> Shaders = new HashMap();
+    protected static Map<String, Integer> Fragments = new HashMap();
+    
+    public static int loadShader(String path)
+    {
+        int id = 0;
+        if(Shaders.containsKey(path)) return getShader(path);
+        
+        try {
+            id = FileIOHandler.loadShader(path, GL20.GL_VERTEX_SHADER);  
+            Shaders.put(path, id);
+        } catch (IOException ex) {
+            logger.error(ex.getMessage());
+        }
+        
+        return id;
+    }
+    
+    public static int loadFrag(String path)
+    {
+        int id = 0;
+        if(Fragments.containsKey(path)) return getFragment(path);
+        
+        try {
+            id = FileIOHandler.loadShader(path, GL20.GL_FRAGMENT_SHADER); 
+            Fragments.put(path, id);
+        } catch (IOException ex) {
+            logger.error(ex.getMessage());
+        }
+        
+        return id;
+    }
+    
+    public static int getShader(String path)
+    {
+        return Shaders.get(path);
+    }
+    
+    public static int getFragment(String path)
+    {
+        return Fragments.get(path);
+    }
+    
     
 }

@@ -37,7 +37,7 @@ public interface IEntity {
             Vector3f scale, 
             String shaderPath, 
             String fragmentPath, 
-            String[] texturePaths,
+            String texturePath,
             Vector3f[] vertex, 
             Vector3f[] color, 
             Vector2f[] uv

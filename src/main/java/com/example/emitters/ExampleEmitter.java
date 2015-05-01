@@ -87,10 +87,7 @@ public class ExampleEmitter extends Emitter implements IEmitter, IEntity
                 particle.getModelScale(),
                 "assets/shaders/vertex.glsl", 
                 "assets/shaders/fragment.glsl", 
-                new String[] {
-                    "assets/textures/stGrid1.png",
-                    "assets/textures/stGrid2.png"
-                },
+                "assets/textures/stGrid1.png",
                 new Vector3f[] { 
                     new Vector3f(-0.5f, 0.5f, 0),
                     new Vector3f(-0.5f, -0.5f, 0), 
