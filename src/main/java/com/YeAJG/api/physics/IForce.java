@@ -28,5 +28,5 @@ package main.java.com.YeAJG.api.physics;
  * @author Richard Coan
  */
 public interface IForce {
-    public void applyForce();
+    public void applyForce(float x, float y, float z, float mass, boolean isAttractor);
 }

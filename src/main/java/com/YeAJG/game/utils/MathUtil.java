@@ -1,5 +1,7 @@
 package main.java.com.YeAJG.game.utils;
 
+import org.lwjgl.util.vector.Vector3f;
+
 /**
  * @source https://github.com/adelciotto/ParticleSystem-LWJGL/tree/master/src/com/anthdel/verletsystem 
  */
@@ -37,20 +39,8 @@ public class MathUtil {
         return cos[(int) (rad * radToIndex) & SIN_MASK];
     }
     
-    public static float findAngle(float x, float y) {
-        float theta = 0;
-        
-        if (x == 0)
-            theta = y > 0 ? HALF_PI : 3 * HALF_PI;
-        else {
-            theta = (float) Math.atan(y / x);
-            if ((x < 0) && (y >= 0)) {
-                    theta += Math.PI;
-            }
-            if ((x < 0) && (y < 0)) {
-                    theta -= Math.PI;
-            }
-        }
-        return theta;
+    public static float findAngle(float srcX, float srcY, 
+            float srcZ, float pX, float pY, float pZ) {
+        return Vector3f.angle(new Vector3f(srcX,srcY,srcZ), new Vector3f(pX, pY, pZ) );
     }
 }

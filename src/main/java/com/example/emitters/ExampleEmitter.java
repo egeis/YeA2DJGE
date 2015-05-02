@@ -57,8 +57,7 @@ public class ExampleEmitter extends Emitter implements IEmitter, IEntity
         Generate();
         
         particles.stream().forEach((p) -> {        
-             //p.applyForce(15.0f, -15.0f, 1.0f, true);
-             p.Tick();
+            p.Tick();
         });
     }
 
@@ -84,7 +83,7 @@ public class ExampleEmitter extends Emitter implements IEmitter, IEntity
         { 
             ExampleParticle p = new ExampleParticle();
             p.Setup(
-                new Vector3f(Randomizer.getValue(-15.0f, 15.0f), 15.0f, 0), 
+                new Vector3f(Randomizer.getValue(-0.0f, 0.0f), 0.0f, 0), 
                 particle.getModelAngle(), 
                 particle.getModelScale(),
                 "assets/shaders/vertex.glsl", 

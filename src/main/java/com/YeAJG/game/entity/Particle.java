@@ -121,27 +121,4 @@ public abstract class Particle extends Entity implements IEntity, IParticle {
         this.decay = decay;
         return decay;
     }
-    
-    public void applyForce(float x, float y, float mass, boolean isAttractor) {
-        float f, mX, mY, angle;
-
-        if ((modelPos.x - x) * (modelPos.x - x) + 
-                (modelPos.y - y) * (modelPos.y - y) != 0)
-        {
-                f = this.mass * mass * 1.15f;
-                mX = (this.mass * modelPos.x + mass * x) / (this.mass + mass);
-                mY = (this.mass * modelPos.y + mass * y) / (this.mass + mass);
-                angle = isAttractor ? MathUtil.findAngle(mX - modelPos.x, mY - modelPos.y)
-                                : MathUtil.findAngle(modelPos.x - mX, modelPos.y - mY);
-
-                mX = f * MathUtil.cos(angle);
-                mY = f * MathUtil.sin(angle);
-
-                mX += magnitude * MathUtil.cos(this.angle);
-                mY += magnitude * MathUtil.sin(this.angle);
-
-                magnitude = (float) Math.sqrt(mX * mX + mY * mY);
-                this.angle = MathUtil.findAngle(mX, mY);
-        }
-    }
 }
