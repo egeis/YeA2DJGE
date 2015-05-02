@@ -21,12 +21,28 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package main.java.com.YeAJG.api.Entity;
+package main.java.com.YeAJG.api.entity;
+
+import org.lwjgl.util.vector.Vector2f;
+import org.lwjgl.util.vector.Vector3f;
 
 /**
  *
  * @author Richard
  */
-public interface IEmitter {
-    public void Generate();
+public interface IEntity {
+    public void Setup(
+            Vector3f pos, 
+            Vector3f angle, 
+            Vector3f scale, 
+            String shaderPath, 
+            String fragmentPath, 
+            String texturePath,
+            Vector3f[] vertex, 
+            Vector3f[] color, 
+            Vector2f[] uv
+    );
+    
+    public void Tick();
+    public void Render(float interpolation);
 }

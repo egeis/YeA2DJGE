@@ -21,11 +21,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package main.java.com.YeAJG.game.Entity;
+package main.java.com.YeAJG.game.entity;
 
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
-import main.java.com.YeAJG.api.Entity.IEntity;
+import main.java.com.YeAJG.api.entity.IEntity;
 import main.java.com.YeAJG.game.Game;
 import main.java.com.YeAJG.game.gfx.ShaderHandler;
 import main.java.com.YeAJG.game.gfx.TextureHandler;

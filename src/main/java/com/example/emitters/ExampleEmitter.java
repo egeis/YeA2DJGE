@@ -23,10 +23,10 @@
  */
 package main.java.com.example.emitters;
 
-import main.java.com.YeAJG.api.Entity.IEmitter;
-import main.java.com.YeAJG.api.Entity.IEntity;
-import main.java.com.YeAJG.game.Entity.Emitter;
-import main.java.com.YeAJG.game.Entity.Particle;
+import main.java.com.YeAJG.api.entity.IEmitter;
+import main.java.com.YeAJG.api.entity.IEntity;
+import main.java.com.YeAJG.game.entity.Emitter;
+import main.java.com.YeAJG.game.entity.Particle;
 import main.java.com.YeAJG.game.utils.Randomizer;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Vector2f;
@@ -57,7 +57,7 @@ public class ExampleEmitter extends Emitter implements IEmitter, IEntity
         Generate();
         
         particles.stream().forEach((p) -> {        
-             p.applyForce(-5.0f, 5.0f, 1.0f, false);
+             //p.applyForce(15.0f, -15.0f, 1.0f, true);
              p.Tick();
         });
     }
@@ -84,12 +84,12 @@ public class ExampleEmitter extends Emitter implements IEmitter, IEntity
         { 
             ExampleParticle p = new ExampleParticle();
             p.Setup(
-                new Vector3f(Randomizer.getValue(-15.0f, 15.0f), 0, 0), 
+                new Vector3f(Randomizer.getValue(-15.0f, 15.0f), 15.0f, 0), 
                 particle.getModelAngle(), 
                 particle.getModelScale(),
                 "assets/shaders/vertex.glsl", 
                 "assets/shaders/fragment.glsl", 
-                "assets/textures/blank_white.png",
+                "assets/textures/snowflake.png",
                 new Vector3f[] { 
                     new Vector3f(-0.5f, 0.5f, 0),
                     new Vector3f(-0.5f, -0.5f, 0), 
@@ -97,9 +97,9 @@ public class ExampleEmitter extends Emitter implements IEmitter, IEntity
                     new Vector3f(0.5f, 0.5f, 0) 
                 }, 
                 new Vector3f[] { 
-                    new Vector3f(1, 0, 0), 
-                    new Vector3f(0, 1, 0),
-                    new Vector3f(0, 0, 1), 
+                    new Vector3f(1, 1, 1), 
+                    new Vector3f(1, 1, 1),
+                    new Vector3f(1, 1, 1), 
                     new Vector3f(1,1,1)
                 },
                 new Vector2f[] {

@@ -21,33 +21,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package main.java.com.YeAJG.game.Entity;
-
-import java.util.ArrayList;
-import java.util.List;
+package main.java.com.YeAJG.api.entity;
 
 /**
- * Abstract Emitter Class
- * @author Richard Coan
+ *
+ * @author Richard
  */
-public abstract class Emitter extends Entity {
-    static public final int TYPE_PLANE = 1;
-    static public final int TYPE_CUBE = 2;
-    static public final int TYPE_SPHERE = 3;
-    
-    protected List<Particle> particles = new ArrayList();
-    protected Particle particle;    //Default Particle
-    protected int num_per_tick;     //Spawn Rate
-    protected long lastUpdate;      
-    protected int particle_limit;   //Spawn Limit (Hard)
-    
-    protected float radius = 1.0f;
-
-    public float getRadius() {
-        return radius;
-    }
-
-    public void setRadius(float radius) {
-        this.radius = radius;
-    }  
+public interface IParticle {
+    public boolean isAlive();
 }

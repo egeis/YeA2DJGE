@@ -21,12 +21,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package main.java.com.YeAJG.api.Entity;
+package main.java.com.YeAJG.api.entity;
 
 /**
  *
  * @author Richard
  */
-public interface IParticle {
-    public boolean isAlive();
+public interface IEmitter {
+    public void Generate();
 }

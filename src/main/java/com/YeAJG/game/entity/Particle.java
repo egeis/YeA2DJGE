@@ -21,9 +21,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package main.java.com.YeAJG.game.Entity;
-import main.java.com.YeAJG.api.Entity.IEntity;
-import main.java.com.YeAJG.api.Entity.IParticle;
+package main.java.com.YeAJG.game.entity;
+import main.java.com.YeAJG.api.entity.IEntity;
+import main.java.com.YeAJG.api.entity.IParticle;
 import main.java.com.YeAJG.game.utils.MathUtil;
 
 /**

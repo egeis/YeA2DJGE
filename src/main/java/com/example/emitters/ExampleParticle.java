@@ -23,9 +23,9 @@
  */
 package main.java.com.example.emitters;
 
-import main.java.com.YeAJG.api.Entity.IEntity;
-import main.java.com.YeAJG.api.Entity.IParticle;
-import main.java.com.YeAJG.game.Entity.Particle;
+import main.java.com.YeAJG.api.entity.IEntity;
+import main.java.com.YeAJG.api.entity.IParticle;
+import main.java.com.YeAJG.game.entity.Particle;
 import org.lwjgl.opengl.GL11;
 
 /**
