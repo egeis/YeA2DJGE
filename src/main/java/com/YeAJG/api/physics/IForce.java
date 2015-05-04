@@ -23,10 +23,12 @@
  */
 package main.java.com.YeAJG.api.physics;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Richard Coan
  */
 public interface IForce {
-    public void applyForce(float x, float y, float z, float mass, boolean isAttractor);
+    public void applyForces( ArrayList<Integer> forces );
 }

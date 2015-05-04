@@ -34,16 +34,18 @@ public abstract class Particle extends Entity implements IEntity, IParticle {
     protected boolean keepAlive = false;
     protected float age = 1.0f;
     protected float decay = 0.01f;
-    protected float mass = 0.0001f;
-    protected float magnitude = 0.0001f;
-    protected float angle = 0;
 
     @Override
     public void Render(float interpolation) {
         modelPos.x += magnitude * MathUtil.cos(this.angle) * interpolation * 20;
         modelPos.y += magnitude * MathUtil.sin(this.angle) * interpolation * 20;
+        age -= decay;
         
         super.Render(interpolation); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public float getAngle() {
+        return angle;
     }
         
     @Override
@@ -61,6 +63,10 @@ public abstract class Particle extends Entity implements IEntity, IParticle {
     public float getMagnitude() {
         return magnitude;
     }
+    
+    public float getMass() {
+        return mass;
+    }
 
     public float getAge() {
         return age;
@@ -68,10 +74,6 @@ public abstract class Particle extends Entity implements IEntity, IParticle {
 
     public float getDecay() {
         return decay;
-    }
-
-    public float getMass() {
-        return mass;
     }
     
     public void setKeepAlive(boolean keepAlive) {

@@ -29,6 +29,7 @@ import java.util.Map.Entry;
 import main.java.com.YeAJG.game.gfx.TextureHandler;
 import main.java.com.YeAJG.game.io.ConfigHandler;
 import main.java.com.YeAJG.game.io.InputHandler;
+import main.java.com.YeAJG.game.physics.Force;
 import main.java.com.YeAJG.game.utils.Conversions;
 import main.java.com.example.emitters.ExampleEmitter;
 import main.java.com.example.emitters.ExampleParticle;
@@ -75,6 +76,7 @@ public class Game implements Runnable {
     //Example
     private ExampleEmitter e;
     private ExampleParticle p;
+    private Force f;
     
     public static Game getInstance() {
         if(instance == null) instance = new Game();
@@ -172,8 +174,20 @@ public class Game implements Runnable {
             }
         ); 
         
-        e = new ExampleEmitter(p, 1, 50);
-        e.Setup(new Vector3f(0, 0, 0), new Vector3f(0.0f, 0.0f, 0.0f), null );
+        e = new ExampleEmitter(p, 1, 150);
+        e.Setup(new Vector3f(0, 1f, 0), new Vector3f(0.0f, 0.0f, 0.0f), 
+                new Vector3f[] { 
+                    new Vector3f(-0.05f, 0.05f, 0.0f),
+                    new Vector3f(-0.05f, -0.05f, 0.0f), 
+                    new Vector3f(0.05f, -0.05f, 0.0f),
+                    new Vector3f(0.05f, 0.05f, 0.0f) } 
+        );
+        
+        f = new Force(1, Force.TYPE_LINEAR, false, 1.0f, new Vector3f(-5.0f,0,0));
+        f.setDirection(Force.DIR_X);
+        f.setRandomize(true);
+        e.setForce(f);
+        
         
        //q2.Setup(new Vector3f(0.1f, 0.1f, -2f), new Vector3f(0.0f, -10.0f, -0.5f), new Vector3f(1, 1, 1));
         
@@ -249,6 +263,7 @@ public class Game implements Runnable {
     private void doTick( long next_game_tick )
     {
        e.Tick();
+       f.Tick();
        //p.Tick();
         //q2.Tick();
     }
@@ -267,6 +282,7 @@ public class Game implements Runnable {
         Matrix4f.translate(Game.cameraPos, Game.viewMatrix, Game.viewMatrix);
         
         e.Render(interpolation);
+        f.Render(interpolation);
         //p.Render(interpolation);
         //q2.Render(interpolation);        
         

@@ -25,6 +25,7 @@ package main.java.com.YeAJG.game.physics;
 
 import main.java.com.YeAJG.game.GameLauncher;
 import main.java.com.YeAJG.game.entity.Entity;
+import main.java.com.YeAJG.game.utils.MathUtil;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
@@ -37,24 +38,37 @@ public class Force extends Entity {
     protected int fId;
     
     protected boolean isAttractor;
-    protected float mass;
+   
+    protected final int type;
+    protected int direction;
     
     private boolean randomize = false;
-
+    
+    public static final int TYPE_LINEAR = 1;
+    
+    public static final int DIR_X = 1;
+    public static final int DIR_Y = 2;
+    public static final int DIR_Z = 2;
+    
     public void setRandomize(boolean randomize) {
         this.randomize = randomize;
     }    
-    
-    public Force(int fId, boolean isAttractor, float mass, Vector3f pos)
+
+    public void setDirection(int direction) {
+        this.direction = direction;
+    }
+        
+    public Force(int fId, int type, boolean isAttractor, float mass, Vector3f pos)
     {
         this.fId = fId;
         this.mass = mass;
+        this.type = type;
         this.isAttractor = isAttractor;
                
         this.Setup(
                 pos, 
-                new Vector3f(0,0,0), 
-                new Vector3f(1,1,1),
+                new Vector3f(0.0f, 10.0f, 0.5f), 
+                new Vector3f(0.05f, 0.05f, 0.05f), 
                 "assets/shaders/vertex.glsl", 
                 "assets/shaders/fragment.glsl", 
                 ((GameLauncher.DEBUG)?"assets/textures/force_symbol.png":""),
@@ -85,6 +99,42 @@ public class Force extends Entity {
             mass = (float) Math.sin(System.currentTimeMillis());
             //if(mass < 0.0f) mass = 0.0f;    //Floor
         } 
+        
+        float f, aX, aY, aZ;
+        
+        
+        if( (e.getModelPos().x * modelPos.x) + (e.getModelPos().y * modelPos.y) + (e.getModelPos().z * modelPos.z) != 0)
+        {
+            f = e.getMass() * mass * 1.15f;
+            
+            switch(type)
+            {
+                case TYPE_LINEAR:
+                    Vector3f accel = new Vector3f();
+                    if(direction == DIR_X) {
+                        Vector3f.add(e.getModelAccel(), new Vector3f(f, 0 , 0), accel);
+                    }
+                        
+                    if(direction == DIR_Y) {
+                        Vector3f.add(e.getModelAccel(), new Vector3f(0, f , 0), accel);
+                    }
+                        
+                    if(direction == DIR_Z) {
+                        Vector3f.add(e.getModelAccel(), new Vector3f(0, 0 , f), accel);
+                    }
+                
+                e.setModelAccel(accel);
+            }
+                        
+         
+        }
+        
+        
+
+
+			
+
+			
         
         //TODO: Calculate Force on Axis.
         

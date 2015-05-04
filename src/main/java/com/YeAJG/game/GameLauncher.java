@@ -39,12 +39,15 @@ public class GameLauncher {
     private static final Logger LOG = LogManager.getLogger( Game.class.getName() );
     private static final ExecutorService threadPool = Executors.newFixedThreadPool(1);
     
+    public static boolean DEBUG = false;
     public static Game game;
     
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        DEBUG = Boolean.valueOf(args[0]);
+        
         LOG.info(Game.Name+" "+ConfigHandler.getVersion()
                 +System.getProperty("line.separator")
                 +"Java Version: "+System.getProperty("java.version")
@@ -54,6 +57,8 @@ public class GameLauncher {
                 +System.getProperty("line.separator")
                 +"LWJGL v."+Sys.getVersion()
                 +"Classpath: "+System.getProperty("java.class.path")
+                +System.getProperty("line.separator")
+                +"DEBUG MODE: " + DEBUG
         );
 
         game = Game.getInstance();

@@ -55,7 +55,11 @@ public abstract class Entity implements IEntity {
     protected Vector3f modelPos = null;
     protected Vector3f modelAngle = null;
     protected Vector3f modelScale = null;
-    protected Matrix4f modelMatrix = null;          
+    protected Matrix4f modelMatrix = null; 
+    
+    protected float mass = 0.0001f;
+    protected float magnitude = 0.0001f;
+    protected float angle = 0;
     
     protected Vector3f modelVelcity = new Vector3f(0,0,0);         
     protected Vector3f modelAccel = new Vector3f(0,0,0); ;       
@@ -74,6 +78,9 @@ public abstract class Entity implements IEntity {
     protected int vboId = 0;
     protected int vboiId = 0;
     protected int texId = 0;
+    
+    protected int vsId;
+    protected int fsId;
     
     protected int pId = 0;
     
@@ -102,8 +109,8 @@ public abstract class Entity implements IEntity {
     private void SetupShaders( String shaderPath, String fragPath )
     {
         // Load the vertex shader and fragment shader
-        int vsId = ShaderHandler.loadShader(shaderPath);
-        int fsId = ShaderHandler.loadFrag(fragPath);
+        vsId = ShaderHandler.loadShader(shaderPath);
+        fsId = ShaderHandler.loadFrag(fragPath);
         
         // Create a new shader program that links both shaders
         pId = GL20.glCreateProgram();
@@ -270,6 +277,14 @@ public abstract class Entity implements IEntity {
         GL20.glUseProgram(0);
     }
     
+    public float getMagnitude() {
+        return magnitude;
+    }
+    
+    public float getMass() {
+        return mass;
+    }
+    
     public boolean isVisible() {
         return visible;
     }
@@ -325,6 +340,7 @@ public abstract class Entity implements IEntity {
     public void setModelSpin(Vector3f modelSpin) {
         if(modelSpin != null) this.modelSpin = new Vector3f(modelSpin);
     }
+    
     
     public void destroy()
     {                         
