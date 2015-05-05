@@ -124,15 +124,28 @@ public class ExampleEmitter extends Emitter implements IEmitter, IEntity {
     public void Generate() {
         int i = 0;
 
+        String paths[]= {
+          "assets/textures/snowflake.png",
+          "assets/textures/snowflake_2.png",
+          "assets/textures/snowflake_3.png",
+          "assets/textures/snowflake_4.png",
+          "assets/textures/snowflake_5.png",
+          "assets/textures/snowflake_6.png",
+          "assets/textures/snowflake_7.png"
+        };
+        
         while (i < num_per_tick && (particles.size() < particle_limit)) {
             ExampleParticle p = new ExampleParticle();
+           
+            int id = Randomizer.getValue(0, 7);
+            
             p.Setup(
                     new Vector3f(this.modelPos.x, this.modelPos.y, this.modelPos.z),
                     particle.getModelAngle(),
                     particle.getModelScale(),
                     "assets/shaders/vertex.glsl",
                     "assets/shaders/fragment.glsl",
-                    "assets/textures/snowflake.png",
+                    paths[id],
                     new Vector3f[]{
                         new Vector3f(-0.5f, 0.5f, 0),
                         new Vector3f(-0.5f, -0.5f, 0),
@@ -152,7 +165,7 @@ public class ExampleEmitter extends Emitter implements IEmitter, IEntity {
                         new Vector2f(1, 0)
                     }
             );
-
+            
             /**
              * Randomly Shifts the position by 1 in any direction
              */
@@ -161,13 +174,20 @@ public class ExampleEmitter extends Emitter implements IEmitter, IEntity {
                     new Vector3f(
                             Randomizer.getValue(-16.0f, 16.0f),
                             0,
-                            Randomizer.getValue(-1.0f, 1.0f)
+                            Randomizer.getValue(-10.0f, 10.0f)
                     ),
                     p.getModelPos())
             );
-
+            
+            p.setModelSpin(new Vector3f(Randomizer.getValue(-5.0f,-5.0f),
+                    Randomizer.getValue(-5.0f,-5.0f),
+                    Randomizer.getValue(-5.0f,-5.0f)));            
+            p.setModelVelcity(new Vector3f(0,Randomizer.getValue(-0.2f,-0.1f),0));
+//            p.setModelAccel(new Vector3f(Randomizer.getValue(-0.0005f,-0.0f),
+//                    Randomizer.getValue(-0.005f,-0.0f),0));
+            
             //p.setModelAccel(new Vector3f(0.0f, 0.01f, 0.0f));
-            p.setModelVelcity(new Vector3f(0.0f, -0.1f, 0.0f));
+            //p.setModelVelcity(new Vector3f(0.0f, -0.1f, 0.0f));
 
             particles.add(p);
 

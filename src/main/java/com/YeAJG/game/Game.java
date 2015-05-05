@@ -173,9 +173,9 @@ public class Game implements Runnable {
                 new Vector2f(1, 0)
             }
         ); 
-        
+                
         e = new ExampleEmitter(p, 1, 150);
-        e.Setup(new Vector3f(0, 1f, 0), new Vector3f(0.0f, 0.0f, 0.0f), 
+        e.Setup(new Vector3f(0, 12f, 0), new Vector3f(0.0f, 0.0f, 0.0f), 
                 new Vector3f[] { 
                     new Vector3f(-0.05f, 0.05f, 0.0f),
                     new Vector3f(-0.05f, -0.05f, 0.0f), 
@@ -183,7 +183,7 @@ public class Game implements Runnable {
                     new Vector3f(0.05f, 0.05f, 0.0f) } 
         );
         
-        f = new Force(1, Force.TYPE_LINEAR, false, 1.0f, new Vector3f(-5.0f,0,0));
+        f = new Force(1, Force.TYPE_LINEAR, true, 100.0f, new Vector3f(-5.0f,0,0));
         f.setDirection(Force.DIR_X);
         f.setRandomize(true);
         e.setForce(f);
@@ -263,7 +263,7 @@ public class Game implements Runnable {
     private void doTick( long next_game_tick )
     {
        e.Tick();
-       f.Tick();
+       //f.Tick();
        //p.Tick();
         //q2.Tick();
     }
@@ -282,7 +282,7 @@ public class Game implements Runnable {
         Matrix4f.translate(Game.cameraPos, Game.viewMatrix, Game.viewMatrix);
         
         e.Render(interpolation);
-        f.Render(interpolation);
+        //f.Render(interpolation);
         //p.Render(interpolation);
         //q2.Render(interpolation);        
         

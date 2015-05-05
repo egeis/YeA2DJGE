@@ -96,13 +96,13 @@ public class Force extends Entity {
     public Entity apply(Entity e)
     {
         if(randomize == true) {
-            mass = (float) Math.sin(System.currentTimeMillis());
+            mass = Math.abs( (float) Math.sin(System.currentTimeMillis()) ) / 10.0f;
             //if(mass < 0.0f) mass = 0.0f;    //Floor
         } 
         
         float f, aX, aY, aZ;
         
-        
+        //TODO, use != Total Cords of Force Emitter.
         if( (e.getModelPos().x * modelPos.x) + (e.getModelPos().y * modelPos.y) + (e.getModelPos().z * modelPos.z) != 0)
         {
             f = e.getMass() * mass * 1.15f;
@@ -128,14 +128,6 @@ public class Force extends Entity {
                         
          
         }
-        
-        
-
-
-			
-
-			
-        
         //TODO: Calculate Force on Axis.
         
         return e;
