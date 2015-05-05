@@ -33,6 +33,7 @@ import main.java.com.YeAJG.game.physics.Force;
 import main.java.com.YeAJG.game.utils.Conversions;
 import main.java.com.example.emitters.ExampleEmitter;
 import main.java.com.example.emitters.ExampleParticle;
+import main.java.com.example.primitives.Quad;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -77,6 +78,7 @@ public class Game implements Runnable {
     private ExampleEmitter e;
     private ExampleParticle p;
     private Force f;
+    private Quad background;
     
     public static Game getInstance() {
         if(instance == null) instance = new Game();
@@ -145,6 +147,11 @@ public class Game implements Runnable {
         float interpolation; 
         
         p = new ExampleParticle();
+        background = new Quad();
+        
+        //"forest_moon_night_snow_winter______f_1920x1080"
+        
+        background.Setup(0, cameraPos, cameraPos, Name, Name, Name, vertex, color, uv);
         
         //Example
         p.Setup(
