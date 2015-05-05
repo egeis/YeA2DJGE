@@ -174,7 +174,7 @@ public class ExampleEmitter extends Emitter implements IEmitter, IEntity {
                     new Vector3f(
                             Randomizer.getValue(-16.0f, 16.0f),
                             0,
-                            Randomizer.getValue(-10.0f, 10.0f)
+                            Randomizer.getValue(-15.0f, 15.0f)
                     ),
                     p.getModelPos())
             );
@@ -183,11 +183,6 @@ public class ExampleEmitter extends Emitter implements IEmitter, IEntity {
                     Randomizer.getValue(-5.0f,-5.0f),
                     Randomizer.getValue(-5.0f,-5.0f)));            
             p.setModelVelcity(new Vector3f(0,Randomizer.getValue(-0.2f,-0.1f),0));
-//            p.setModelAccel(new Vector3f(Randomizer.getValue(-0.0005f,-0.0f),
-//                    Randomizer.getValue(-0.005f,-0.0f),0));
-            
-            //p.setModelAccel(new Vector3f(0.0f, 0.01f, 0.0f));
-            //p.setModelVelcity(new Vector3f(0.0f, -0.1f, 0.0f));
 
             particles.add(p);
 

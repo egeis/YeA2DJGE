@@ -106,6 +106,7 @@ public class Force extends Entity {
         if( (e.getModelPos().x * modelPos.x) + (e.getModelPos().y * modelPos.y) + (e.getModelPos().z * modelPos.z) != 0)
         {
             f = e.getMass() * mass * 1.15f;
+            logger.info(f);
             
             switch(type)
             {

@@ -32,9 +32,10 @@ import main.java.com.YeAJG.game.utils.MathUtil;
  */
 public abstract class Particle extends Entity implements IEntity, IParticle {      
     protected boolean keepAlive = false;
-    protected float age = 1.0f;
-    protected float decay = 0.01f;
 
+    protected float age = 1.0f;
+    protected float decay = 0.0f;
+    
     @Override
     public void Render(float interpolation) {
         modelPos.x += magnitude * MathUtil.cos(this.angle) * interpolation * 20;

@@ -149,9 +149,32 @@ public class Game implements Runnable {
         p = new ExampleParticle();
         background = new Quad();
         
-        //"forest_moon_night_snow_winter______f_1920x1080"
-        
-        background.Setup(0, cameraPos, cameraPos, Name, Name, Name, vertex, color, uv);
+        background.Setup(
+                new Vector3f(0, 0, -20f), 
+                new Vector3f(0, 0, 0), 
+                new Vector3f(1.2f, .675f, 0),  
+                "assets/shaders/vertex.glsl", 
+                "assets/shaders/fragment.glsl", 
+                "assets/textures/background.png", 
+                new Vector3f[] { 
+                    new Vector3f(-1.0f, 1.0f, 0),
+                    new Vector3f(-1.0f, -1.f, 0), 
+                    new Vector3f(1.0f, -1.0f, 0),
+                    new Vector3f(1.0f, 1.0f, 0) 
+                }, 
+                new Vector3f[] { 
+                    new Vector3f(1, 1, 1),
+                    new Vector3f(1, 1, 1),
+                    new Vector3f(1, 1, 1), 
+                    new Vector3f(1, 1, 1)
+                },
+                new Vector2f[] {
+                    new Vector2f(0, 0),       
+                    new Vector2f(0, 1),
+                    new Vector2f(1, 1),
+                    new Vector2f(1, 0)
+                }
+        );
         
         //Example
         p.Setup(
@@ -181,7 +204,7 @@ public class Game implements Runnable {
             }
         ); 
                 
-        e = new ExampleEmitter(p, 1, 150);
+        e = new ExampleEmitter(p, 5, 1000);
         e.Setup(new Vector3f(0, 12f, 0), new Vector3f(0.0f, 0.0f, 0.0f), 
                 new Vector3f[] { 
                     new Vector3f(-0.05f, 0.05f, 0.0f),
@@ -190,7 +213,7 @@ public class Game implements Runnable {
                     new Vector3f(0.05f, 0.05f, 0.0f) } 
         );
         
-        f = new Force(1, Force.TYPE_LINEAR, true, 100.0f, new Vector3f(-5.0f,0,0));
+        f = new Force(1, Force.TYPE_LINEAR, true, 10.0f, new Vector3f(-5.0f,0,0));
         f.setDirection(Force.DIR_X);
         f.setRandomize(true);
         e.setForce(f);
@@ -270,9 +293,7 @@ public class Game implements Runnable {
     private void doTick( long next_game_tick )
     {
        e.Tick();
-       //f.Tick();
-       //p.Tick();
-        //q2.Tick();
+       background.Tick();
     }
  
     /**
@@ -288,10 +309,9 @@ public class Game implements Runnable {
         // Translate camera
         Matrix4f.translate(Game.cameraPos, Game.viewMatrix, Game.viewMatrix);
         
-        e.Render(interpolation);
-        //f.Render(interpolation);
-        //p.Render(interpolation);
-        //q2.Render(interpolation);        
+        
+        background.Render(interpolation);
+        e.Render(interpolation);      
         
         Display.sync(60);
         Display.update();

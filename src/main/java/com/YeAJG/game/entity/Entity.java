@@ -57,9 +57,12 @@ public abstract class Entity implements IEntity {
     protected Vector3f modelScale = null;
     protected Matrix4f modelMatrix = null; 
     
-    protected float mass = 0.0001f;
+    protected float mass = 0.0005f;
     protected float magnitude = 0.0001f;
     protected float angle = 0;
+    
+    protected float alpha = 0.0f;
+    
     
     protected Vector3f modelVelcity = new Vector3f(0,0,0);         
     protected Vector3f modelAccel = new Vector3f(0,0,0); ;       
@@ -70,6 +73,9 @@ public abstract class Entity implements IEntity {
     protected int projectionMatrixLocation = 0;
     protected int viewMatrixLocation = 0;
     protected int modelMatrixLocation = 0;
+    protected int ageLocation = 0;
+    protected int decayLocation = 0;
+    protected int limitLocation = 0;
     
     protected VertexData[] vertices = null;
     protected ByteBuffer verticesByteBuffer = null;
@@ -122,15 +128,17 @@ public abstract class Entity implements IEntity {
         // Color information will be attribute 1
         GL20.glBindAttribLocation(pId, 1, "in_Color");
         // Textute information will be attribute 2
-        GL20.glBindAttribLocation(pId, 2, "in_TextureCoord");
+        GL20.glBindAttribLocation(pId, 2, "in_TextureCoord");  
  
         GL20.glLinkProgram(pId);
         GL20.glValidateProgram(pId);
  
         // Get matrices uniform locations
-        projectionMatrixLocation = GL20.glGetUniformLocation(pId,"projectionMatrix");
+        projectionMatrixLocation = GL20.glGetUniformLocation(pId, "projectionMatrix");
         viewMatrixLocation = GL20.glGetUniformLocation(pId, "viewMatrix");
         modelMatrixLocation = GL20.glGetUniformLocation(pId, "modelMatrix");
+        
+        decayLocation = GL20.glGetUniformLocation(pId, "decay");
  
         Game.exitOnGLError("setupShaders");
     }
@@ -189,7 +197,7 @@ public abstract class Entity implements IEntity {
         // Put the texture coordinates in attribute list 2
         GL20.glVertexAttribPointer(2, VertexData.textureElementCount, GL11.GL_FLOAT, 
                 false, VertexData.stride, VertexData.textureByteOffset);
-         
+                
         GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
          
         // Deselect (bind to 0) the VAO
@@ -263,6 +271,9 @@ public abstract class Entity implements IEntity {
          
         // Upload matrices to the uniform variables
         GL20.glUseProgram(pId);
+        
+        //TODO: Use an array list to populate these or other structure.
+        GL20.glUniform1f(decayLocation, alpha);
          
         Game.projectionMatrix.store(Game.matrix44Buffer);
         Game.matrix44Buffer.flip();
