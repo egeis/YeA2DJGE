@@ -24,11 +24,16 @@
 package main.java.com.YeAJG.game;
 
 import java.nio.FloatBuffer;
+import java.util.Iterator;
+import java.util.Map.Entry;
+import main.java.com.YeAJG.game.gfx.TextureHandler;
 import main.java.com.YeAJG.game.io.ConfigHandler;
 import main.java.com.YeAJG.game.io.InputHandler;
+import main.java.com.YeAJG.game.physics.Force;
 import main.java.com.YeAJG.game.utils.Conversions;
 import main.java.com.example.emitters.ExampleEmitter;
 import main.java.com.example.emitters.ExampleParticle;
+import main.java.com.example.primitives.Quad;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -69,10 +74,11 @@ public class Game implements Runnable {
     public static Matrix4f projectionMatrix = null;
     public static Matrix4f viewMatrix = null;
     
-    
     //Example
     private ExampleEmitter e;
     private ExampleParticle p;
+    private Force f;
+    private Quad background;
     
     public static Game getInstance() {
         if(instance == null) instance = new Game();
@@ -141,15 +147,43 @@ public class Game implements Runnable {
         float interpolation; 
         
         p = new ExampleParticle();
+        background = new Quad();
+        
+        background.Setup(
+                new Vector3f(0, 0, -20f), 
+                new Vector3f(0, 0, 0), 
+                new Vector3f(1.2f, .675f, 0),  
+                "assets/shaders/vertex.glsl", 
+                "assets/shaders/fragment.glsl", 
+                "assets/textures/background.png", 
+                new Vector3f[] { 
+                    new Vector3f(-1.0f, 1.0f, 0),
+                    new Vector3f(-1.0f, -1.f, 0), 
+                    new Vector3f(1.0f, -1.0f, 0),
+                    new Vector3f(1.0f, 1.0f, 0) 
+                }, 
+                new Vector3f[] { 
+                    new Vector3f(1, 1, 1),
+                    new Vector3f(1, 1, 1),
+                    new Vector3f(1, 1, 1), 
+                    new Vector3f(1, 1, 1)
+                },
+                new Vector2f[] {
+                    new Vector2f(0, 0),       
+                    new Vector2f(0, 1),
+                    new Vector2f(1, 1),
+                    new Vector2f(1, 0)
+                }
+        );
         
         //Example
         p.Setup(
             new Vector3f(0, 0, 0), 
             new Vector3f(0.0f, 10.0f, 0.5f), 
-            new Vector3f(1, 1, 1), 
+            new Vector3f(0.05f, 0.05f, 0.05f), 
             "assets/shaders/vertex.glsl", 
             "assets/shaders/fragment.glsl", 
-            "assets/textures/stGrid1.png",
+            "assets/textures/blank_white.png",
             new Vector3f[] { 
                 new Vector3f(-0.5f, 0.5f, 0),
                 new Vector3f(-0.5f, -0.5f, 0), 
@@ -169,9 +203,21 @@ public class Game implements Runnable {
                 new Vector2f(1, 0)
             }
         ); 
+                
+        e = new ExampleEmitter(p, 5, 1000);
+        e.Setup(new Vector3f(0, 12f, 0), new Vector3f(0.0f, 0.0f, 0.0f), 
+                new Vector3f[] { 
+                    new Vector3f(-0.05f, 0.05f, 0.0f),
+                    new Vector3f(-0.05f, -0.05f, 0.0f), 
+                    new Vector3f(0.05f, -0.05f, 0.0f),
+                    new Vector3f(0.05f, 0.05f, 0.0f) } 
+        );
         
-        e = new ExampleEmitter(p, 1, 50);
-        e.Setup(new Vector3f(0, 0, 0), new Vector3f(0.0f, 0.0f, 0.0f), null );
+        f = new Force(1, Force.TYPE_LINEAR, true, 10.0f, new Vector3f(-5.0f,0,0));
+        f.setDirection(Force.DIR_X);
+        f.setRandomize(true);
+        e.setForce(f);
+        
         
        //q2.Setup(new Vector3f(0.1f, 0.1f, -2f), new Vector3f(0.0f, -10.0f, -0.5f), new Vector3f(1, 1, 1));
         
@@ -230,8 +276,12 @@ public class Game implements Runnable {
       * Destroys OpenGL
       */
      private void destroyGL()
-     {
-         //TODO: handle desctruction
+     {         
+        //Deletes Textures
+         for (Iterator<Entry<String, Integer>> it = TextureHandler.Textures.entrySet().iterator(); it.hasNext();) {
+            Entry<String, Integer> set = it.next();
+            GL11.glDeleteTextures(set.getValue());
+        }
          
          Display.destroy();
     }
@@ -243,8 +293,7 @@ public class Game implements Runnable {
     private void doTick( long next_game_tick )
     {
        e.Tick();
-       //p.Tick();
-        //q2.Tick();
+       background.Tick();
     }
  
     /**
@@ -260,9 +309,9 @@ public class Game implements Runnable {
         // Translate camera
         Matrix4f.translate(Game.cameraPos, Game.viewMatrix, Game.viewMatrix);
         
-        e.Render(interpolation);
-        //p.Render(interpolation);
-        //q2.Render(interpolation);        
+        
+        background.Render(interpolation);
+        e.Render(interpolation);      
         
         Display.sync(60);
         Display.update();
