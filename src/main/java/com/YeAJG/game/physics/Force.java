@@ -42,6 +42,8 @@ public class Force extends Entity {
     protected final int type;
     protected int direction;
     
+    protected float mass;
+    
     private boolean randomize = false;
     
     public static final int TYPE_LINEAR = 1;
@@ -95,42 +97,7 @@ public class Force extends Entity {
         
     public Entity apply(Entity e)
     {
-        if(randomize == true) {
-            mass = Math.abs( (float) Math.sin(System.currentTimeMillis()) ) / 10.0f;
-            //if(mass < 0.0f) mass = 0.0f;    //Floor
-        } 
-        
-        float f, aX, aY, aZ;
-        
-        //TODO, use != Total Cords of Force Emitter.
-        if( (e.getModelPos().x * modelPos.x) + (e.getModelPos().y * modelPos.y) + (e.getModelPos().z * modelPos.z) != 0)
-        {
-            f = e.getMass() * mass * 1.15f;
-            logger.info(f);
-            
-            switch(type)
-            {
-                case TYPE_LINEAR:
-                    Vector3f accel = new Vector3f();
-                    if(direction == DIR_X) {
-                        Vector3f.add(e.getModelAccel(), new Vector3f(f, 0 , 0), accel);
-                    }
-                        
-                    if(direction == DIR_Y) {
-                        Vector3f.add(e.getModelAccel(), new Vector3f(0, f , 0), accel);
-                    }
-                        
-                    if(direction == DIR_Z) {
-                        Vector3f.add(e.getModelAccel(), new Vector3f(0, 0 , f), accel);
-                    }
-                
-                e.setModelAccel(accel);
-            }
-                        
-         
-        }
-        //TODO: Calculate Force on Axis.
-        
+ 
         return e;
     }
     
