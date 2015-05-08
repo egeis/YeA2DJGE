@@ -23,14 +23,10 @@
  */
 package main.java.com.example.emitters;
 
-import java.util.ArrayList;
 import main.java.com.YeAJG.api.entity.IEntity;
 import main.java.com.YeAJG.api.entity.IParticle;
-import main.java.com.YeAJG.api.physics.IForce;
 import main.java.com.YeAJG.game.entity.Particle;
-import main.java.com.YeAJG.game.utils.Randomizer;
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL20;
 
 /**
  *
@@ -53,11 +49,6 @@ public class ExampleParticle extends Particle implements IParticle, IEntity {
 
     @Override
     public void Tick() {
-        
-        if(age < 1.8f) {
-            alpha += 0.083f;
-        }
-            
         
         super.Tick();
     }
