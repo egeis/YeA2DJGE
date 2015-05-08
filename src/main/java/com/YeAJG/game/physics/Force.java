@@ -23,6 +23,8 @@
  */
 package main.java.com.YeAJG.game.physics;
 
+import java.util.ArrayList;
+import main.java.com.YeAJG.api.physics.IForce;
 import main.java.com.YeAJG.game.GameLauncher;
 import main.java.com.YeAJG.game.entity.Entity;
 import main.java.com.YeAJG.game.utils.MathUtil;
@@ -33,7 +35,7 @@ import org.lwjgl.util.vector.Vector3f;
  *
  * @author Richard Coan
  */
-public class Force extends Entity {
+public class Force extends Entity implements IForce {
     
     protected int fId;
     
@@ -94,11 +96,10 @@ public class Force extends Entity {
                 }
         );
     }
-        
-    public Entity apply(Entity e)
-    {
- 
-        return e;
+
+    @Override
+    public void apply(ArrayList<Integer> forces, Entity e) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }
