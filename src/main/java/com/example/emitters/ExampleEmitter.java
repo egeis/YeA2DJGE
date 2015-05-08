@@ -86,7 +86,7 @@ public class ExampleEmitter extends Emitter implements IEmitter, IEntity {
         super.Tick();
 
         particles.stream().forEach((p) -> {
-            if(force != null) force.apply(p);
+            //if(force != null) force.apply(p);
             p.Tick();
         });
     }
