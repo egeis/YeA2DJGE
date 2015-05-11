@@ -44,5 +44,4 @@ public interface IEntity {
     );
     
     public void Tick();
-    public void Render(float interpolation);
 }
