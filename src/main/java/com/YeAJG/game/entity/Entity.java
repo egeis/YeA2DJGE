@@ -26,6 +26,7 @@ package main.java.com.YeAJG.game.entity;
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import main.java.com.YeAJG.api.entity.IEntity;
+import main.java.com.YeAJG.api.gfx.IRender;
 import main.java.com.YeAJG.game.Game;
 import main.java.com.YeAJG.game.gfx.ShaderHandler;
 import main.java.com.YeAJG.game.gfx.TextureHandler;
@@ -47,7 +48,7 @@ import org.lwjgl.util.vector.Vector3f;
  *
  * @author Richard Coan
  */
-public abstract class Entity implements IEntity {
+public abstract class Entity implements IEntity, IRender {
     protected static final Logger logger = LogManager.getLogger( Game.class.getName() );
    
     protected boolean visible = true;
