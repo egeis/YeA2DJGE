@@ -38,18 +38,18 @@ public abstract class Particle extends Entity implements IEntity, IParticle {
     
     @Override
     public void Render(float interpolation) {
-        modelPos.x += magnitude * MathUtil.cos(this.angle) * interpolation * 20;
-        modelPos.y += magnitude * MathUtil.sin(this.angle) * interpolation * 20;
+        //modelPos.x += magnitude * MathUtil.cos(this.angle) * interpolation * 20;
+        //modelPos.y += magnitude * MathUtil.sin(this.angle) * interpolation * 20;
         age -= decay;
         
         super.Render(interpolation); //To change body of generated methods, choose Tools | Templates.
     }
-
-    public float getAngle() {
-        return angle;
-    }
-        
+    
     @Override
+    /**
+     * Returns true if the particle is alive, or keep alive is set.
+     * else returns false if the particle has decayed.
+     */
     public boolean isAlive()
     {       
         if(keepAlive) return keepAlive;
@@ -59,14 +59,6 @@ public abstract class Particle extends Entity implements IEntity, IParticle {
 
     public boolean isKeepAlive() {
         return keepAlive;
-    }
-
-    public float getMagnitude() {
-        return magnitude;
-    }
-    
-    public float getMass() {
-        return mass;
     }
 
     public float getAge() {
@@ -91,28 +83,6 @@ public abstract class Particle extends Entity implements IEntity, IParticle {
         this.age = age;
         return age;
     }
-    
-    /**
-     * Sets the magnitude, must be a positive non-zero number.
-     * @param magnitude
-     * @return magnitude on success or 0.0
-     */
-    public float setMagnitude(float magnitude) {
-        if( magnitude <= 0.0f ) return 0.0f;
-        this.magnitude = magnitude;
-        return magnitude;
-    }
-
-    /**
-     * Sets the mass, must be a positive non-zero number.
-     * @param mass
-     * @return mass on success or 0.0
-     */
-    public float setMass(float mass) {
-        if(mass <= 0.0f) return 0.0f;
-        this.mass = mass;
-        return mass;
-    }  
     
     /**
      * Sets the decay rate, must be a positive non-zero number

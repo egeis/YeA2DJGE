@@ -86,7 +86,7 @@ public class ExampleEmitter extends Emitter implements IEmitter, IEntity {
         super.Tick();
 
         particles.stream().forEach((p) -> {
-            if(force != null) force.apply(p);
+            //if(force != null) force.apply(p);
             p.Tick();
         });
     }
@@ -125,13 +125,7 @@ public class ExampleEmitter extends Emitter implements IEmitter, IEntity {
         int i = 0;
 
         String paths[]= {
-          "assets/textures/snowflake.png",
-          "assets/textures/snowflake_2.png",
-          "assets/textures/snowflake_3.png",
-          "assets/textures/snowflake_4.png",
-          "assets/textures/snowflake_5.png",
-          "assets/textures/snowflake_6.png",
-          "assets/textures/snowflake_7.png"
+
         };
         
         while (i < num_per_tick && (particles.size() < particle_limit)) {

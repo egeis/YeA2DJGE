@@ -46,7 +46,6 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.PixelFormat;
 import org.lwjgl.util.glu.GLU;
 import org.lwjgl.util.vector.Matrix4f;
-import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
 /**
@@ -73,13 +72,7 @@ public class Game implements Runnable {
     //Moving Varibles
     public static Matrix4f projectionMatrix = null;
     public static Matrix4f viewMatrix = null;
-    
-    //Example
-    private ExampleEmitter e;
-    private ExampleParticle p;
-    private Force f;
-    private Quad background;
-    
+   
     public static Game getInstance() {
         if(instance == null) instance = new Game();
         return instance;
@@ -145,82 +138,7 @@ public class Game implements Runnable {
         long next_game_tick = System.currentTimeMillis();
         int loops;
         float interpolation; 
-        
-        p = new ExampleParticle();
-        background = new Quad();
-        
-        background.Setup(
-                new Vector3f(0, 0, -20f), 
-                new Vector3f(0, 0, 0), 
-                new Vector3f(1.2f, .675f, 0),  
-                "assets/shaders/vertex.glsl", 
-                "assets/shaders/fragment.glsl", 
-                "assets/textures/background.png", 
-                new Vector3f[] { 
-                    new Vector3f(-1.0f, 1.0f, 0),
-                    new Vector3f(-1.0f, -1.f, 0), 
-                    new Vector3f(1.0f, -1.0f, 0),
-                    new Vector3f(1.0f, 1.0f, 0) 
-                }, 
-                new Vector3f[] { 
-                    new Vector3f(1, 1, 1),
-                    new Vector3f(1, 1, 1),
-                    new Vector3f(1, 1, 1), 
-                    new Vector3f(1, 1, 1)
-                },
-                new Vector2f[] {
-                    new Vector2f(0, 0),       
-                    new Vector2f(0, 1),
-                    new Vector2f(1, 1),
-                    new Vector2f(1, 0)
-                }
-        );
-        
-        //Example
-        p.Setup(
-            new Vector3f(0, 0, 0), 
-            new Vector3f(0.0f, 10.0f, 0.5f), 
-            new Vector3f(0.05f, 0.05f, 0.05f), 
-            "assets/shaders/vertex.glsl", 
-            "assets/shaders/fragment.glsl", 
-            "assets/textures/blank_white.png",
-            new Vector3f[] { 
-                new Vector3f(-0.5f, 0.5f, 0),
-                new Vector3f(-0.5f, -0.5f, 0), 
-                new Vector3f(0.5f, -0.5f, 0),
-                new Vector3f(0.5f, 0.5f, 0) 
-            }, 
-            new Vector3f[] { 
-                new Vector3f(1, 0, 0), 
-                new Vector3f(0, 1, 0),
-                new Vector3f(0, 0, 1), 
-                new Vector3f(1,1,1)
-            },
-            new Vector2f[] {
-                new Vector2f(0, 0),       
-                new Vector2f(0, 1),
-                new Vector2f(1, 1),
-                new Vector2f(1, 0)
-            }
-        ); 
                 
-        e = new ExampleEmitter(p, 5, 1000);
-        e.Setup(new Vector3f(0, 12f, 0), new Vector3f(0.0f, 0.0f, 0.0f), 
-                new Vector3f[] { 
-                    new Vector3f(-0.05f, 0.05f, 0.0f),
-                    new Vector3f(-0.05f, -0.05f, 0.0f), 
-                    new Vector3f(0.05f, -0.05f, 0.0f),
-                    new Vector3f(0.05f, 0.05f, 0.0f) } 
-        );
-        
-        f = new Force(1, Force.TYPE_LINEAR, true, 10.0f, new Vector3f(-5.0f,0,0));
-        f.setDirection(Force.DIR_X);
-        f.setRandomize(true);
-        e.setForce(f);
-        
-        
-       //q2.Setup(new Vector3f(0.1f, 0.1f, -2f), new Vector3f(0.0f, -10.0f, -0.5f), new Vector3f(1, 1, 1));
-        
         while(!Display.isCloseRequested())
         {
             loops = 0;
@@ -292,8 +210,7 @@ public class Game implements Runnable {
       */
     private void doTick( long next_game_tick )
     {
-       e.Tick();
-       background.Tick();
+        
     }
  
     /**
@@ -309,9 +226,7 @@ public class Game implements Runnable {
         // Translate camera
         Matrix4f.translate(Game.cameraPos, Game.viewMatrix, Game.viewMatrix);
         
-        
-        background.Render(interpolation);
-        e.Render(interpolation);      
+        //TODO: Render Entites
         
         Display.sync(60);
         Display.update();

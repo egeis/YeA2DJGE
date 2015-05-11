@@ -24,11 +24,12 @@
 package main.java.com.YeAJG.api.physics;
 
 import java.util.ArrayList;
+import main.java.com.YeAJG.game.entity.Entity;
 
 /**
  *
  * @author Richard Coan
  */
 public interface IForce {
-    public void applyForces( ArrayList<Integer> forces );
+    public void apply( ArrayList<Integer> forces, Entity e );
 }

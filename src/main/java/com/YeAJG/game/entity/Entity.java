@@ -26,6 +26,7 @@ package main.java.com.YeAJG.game.entity;
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import main.java.com.YeAJG.api.entity.IEntity;
+import main.java.com.YeAJG.api.gfx.IRender;
 import main.java.com.YeAJG.game.Game;
 import main.java.com.YeAJG.game.gfx.ShaderHandler;
 import main.java.com.YeAJG.game.gfx.TextureHandler;
@@ -47,7 +48,7 @@ import org.lwjgl.util.vector.Vector3f;
  *
  * @author Richard Coan
  */
-public abstract class Entity implements IEntity {
+public abstract class Entity implements IEntity, IRender {
     protected static final Logger logger = LogManager.getLogger( Game.class.getName() );
    
     protected boolean visible = true;
@@ -57,13 +58,8 @@ public abstract class Entity implements IEntity {
     protected Vector3f modelScale = null;
     protected Matrix4f modelMatrix = null; 
     
-    protected float mass = 0.0005f;
-    protected float magnitude = 0.0001f;
     protected float angle = 0;
-    
-    protected float alpha = 0.0f;
-    
-    
+        
     protected Vector3f modelVelcity = new Vector3f(0,0,0);         
     protected Vector3f modelAccel = new Vector3f(0,0,0); ;       
     protected Vector3f modelSpin = new Vector3f(0,0,0); ;
@@ -271,9 +267,6 @@ public abstract class Entity implements IEntity {
          
         // Upload matrices to the uniform variables
         GL20.glUseProgram(pId);
-        
-        //TODO: Use an array list to populate these or other structure.
-        GL20.glUniform1f(decayLocation, alpha);
          
         Game.projectionMatrix.store(Game.matrix44Buffer);
         Game.matrix44Buffer.flip();
@@ -286,14 +279,6 @@ public abstract class Entity implements IEntity {
         GL20.glUniformMatrix4(modelMatrixLocation, false, Game.matrix44Buffer);
          
         GL20.glUseProgram(0);
-    }
-    
-    public float getMagnitude() {
-        return magnitude;
-    }
-    
-    public float getMass() {
-        return mass;
     }
     
     public boolean isVisible() {

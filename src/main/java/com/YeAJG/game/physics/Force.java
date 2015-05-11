@@ -23,6 +23,8 @@
  */
 package main.java.com.YeAJG.game.physics;
 
+import java.util.ArrayList;
+import main.java.com.YeAJG.api.physics.IForce;
 import main.java.com.YeAJG.game.GameLauncher;
 import main.java.com.YeAJG.game.entity.Entity;
 import main.java.com.YeAJG.game.utils.MathUtil;
@@ -33,7 +35,7 @@ import org.lwjgl.util.vector.Vector3f;
  *
  * @author Richard Coan
  */
-public class Force extends Entity {
+public class Force extends Entity implements IForce {
     
     protected int fId;
     
@@ -41,6 +43,8 @@ public class Force extends Entity {
    
     protected final int type;
     protected int direction;
+    
+    protected float mass;
     
     private boolean randomize = false;
     
@@ -92,46 +96,10 @@ public class Force extends Entity {
                 }
         );
     }
-        
-    public Entity apply(Entity e)
-    {
-        if(randomize == true) {
-            mass = Math.abs( (float) Math.sin(System.currentTimeMillis()) ) / 10.0f;
-            //if(mass < 0.0f) mass = 0.0f;    //Floor
-        } 
-        
-        float f, aX, aY, aZ;
-        
-        //TODO, use != Total Cords of Force Emitter.
-        if( (e.getModelPos().x * modelPos.x) + (e.getModelPos().y * modelPos.y) + (e.getModelPos().z * modelPos.z) != 0)
-        {
-            f = e.getMass() * mass * 1.15f;
-            logger.info(f);
-            
-            switch(type)
-            {
-                case TYPE_LINEAR:
-                    Vector3f accel = new Vector3f();
-                    if(direction == DIR_X) {
-                        Vector3f.add(e.getModelAccel(), new Vector3f(f, 0 , 0), accel);
-                    }
-                        
-                    if(direction == DIR_Y) {
-                        Vector3f.add(e.getModelAccel(), new Vector3f(0, f , 0), accel);
-                    }
-                        
-                    if(direction == DIR_Z) {
-                        Vector3f.add(e.getModelAccel(), new Vector3f(0, 0 , f), accel);
-                    }
-                
-                e.setModelAccel(accel);
-            }
-                        
-         
-        }
-        //TODO: Calculate Force on Axis.
-        
-        return e;
+
+    @Override
+    public void apply(ArrayList<Integer> forces, Entity e) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }
