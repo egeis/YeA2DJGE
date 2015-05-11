@@ -46,7 +46,6 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.PixelFormat;
 import org.lwjgl.util.glu.GLU;
 import org.lwjgl.util.vector.Matrix4f;
-import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
 /**
@@ -73,13 +72,7 @@ public class Game implements Runnable {
     //Moving Varibles
     public static Matrix4f projectionMatrix = null;
     public static Matrix4f viewMatrix = null;
-    
-    //Example
-    private ExampleEmitter e;
-    private ExampleParticle p;
-    private Force f;
-    private Quad background;
-    
+   
     public static Game getInstance() {
         if(instance == null) instance = new Game();
         return instance;
